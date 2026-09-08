@@ -94,7 +94,7 @@
  </section>
  <aside class="right-rail" aria-label="介入と観測結果">
   <section class="side-panel controls-panel"><div class="side-head"><h2>社会に介入する</h2><small>INTERVENTIONS</small></div><div class="budget-row"><div class="budget-label"><strong><span id="budgetValue">100</span><small> / 100 pt</small></strong><small>毎期 +3</small></div><div class="budget-meter"><i id="budgetBar" style="width:100%"></i></div></div><div class="card-grid" id="eventCards"></div><p class="card-note" id="cardNote">「公開講座」を選び、地図の一点へ。知識の波が周囲へ広がるか観察できます。</p><div class="budget-options"><select id="adTarget" aria-label="広告の対象陣営"><option value="1">広告：規則派 R</option><option value="-1">広告：裁量派 D</option></select><label><input type="checkbox" id="unlimited"> 制限なし</label></div><div class="effect-list" id="effectList"></div></section>
-  <section class="side-panel"><div class="side-head"><h2>社会の断面</h2><small>LIVE</small></div><div class="share-labels"><span class="cyan" id="shareR">R --</span><span class="gold" id="shareN">留保 --</span><span class="coral" id="shareD">D --</span></div><div class="distribution"><div id="distR" style="background:var(--cyan)"></div><div id="distN" style="background:var(--gold)"></div><div id="distD" style="background:var(--coral)"></div></div><div class="society-detail"><div><label>二極化度</label><strong id="polarValue">--</strong></div><div><label>直近の投票率</label><strong id="turnoutValue">--</strong></div><div><label>平均知識量</label><strong id="knowledgeValue">--</strong></div><div><label>陣営をまたぐ縁</label><strong id="bridgeValue">--</strong></div><div><label>期待ギャップ</label><strong id="expectGapValue">--</strong></div><div><label>所得 Gini</label><strong id="giniValue">--</strong></div></div></section>
+  <section class="side-panel"><div class="side-head"><h2>社会の断面</h2><small>LIVE</small></div><div class="share-labels"><span class="cyan" id="shareR">R --</span><span class="gold" id="shareN">留保 --</span><span class="coral" id="shareD">D --</span></div><div class="distribution"><div id="distR" style="background:var(--cyan)"></div><div id="distN" style="background:var(--gold)"></div><div id="distD" style="background:var(--coral)"></div></div><div class="society-detail"><div><label>二極化度</label><strong id="polarValue">--</strong></div><div><label>直近の投票率</label><strong id="turnoutValue">--</strong></div><div><label>平均知識量</label><strong id="knowledgeValue">--</strong></div><div><label>陣営をまたぐ縁</label><strong id="bridgeValue">--</strong></div><div><label>期待ギャップ</label><strong id="expectGapValue">--</strong></div><div><label>所得 Gini</label><strong id="giniValue">--</strong></div><div><label>規則への信頼</label><strong id="policyCredValue">--</strong></div><div><label>裁量の短期利得</label><strong id="discretionDividendValue">--</strong></div><div><label>政策不確実性</label><strong id="uncertaintyValue">--</strong></div></div></section>
   <section class="side-panel"><div class="side-head"><h2>観測実績</h2><small id="achievementCount">0 / 9</small></div><div id="achievements"></div></section>
   <section class="side-panel log-panel"><div class="side-head"><h2>共和国の記録</h2><small id="logCount">0 EVENTS</small></div><div class="event-log" id="eventLog" tabindex="0" aria-label="出来事の履歴"></div></section>
  </aside>
@@ -103,7 +103,7 @@
 <div class="tooltip" id="agentTooltip" hidden></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="modal-backdrop" id="helpModal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle"><div class="modal-head"><h2 id="helpTitle">この共和国の動かし方</h2><button data-close="helpModal" aria-label="閉じる">×</button></div><div class="modal-body">
  <div class="help-grid"><div class="help-item"><strong>01 / 世界を選ぶ</strong><p>「分断の群島」「見えない政策効果」などの初期条件を選びます。自動的に時間が進み、選挙が行われます。<span class="keyboard">Space</span> で停止、<span class="keyboard">N</span> で1期だけ進められます。</p></div><div class="help-item"><strong>02 / 波を起こす</strong><p>公開講座・市民対話は、カードを選んで地図をクリックまたはタップ。透明化・広告・景気ショック・投票支援は全体へ即時作用します。<span class="keyboard">Esc</span> でカード選択を解除。</p></div><div class="help-item"><strong>03 / 同じ国の別の断面</strong><p>「信念」「知識」「家計」「投票」で色の意味が変わります。個人をクリックすると内面を固定表示。再クリックで解除。拡大後は地図をドラッグして移動できます。</p></div><div class="help-item"><strong>04 / 偶然を疑う</strong><p>A/B 比較では1パラメータだけ変え、複数のシードで比較します。単一の実行で勝った陣営を、普遍的な勝者と解釈しないでください。</p></div></div>
- <h3>何を「信念」と呼ぶのか</h3><p>個人には、政策選好 b ∈ [−1, 1] と、経済に関する事実認識 z ∈ [0, 1] が別々に存在します。b &gt; 0 は固定的な貨幣供給ルールと小さい移転を好む規則派 R、b &lt; 0 は裁量的な金融拡張と大きい移転を好む裁量派 D。現実の左右や実在政党をそのまま対応させてはいません。</p><p>z は「貨幣拡張が長期に残す実質効果」の推定値です。世界の設定値を θ として、正確度 = 100 × (1 − 平均 |z − θ|)。これはこの1命題に関するモデル内の正確度であり、経済学全般の知性や政策の正しさではありません。知識量 k と正確度も別物です。正しく理解しても、私的利益・価値観・短期選好が異なれば同じ党には投票しません。</p>
+ <h3>何を「信念」と呼ぶのか</h3><p>個人には、政策選好 b ∈ [−1, 1] と、経済に関する事実認識 z ∈ [−1, 1] が別々に存在します。b &gt; 0 は固定的な貨幣供給ルールと小さい移転を好む規則派 R、b &lt; 0 は裁量的な金融拡張と大きい移転を好む裁量派 D。現実の左右や実在政党をそのまま対応させてはいません。</p><p>z は「貨幣拡張が長期に残す実質効果」の符号付き推定値です。正なら長期的な実質押上げ、負なら長期的な実質損失を予想します。世界の設定値を θ として、正確度は z の許容範囲 [−1,1] における最大誤差で正規化した距離から計算します。これはこの1命題に関するモデル内の正確度であり、経済学全般の知性や政策の正しさではありません。知識量 k と正確度も別物です。正しく理解しても、私的利益・価値観・短期選好が異なれば同じ党には投票しません。</p>
  <h3>信念が循環する仕組み</h3><div class="equation">社会的接触・メディア・個人経験
   ↓ 確認バイアス、確信度、合理的無知、受容幅で重みづけ
 事実認識 z の更新 ＋ 政策選好 b の更新
@@ -111,10 +111,10 @@
 投票 → 議席 → 政権 → 政策キュー → 遅れた経済結果
   ↓ 帰属の正確さと貨幣錯覚
 次の学習</div><p>社会学習は近隣ネットワーク上の有限個の接触を使い、意見距離が受容幅以内の相手から学びます。同類選好は結び直す相手の選択に効きます。厳密な Hegselmann–Krause モデルの複製ではなく、限定的信頼の考えを使った独自の確率モデルです。同時更新なので、配列の先頭の人だけ先に賢くなる仕組みにはしていません。検証済み媒体と公開講座は、世界の設定した真値に関する外部信号を与えます。これとは別に、金融拡張が十分大きい期には、産出と予想誤差を使ったノイズの多い経験学習を行います。真の経済構造をデータだけから発見する万能な推論器ではありません。</p>
- <h3>経済モデル：既定はフリードマン型</h3><p>既定では θ = 0。持続的な金融拡張に長期の実質雇用効果は与えず、予想外のインフレだけが一時的な産出ギャップへ作用します。貨幣供給の規則・裁量、期待調整、自然失業率、政策ラグを明示的に分けています。これは単純化した縮約モデルで、貨幣需要・金融仲介・国際収支などを含む完全なマクロモデルではありません。</p><div class="equation" id="economicEquations"></div><p>μ は年率の貨幣増加率、g は潜在成長率、L は政策ラグ、π は年率のインフレ率です。景気・供給ショックは平均回帰します。継続的なインフレと単発の供給攪乱を同一視しません。完全予見の期待は、今期の外生ショックだけは事前に知らない設定です。「恒常的実質効果」を正にすると、θ &gt; 0 の反実仮想世界になります。実証的なフリードマン理論への反証を生成する機能ではありません。</p>
- <h3>分配、指標、政治の取り扱い</h3><p>裁量派は追加移転を行い、その全額を比例負担で賄います。利益集団への配分は架空の受給順位で決まり、実在の属性とは関係ありません。規則派も基礎的な移転を行います。歳出・移転の予算はモデル内で一致しますが、国債残高、債務危機、詳細な所得税制はモデル化していません。</p><p>生活指数は「実質可処分所得の幾何平均 × インフレ不安定性に対する仮定上のペナルティ」を初期値100へ正規化した指標です。現実の厚生を測った値ではありません。所得 Gini は個人の実質可処分所得から計算し、0に近いほど均等、1に近いほど集中します。期待ギャップは |実現インフレ率 − 予想インフレ率| です。二極化度は 4 × P(b &gt; 0.65) × P(b &lt; −0.65) です。一色の社会は二極化とは数えません。「陣営をまたぐ縁」は互いの b の符号が異なるネットワーク辺の割合です。</p><p>小選挙区では地理的に固定された9地区の多数決で議席を決定。比例型では議席比を全国得票比と同一とする連続近似です。二党だけなので比例型の政権は得票過半数の党になります。同票はシード付き抽選、投票ゼロの地区は議席を空席とし、全体の投票ゼロでは現政権を維持します。政治家の政策変更は翌期に決定し、さらに設定したラグを経て経済へ作用します。</p>
+ <h3>経済モデル：既定はフリードマン型</h3><p>既定では θ = 0。持続的な金融拡張に長期の実質雇用効果は与えず、予想外のインフレだけが一時的な産出ギャップへ作用します。重要なのは、裁量派の短期政治便益も刺激額そのものではなく、この予想外インフレによる一時的産出効果からしか生じないことです。同じ刺激を反復して期待が追いつけば、その「賞味期限」は切れます。規則型政策が続けば規則への信頼が回復し、適応的期待を基準インフレへ再アンカーします。逆にルール逸脱と政策急変は信頼低下と政策不確実性を生みます。これらの係数はすべて画面から0にできる明示的仮定です。</p><div class="equation" id="economicEquations"></div><p>μ は年率の貨幣増加率、g は潜在成長率、L は政策ラグ、π は年率のインフレ率です。景気・供給ショックは平均回帰します。継続的なインフレと単発の供給攪乱を同一視しません。完全予見の期待は、今期の外生ショックだけは事前に知らない設定です。「恒常的実質効果」を正にすると、θ &gt; 0 の反実仮想世界になります。実証的なフリードマン理論への反証を生成する機能ではありません。</p>
+ <h3>分配、指標、政治の取り扱い</h3><p>裁量派は追加移転を行い、その全額を比例負担で賄います。利益集団への配分は架空の受給順位で決まり、実在の属性とは関係ありません。規則派も基礎的な移転を行います。歳出・移転の予算はモデル内で一致しますが、国債残高、債務危機、詳細な所得税制はモデル化していません。</p><p>生活指数は「実質可処分所得の幾何平均 × インフレ不安定性と政策不確実性に対する仮定上のペナルティ」を初期値100へ正規化した指標です。現実の厚生を測った値ではありません。所得 Gini は個人の実質可処分所得から計算し、0に近いほど均等、1に近いほど集中します。期待ギャップは |実現インフレ率 − 予想インフレ率| です。「規則への信頼」は基準ルールへの継続的な順守で上昇し、裁量的逸脱で低下する0〜1の状態変数。「裁量の短期利得」は裁量強度 × 予想外インフレによる一時的産出ギャップなので、期待が追いつけば0へ近づき、逆方向のサプライズなら負にもなります。「政策不確実性」は貨幣増加率の急変とルール逸脱変化の移動平均です。二極化度は 4 × P(b &gt; 0.65) × P(b &lt; −0.65) です。</p><p>小選挙区では地理的に固定された9地区の多数決で議席を決定。比例型では議席比を全国得票比と同一とする連続近似です。二党だけなので比例型の政権は得票過半数の党になります。同票はシード付き抽選、投票ゼロの地区は議席を空席とし、全体の投票ゼロでは現政権を維持します。政治家の政策変更は翌期に決定し、さらに設定したラグを経て経済へ作用します。</p>
  <h3>介入は何を変えるのか</h3><p>公開講座は半径170以内の知識量と事実認識を改善。市民対話は同じ範囲の確信度と党派的固着を弱め、6期の間だけ社会全体の受容幅を広げます。透明化は8期にわたり帰属精度を加算。広告は指定党寄りの情報源の露出を6期増やします。供給危機は一時的な価格圧力と実物損失。景気後退は実物ショック。投票支援は6期にわたり両陣営の参加確率を同じ幅で上げます。政策ルールは8期の間、裁量を追加的に制約します。局所介入の半径は地図座標単位です。</p>
- <h3>再現性と限界</h3><p>モデルの乱数と描画の乱数は分離。速度・フレームレート・表示レイヤーは結果を変えません。保存される JSON は初期設定、シード、介入・変更の時点、観測終了時点を記録します。読込時には同じ操作を再実行します。CSV は直近480期の履歴。ブラウザに外部通信・追跡・自動保存はしません。</p><p>A/B は現在の適用済みパラメータを初期条件として新しく開始し、手動の介入を引き継ぎません。同じ組のシードを使い、外生ショックの乱数系列を各条件で共通にします。信念や投票の乱数系列は分岐によりずれることがあります。出力の標準偏差は実行間のばらつきで、現実社会の推定誤差でも因果効果の確信区間でもありません。</p><p>「誤認の自己増幅」「期待の外挿」「格差の累積優位」は、悪化が時間とともに進むシナリオを作るための明示的な動学係数です。現実の自然法則として置いているわけではありません。未較正の係数や関数形に強く依存します。確認バイアスを特定の値にしたら現実が必ず分断される、という主張はできません。初期政権 R、党派を2つに束ねた設計、生活指数の定義自体も仮定です。政党ラベルを勝者の証明に使わず、パラメータを変えた感度と複数試行を比較するための作品です。</p>
+ <h3>再現性と限界</h3><p>モデルの乱数と描画の乱数は分離。速度・フレームレート・表示レイヤーは結果を変えません。保存される JSON は初期設定、シード、介入・変更の時点、観測終了時点を記録します。読込時には同じ操作を再実行します。CSV は直近480期の履歴。ブラウザに外部通信・追跡・自動保存はしません。</p><p>A/B は現在の適用済みパラメータを初期条件として新しく開始し、手動の介入を引き継ぎません。同じ組のシードを使い、外生ショックの乱数系列を各条件で共通にします。信念や投票の乱数系列は分岐によりずれることがあります。出力の標準偏差は実行間のばらつきで、現実社会の推定誤差でも因果効果の確信区間でもありません。</p><p>「誤認の自己増幅」「期待の外挿」「格差の累積優位」に加え、「規則信頼」「期待再アンカー」「政策不確実性コスト」「選挙前刺激への警戒」も明示的な動学係数です。現実の自然法則として置いているわけではありません。未較正の係数や関数形に強く依存します。確認バイアスを特定の値にしたら現実が必ず分断される、という主張はできません。初期政権 R、党派を2つに束ねた設計、生活指数の定義自体も仮定です。政党ラベルを勝者の証明に使わず、パラメータを変えた感度と複数試行を比較するための作品です。</p>
  <h3>モデルの出発点となる文献</h3><p><a href="https://www.nobelprize.org/prizes/economic-sciences/1976/friedman/lecture/" target="_blank" rel="noopener noreferrer">Milton Friedman, “Inflation and Unemployment” (1976), Nobel Lecture.</a><br>期待と短期・長期の区別。本文の具体的な係数やゲーム上の作用は、本作品独自の設計です。</p><p><a href="https://www.jasss.org/5/3/2.html" target="_blank" rel="noopener noreferrer">Rainer Hegselmann &amp; Ulrich Krause (2002), “Opinion dynamics and bounded confidence models, analysis and simulation”, JASSS 5(3).</a><br>限定的信頼による意見更新。本作品はこの論文の結果を再現・検証したものではありません。</p>
 </div></section></div>
 <div class="modal-backdrop" id="labModal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="labTitle"><div class="modal-head"><h2 id="labTitle">A/B 比較実験</h2><button data-close="labModal" aria-label="閉じる">×</button></div><div class="modal-body"><p>1つの条件だけ変えて、別の共和国を複数回走らせます。現在の国は停止し、書き換えません。</p><div class="lab-form"><div><label for="labParam">変えるパラメータ</label><select id="labParam"></select></div><div><label for="labA">条件 A <span id="labUnitA"></span></label><input type="number" id="labA"></div><div><label for="labB">条件 B <span id="labUnitB"></span></label><input type="number" id="labB"></div></div><p id="labParamHelp" class="lab-disclaimer"></p><div class="batch-options"><label>観測期間<select id="labHorizon"><option value="40">10年 / 40期</option><option value="80" selected>20年 / 80期</option><option value="160">40年 / 160期</option></select></label><label>各条件の実行数<select id="labRuns"><option value="4">4回</option><option value="8" selected>8回</option><option value="16">16回</option><option value="32">32回</option></select></label><button id="labRun" class="primary">比較を実行</button><button id="labCancel" hidden>中止</button></div><div class="lab-progress" id="labProgress" hidden><p id="labProgressText">計算中</p><div class="progress"><i id="labProgressBar"></i></div></div><div id="labOutput"></div><p class="lab-disclaimer">同一シードの組、共通の外生ショック。表は終了時点の「平均 ± 実行間の標準偏差」です。社会の予測値ではありません。</p></div></section></div>
@@ -144,7 +144,7 @@ param('initial','initialAccuracy','初期の理解の質',0,1,.01,.42,'%','高�
 param('initial','initialConfidence','初期の確信度',0,1,.01,.5,'%','高いほど新情報による事実認識・政策選好の変更が小さくなります。',true);
 param('initial','expertShare','知識拠点の人口比',0,.5,.01,.06,'%','中央付近に、設定した真値をよく理解する人を配置。政策選好は強制しません。',true);
 param('mind','learning','学習率',0,.5,.01,.18,'','1期の情報更新の速さ。0なら社会・メディア・経験からの通常学習は停止。');
-param('mind','forgetting','忘却率',0,.15,.005,.015,'','知識量を減衰させ、事実認識を各人の初期事前信念へ戻す強さ。');
+param('mind','forgetting','忘却率',0,.15,.005,.015,'','知識・政策実績の記憶を減衰させ、事実認識と学習後の政策選好を各人の初期事前信念へゆっくり戻す強さ。');
 param('mind','confirmation','確認バイアス',0,1,.01,.48,'%','自分の事実認識や政策選好から遠い情報を割り引く強さ。');
 param('mind','confidenceBound','異論の受容幅',.05,2,.05,.85,'','相手との政策選好の距離がこの値以内なら社会学習に採用。最大距離は2。');
 param('mind','conformity','同調の強さ',0,1,.01,.6,'%','受け入れた隣人の政策選好へ近づく力。');
@@ -165,6 +165,7 @@ param('election','econWeight','経済政策の投票比重',0,1,.01,.75,'%','投
 param('election','partisanship','党派アイデンティティ',0,1,.01,.48,'%','初期に属した陣営を政策と別に支持する強さ。');
 param('election','selfInterest','私的利益の比重',0,1,.01,.55,'%','政策評価で、自分の移転純便益を社会全体への評価より重くする程度。');
 param('election','shortTerm','短期利益の重視',0,1,.01,.55,'%','長期の予測より短期の金融拡張効果を重視する重み。');
+param('election','opportunismAversion','選挙前の便乗刺激への警戒',0,1,.01,.32,'%','選挙直前に裁量的刺激が膨らむほど、知識と政策帰属がある有権者が時間的不整合として割り引く強さ。');
 param('election','turnout','基礎投票率',0,1,.01,.66,'%','無関心・コスト・選好強度などの補正前の参加確率。');
 param('election','votingCost','投票コスト',0,1,.01,.16,'%','参加確率を引き下げる時間・手間の代理係数。');
 param('election','mobilizeR','規則派の動員力',-.5,.5,.01,0,'','規則派支持者の参加確率への加算。');
@@ -181,6 +182,10 @@ param('macro','binding','制度による裁量制約',0,1,.01,.08,'%','裁量派
 param('macro','policyLag','政策効果の遅れ L',0,16,1,4,'期','政策キューから何期前の政策を取り出すか。0なら同じ期に作用。');
 param('macro','expectationGain','期待の調整速度',.02,1,.02,.34,'','適応的期待が、前期の実現インフレへ近づく速さ。');
 param('macro','expectationExtrapolation','期待の外挿',0,2.5,.05,0,'倍','適応的期待が直近のインフレ加速・減速を先へ外挿する強さ。大きすぎると期待が実現値をオーバーシュートします。');
+param('macro','ruleReanchor','規則による期待再アンカー',0,.5,.01,.12,'','規則への信頼が高く、実際に規則型政策が作用しているとき、期待インフレを基準率へ戻す追加速度。');
+param('macro','credibilityGain','規則信頼の回復速度',0,.5,.01,.1,'','規則を守る政策が続いたとき、社会全体の規則への信頼が回復する速度。');
+param('macro','credibilityLoss','規則破りの信頼損失',0,.8,.01,.28,'','裁量的な貨幣増加が基準ルールから離れるほど、規則への信頼を失う速度。');
+param('macro','policyUncertaintyAversion','政策不確実性の実物コスト',0,2,.05,.35,'','貨幣増加率の急変・ルール逸脱の変化が投資や調整を乱す、明示的で未較正のコスト。0で無効。');
 choice('macro','expectationMode','期待形成','adaptive',[['adaptive','適応的期待'],['forward','予見的期待（外生攪乱は未知）'],['fixed','固定期待（初期水準）']],'固定期待は意図的な比較用。既定は適応的期待。');
 param('macro','phillips','予想外インフレの実質効果',0,2,.05,.8,'','予想誤差1ポイントに対する一時的産出ギャップの係数。');
 param('macro','inflationAdjust','物価の調整速度 κ',.02,.8,.02,.24,'','インフレ率が貨幣増加率から潜在成長率を引いた値へ近づく速さ。');
@@ -188,7 +193,7 @@ param('macro','illusion','貨幣錯覚',0,1,.01,.35,'%','家計評価に名目�
 param('macro','supplyVol','供給攪乱の大きさ',0,2,.01,.18,'','価格圧力・実物損失を生む平均回帰ショックの標準偏差係数。');
 param('macro','realVol','景気攪乱の大きさ',0,3,.05,.5,'','貨幣政策とは独立した実物循環ショックの標準偏差係数。');
 param('macro','shockRate','突発危機の確率',0,.2,.005,.025,'','各期に供給危機または景気後退が生じる確率。A/Bでは外生乱数を共有。');
-param('macro','longReal','恒常的実質効果 θ',0,1,.05,0,'','既定0＝長期貨幣中立。正の値は反実仮想で、産出ギャップへ0.8θΔμを加えます。');
+param('macro','longReal','恒常的実質効果 θ',-1,1,.05,0,'','既定0＝長期貨幣中立。正なら恒常的な実質押上げ、負なら恒常的な実質損失を仮定し、産出ギャップへ0.8θΔμを加えます。');
 param('distribution','initialInequality','初期所得能力のばらつき',.1,1.8,.05,.5,'','初期の稼得能力を作る対数正規分布の広がり。高いほど初期格差が大きい。',true);
 param('distribution','inequalityDrift','格差の累積優位',0,.03,.001,0,'','毎期、高い稼得能力を相対的に押し上げ、低い能力を押し下げる未較正の累積優位。0で無効。');
 param('distribution','turnoutIncomeBias','所得による投票参加差',0,.5,.01,0,'','所得が幾何平均を上回るほど投票率を上げ、下回るほど下げる係数。制度的な政治影響力そのものではなく参加差の代理。');
@@ -220,6 +225,8 @@ const SCENARIOS=[
  {id:'advertising',name:'広告の大洪水',note:'裁量派寄りの情報があふれる国。露出と真偽を切り分けて観察する。',p:{adVolume:1.9,mediaTilt:-.85,verified:.12,trust:.9,exposure:.95,initialConfidence:.4,ignorance:.65}},
  {id:'fortress',name:'制度防波堤',note:'ショックは多いが、裁量制約・検証情報・政策帰属が強い。悪条件の中で制度がどこまで耐えるか。',p:{shockRate:.12,supplyVol:1.1,realVol:1.6,binding:.92,verified:.84,attribution:.88,initialKnowledge:.65,initialAccuracy:.75,confirmation:.22,homophily:.32,ignorance:.18,expectationGain:.65,expectationExtrapolation:.1,illusion:.12,partisanship:.2}},
  {id:'open',name:'透明な社会',note:'正確な情報、広い対話、低い党派性。それでも利害の違いは残る。',p:{verified:.92,attribution:.93,confirmation:.15,homophily:.25,confidenceBound:1.7,ignorance:.12,initialKnowledge:.62,partisanship:.15,illusion:.1}},
+ {id:'learningturn',name:'刺激の賞味期限：D→R',note:'最初は裁量刺激が魅力的。しかし期待が追いつき、信頼損失とインフレ負担が蓄積すると政治評価が反転しやすい。',p:{initialR:.38,initialPolar:.42,initialKnowledge:.5,initialAccuracy:.58,learning:.26,forgetting:.008,confirmation:.2,ignorance:.2,experience:.72,attribution:.88,verified:.82,homophily:.3,econWeight:.92,partisanship:.18,shortTerm:.72,opportunismAversion:.72,electionPeriod:8,stimulus:10,reelection:.98,policyLag:2,expectationGain:.58,ruleReanchor:.2,credibilityGain:.16,credibilityLoss:.5,policyUncertaintyAversion:.85,illusion:.14,inflationAversion:1.15,fiscalIllusion:.18,transfer:4}},
+ {id:'amnesia',name:'忘却の振り子',note:'裁量の代償を学んでも記憶が薄れる。規則で安定すると危機の記憶も消え、再び刺激へ惹かれる政治循環が起きうる。',p:{initialR:.43,initialPolar:.5,initialKnowledge:.44,initialAccuracy:.52,learning:.22,forgetting:.11,confirmation:.28,ignorance:.32,experience:.7,attribution:.78,verified:.68,homophily:.38,econWeight:.9,partisanship:.16,shortTerm:.76,opportunismAversion:.55,electionPeriod:8,stimulus:9,reelection:.95,policyLag:2,expectationGain:.5,ruleReanchor:.18,credibilityGain:.15,credibilityLoss:.46,policyUncertaintyAversion:.7,illusion:.2,inflationAversion:1.0,fiscalIllusion:.28,transfer:5}},
  {id:'counterfactual',name:'反実仮想：貨幣は中立でない',note:'世界の仮定そのものを変更。長期の実質効果を持たせた比較用の国。',p:{longReal:.65,verified:.8,initialAccuracy:.65,illusion:.1,attribution:.85}}
 ]
 const DISTRICTS=[{x:190,y:170,name:'西岸'},{x:390,y:130,name:'北丘'},{x:675,y:135,name:'北東'},{x:835,y:270,name:'東港'},{x:640,y:330,name:'水庭'},{x:765,y:465,name:'南東'},{x:410,y:430,name:'南原'},{x:190,y:385,name:'西湾'},{x:410,y:285,name:'中央'}];
@@ -275,7 +282,8 @@ class Republic{
   this.unemployment=this.p.naturalU;this.gap=0;this.potential=1;this.realIndex=100;this.welfare=100;
   this.supplyShock=0;this.businessShock=0;this.budget=100;this.effects=[];this.events=[];this.pending=[];this.actions=[];
   this.unlocked=[];this.lightStreak=0;this.bridgeStreak=0;this.history=[];this.lastElection=null;this.crisisFlags=new Set();
-  this.policyQueue=[];this.currentPolicy={mu:this.p.moneyRule,fiscal:2+2*this.p.lobby,rule:1,gov:1,t:0};this.appliedPolicy={...this.currentPolicy};
+  this.policyQueue=[];this.currentPolicy={mu:this.p.moneyRule,fiscal:2+2*this.p.lobby,rule:1,gov:1,opportunism:0,t:0};this.appliedPolicy={...this.currentPolicy};
+  this.policyCredibility=.78;this.policyUncertainty=0;this.policyDeviation=0;this.prevAppliedMu=this.p.moneyRule;this.discretionDividend=0;this.electionOpportunism=0;
   this.sites=makeSites(this.p.population);this.districts=DISTRICTS.map(d=>({...d,ids:[],r:0,d:0,n:0,winner:0}));
   this.agents=[];
   const benefitOrder=Array.from({length:this.p.population},(_,i)=>i);
@@ -286,14 +294,14 @@ class Republic{
   for(let i=0;i<this.p.population;i++){
    const s=this.sites[i],side=rSet.has(i)?1:-1;
    const b=side*clamp(.07+.81*this.p.initialPolar+this.rng.normal()*.16,.015,.99);
-   const z=clamp(this.p.initialAccuracy*this.p.longReal+(1-this.p.initialAccuracy)*this.rng.next()+(1-this.p.initialAccuracy)*this.rng.normal()*.07);
+   const z=clamp(this.p.longReal+(1-this.p.initialAccuracy)*((2*this.rng.next()-1)+this.rng.normal()*.14),-1,1);
    const a={id:i,x:s.x,y:s.y,d:s.d,b,initialB:b,z,priorZ:z,k:clamp(this.p.initialKnowledge+this.rng.normal()*.13),c:clamp(this.p.initialConfidence+this.rng.normal()*.1,.01,.99),party:side*(.6+.4*this.rng.next()),endowment:Math.exp(this.rng.normal()*this.p.initialInequality),errorBias:this.rng.next()<.5?-1:1,benefitRank:benefitRanks[i],idio:0,income:1,previousIncome:1,experience:0,recordR:0,recordD:0,vote:0,links:[],change:0};
    this.agents.push(a);this.districts[a.d].ids.push(i);
   }
   const m=this.agents.reduce((s,a)=>s+a.endowment,0)/this.agents.length;
   this.agents.forEach(a=>a.endowment/=m);
   const experts=[...this.agents].sort((a,b)=>((a.x-418)**2+(a.y-283)**2)-((b.x-418)**2+(b.y-283)**2));
-  experts.slice(0,Math.round(this.p.expertShare*this.agents.length)).forEach(a=>{a.k=.96;a.z=clamp(this.p.longReal+this.rng.normal()*.025);a.priorZ=a.z;});
+  experts.slice(0,Math.round(this.p.expertShare*this.agents.length)).forEach(a=>{a.k=.96;a.z=clamp(this.p.longReal+this.rng.normal()*.025,-1,1);a.priorZ=a.z;});
   for(const a of this.agents)for(let j=0;j<5;j++)a.links.push(this.choosePeer(a));
   this.bufB=new Float64Array(this.agents.length);this.bufZ=new Float64Array(this.agents.length);this.bufK=new Float64Array(this.agents.length);
   this.updateIncome(false);this.initialGeom=this.geomIncome;this.welfare=100;
@@ -376,7 +384,7 @@ class Republic{
   this.budgetBalance=totalTax-totalTransfer;
   this.geomIncome=Math.exp(sumLog/as.length);
   const anchor=p.moneyRule-p.growth;
-  if(this.initialGeom)this.welfare=100*this.geomIncome/this.initialGeom*Math.exp(-.0018*p.inflationAversion*(this.inflation-anchor)**2);
+  if(this.initialGeom)this.welfare=100*this.geomIncome/this.initialGeom*Math.exp(-.0018*p.inflationAversion*(this.inflation-anchor)**2-.0012*p.policyUncertaintyAversion*this.policyUncertainty**2);
  }
  step(){
   this.t++;const p=this.p,r=this.rng;
@@ -390,20 +398,33 @@ class Republic{
   const binding=clamp(p.binding+this.effect('binding'));
   const discretion=(this.government<0?1:0)*(1-binding);
   const extra=discretion*(p.stimulus*(.25+.75*p.reelection*phase**3)+.4*Math.max(0,this.unemployment-p.naturalU));
-  this.currentPolicy={mu:clamp(p.moneyRule+extra,-5,32),fiscal:2+2*p.lobby+p.transfer*discretion,rule:1-discretion,gov:this.government,t:this.t};
+  this.currentPolicy={mu:clamp(p.moneyRule+extra,-5,32),fiscal:2+2*p.lobby+p.transfer*discretion,rule:1-discretion,gov:this.government,opportunism:discretion*p.reelection*phase**3,t:this.t};
   this.policyQueue.push({...this.currentPolicy});if(this.policyQueue.length>40)this.policyQueue.shift();
   const target=this.t-p.policyLag;
-  this.appliedPolicy=this.policyQueue.find(q=>q.t===target)||{mu:this.initialParams.moneyRule,fiscal:2+2*this.initialParams.lobby,rule:1,gov:1,t:0};
+  this.appliedPolicy=this.policyQueue.find(q=>q.t===target)||{mu:this.initialParams.moneyRule,fiscal:2+2*this.initialParams.lobby,rule:1,gov:1,opportunism:0,t:0};
+  const appliedDiscretion=clamp(1-this.appliedPolicy.rule),deviationScale=Math.max(1,p.stimulus);
+  const policyDeviation=Math.abs(this.appliedPolicy.mu-p.moneyRule),policyMove=Math.abs(this.appliedPolicy.mu-this.prevAppliedMu);
+  const credibilityGain=this.appliedPolicy.rule*p.credibilityGain*(1-this.policyCredibility);
+  const credibilityLoss=appliedDiscretion*p.credibilityLoss*clamp(policyDeviation/deviationScale)*( .35+.65*clamp(policyMove/deviationScale) );
+  this.policyCredibility=clamp(this.policyCredibility+credibilityGain-credibilityLoss);
+  this.policyUncertainty=.82*this.policyUncertainty+.18*(policyMove+.5*Math.abs(policyDeviation-this.policyDeviation));
+  this.policyDeviation=policyDeviation;this.prevAppliedMu=this.appliedPolicy.mu;this.electionOpportunism=this.appliedPolicy.opportunism||0;
   const laggedInflation=this.inflation,inflationMomentum=this.inflation-this.prevInflation;
   const noShockPrediction=this.inflation+p.inflationAdjust*(this.appliedPolicy.mu-p.growth-this.inflation);
   if(p.expectationMode==='forward')this.expected=noShockPrediction;
   else if(p.expectationMode==='fixed')this.expected=this.initialInflation;
-  else this.expected+=p.expectationGain*(this.inflation-this.expected)+p.expectationExtrapolation*inflationMomentum;
+  else{
+   const anchor=p.moneyRule-p.growth,reanchor=p.ruleReanchor*this.policyCredibility*this.appliedPolicy.rule;
+   this.expected+=p.expectationGain*(this.inflation-this.expected)+p.expectationExtrapolation*inflationMomentum+reanchor*(anchor-this.expected);
+  }
   this.expected=clamp(this.expected,-20,55);
   this.inflation=clamp(noShockPrediction+this.supplyShock,-12,45);this.prevInflation=laggedInflation;
   const surprise=this.inflation-this.expected;
+  const deltaMu=this.appliedPolicy.mu-p.moneyRule,dIntensity=appliedDiscretion*clamp(Math.max(0,deltaMu)/Math.max(1,p.stimulus));
+  this.discretionDividend=dIntensity*p.phillips*surprise;
   const rentWedge=p.lobby*Math.max(0,this.appliedPolicy.fiscal-2)*.12;
-  this.gap=clamp(.8*p.longReal*(this.appliedPolicy.mu-p.moneyRule)+p.phillips*surprise+this.businessShock-.8*Math.max(this.supplyShock,0)-rentWedge,-20,20);
+  const uncertaintyWedge=p.policyUncertaintyAversion*.18*this.policyUncertainty;
+  this.gap=clamp(.8*p.longReal*deltaMu+p.phillips*surprise+this.businessShock-.8*Math.max(this.supplyShock,0)-rentWedge-uncertaintyWedge,-20,20);
   this.unemployment=clamp(p.naturalU-.55*this.gap,.2,30);
   this.potential*=Math.pow(1+p.growth/100,.25);
   this.realIndex=100*this.potential*(1+this.gap/100);
@@ -413,7 +434,6 @@ class Republic{
   const attribution=clamp(p.attribution+this.effect('attribution'));
   const advert=this.effect('advert');
   const expAmount=p.stimulus*(.25+.75*p.reelection)*(1-binding);
-  const deltaMu=this.appliedPolicy.mu-p.moneyRule;
   const publicDistribution=-p.transfer*(.08*(1-p.beneficiaryShare)+.15*p.lobby);
   for(const a of this.agents){
    let socialB=0,socialZ=0,weightSum=0;
@@ -423,33 +443,39 @@ class Republic{
    let mediaZ=a.z,mediaB=a.b,contact=0,isVerified=false;
    if(r.next()<clamp(p.exposure*(.35+.65*p.adVolume+Math.abs(advert)*.5))*attention){
     contact=1;
-    if(r.next()<p.verified){mediaZ=clamp(p.longReal+r.normal()*.12);isVerified=true;}
+    if(r.next()<p.verified){mediaZ=clamp(p.longReal+r.normal()*.12,-1,1);isVerified=true;}
     else{
      const globalR=clamp(.5+.45*p.mediaTilt+advert*.43,.015,.985);
      const personal=lerp(globalR,a.b>=0?.92:.08,p.homophily*.45);
      const side=r.next()<personal?1:-1;
-     mediaB=side*.95;mediaZ=clamp((side>0?.06:.92)+r.normal()*.07);
+     mediaB=side*.95;mediaZ=clamp((side>0?-.82:.82)+r.normal()*.09,-1,1);
     }
    }
    const trustZ=Math.exp(-p.confirmation*Math.abs(mediaZ-a.z)*4);
    const socialTrustZ=Math.exp(-p.confirmation*Math.abs(socialZ-a.z)*3);
    let zMove=.55*contact*p.trust*trustZ*(mediaZ-a.z)+.3*p.conformity*socialTrustZ*(socialZ-a.z);
    if(Math.abs(deltaMu)>1){
-    const empirical=clamp((this.gap-a.k*p.phillips*surprise+r.normal()*.8)/(.8*deltaMu));
+    const empirical=clamp((this.gap-a.k*p.phillips*surprise+r.normal()*.8)/(.8*deltaMu),-1,1);
     zMove+=.12*p.experience*a.k*attribution*Math.exp(-p.confirmation*Math.abs(empirical-a.z)*3)*(empirical-a.z);
    }
    const adapt=p.learning*(1-.75*a.c);
-   const factualError=a.z-p.longReal,away=Math.abs(factualError)>.02?Math.sign(factualError):(p.longReal<.5?1:p.longReal>.5?-1:a.errorBias);
+   const factualError=a.z-p.longReal,away=Math.abs(factualError)>.02?Math.sign(factualError):a.errorBias;
    const corruption=p.misperceptionDrift*(1-.7*a.k)*(.3+.7*p.confirmation)*(1+.7*Math.abs(factualError));
-   this.bufZ[a.id]=clamp(a.z+adapt*zMove+p.forgetting*(a.priorZ-a.z)+away*corruption);
+   this.bufZ[a.id]=clamp(a.z+adapt*zMove+p.forgetting*(a.priorZ-a.z)+away*corruption,-1,1);
    this.bufK[a.id]=clamp(a.k+contact*isVerified*p.learning*.13*(1-a.k)-p.forgetting*.35*a.k);
    // Normative preference and descriptive belief are deliberately not identified.
    const longBenefit=.8*a.z*(1-p.shortTerm)*expAmount;
-   const shortBenefit=.45*p.shortTerm*(1-.4*a.z)*expAmount;
-   const inflationCost=p.inflationAversion*expAmount*(.13+.42*(1-p.shortTerm))*(1-.65*p.illusion);
+   // 裁量の短期便益は刺激額そのものではなく、実際に予想を上回ったインフレが生んだ一時的産出効果だけ。期待が追いつけば自然に消える。
+   const shortBenefit=p.shortTerm*this.discretionDividend;
+   const anchor=p.moneyRule-p.growth,excessInflation=Math.max(0,Math.abs(this.inflation-anchor)-.35*Math.abs(this.supplyShock));
+   const anticipatedInflationCost=p.inflationAversion*expAmount*.11*(1-.65*p.illusion);
+   const experiencedInflationCost=p.inflationAversion*dIntensity*excessInflation*.28*(1-.65*p.illusion);
+   const credibilityCost=p.policyUncertaintyAversion*(.25+.75*a.k)*(dIntensity*(1-this.policyCredibility)*1.15+appliedDiscretion*this.policyUncertainty*.12);
+   const opportunismCost=p.opportunismAversion*(.2+.8*a.k)*attribution*this.electionOpportunism*2.1;
+   const inflationCost=anticipatedInflationCost+experiencedInflationCost;
    const beneficiary=a.benefitRank<p.beneficiaryShare?1/p.beneficiaryShare:0;
    const privateDistribution=p.transfer*(beneficiary-(1-p.fiscalIllusion)*a.endowment)*.18;
-   const perceivedNetD=longBenefit+shortBenefit-inflationCost+p.selfInterest*privateDistribution+(1-p.selfInterest)*publicDistribution;
+   const perceivedNetD=longBenefit+shortBenefit-inflationCost-credibilityCost-opportunismCost+p.selfInterest*privateDistribution+(1-p.selfInterest)*publicDistribution;
    const targetBelief=Math.tanh(-perceivedNetD/3.5);
    const responsible=r.next()<attribution?this.appliedPolicy.gov:this.government;
    a.recordR*=1-.05-.4*p.forgetting;a.recordD*=1-.05-.4*p.forgetting;
@@ -457,7 +483,7 @@ class Republic{
    if(responsible>0)a.recordR+=.16*reward;else a.recordD+=.16*reward;
    const performance=Math.tanh(a.recordR-a.recordD);
    const mediaTrustB=Math.exp(-p.confirmation*Math.abs(mediaB-a.b)*2);
-   let change=adapt*(p.conformity*.82*(socialB-a.b)+.35*(.2+.8*a.k)*attention*(targetBelief-a.b)+.27*contact*p.trust*mediaTrustB*(mediaB-a.b)+.22*p.experience*performance-.45*p.contrarian*this.districts[a.d].mean);
+   let change=adapt*(p.conformity*.82*(socialB-a.b)+.35*(.2+.8*a.k)*attention*(targetBelief-a.b)+.27*contact*p.trust*mediaTrustB*(mediaB-a.b)+.22*p.experience*performance-.45*p.contrarian*this.districts[a.d].mean)+.12*p.forgetting*(a.initialB-a.b);
    if(r.next()<p.mutation)change+=r.normal()*.12*(1-.6*a.c);
    this.bufB[a.id]=clamp(a.b+change,-1,1);
    a.c=clamp(a.c+p.learning*.015*(Math.abs(socialB-a.b)<.15?1:-.3)-p.forgetting*.08,.01,.99);
@@ -504,7 +530,8 @@ class Republic{
   const n=this.agents.length,incomes=this.agents.map(a=>a.income).sort((a,b)=>a-b),incomeSum=incomes.reduce((sum,x)=>sum+x,0);
   let rankWeighted=0;for(let i=0;i<n;i++)rankWeighted+=(i+1)*incomes[i];
   const gini=incomeSum>0?clamp(2*rankWeighted/(n*incomeSum)-(n+1)/n,0,1):0;
-  this.stats={r:R/n,d:D/n,neutral:1-(R+D)/n,accuracy:clamp(1-zerr/n),knowledge:k/n,polar:4*(extR/n)*(extD/n),bridge:cross/Math.max(1,totalLinks),mean:avg/n,gini};
+  const maxZError=1+Math.abs(this.p.longReal);
+  this.stats={r:R/n,d:D/n,neutral:1-(R+D)/n,accuracy:clamp(1-zerr/n/maxZError),knowledge:k/n,polar:4*(extR/n)*(extD/n),bridge:cross/Math.max(1,totalLinks),mean:avg/n,gini};
  }
  unlock(id){if(this.unlocked.includes(id))return;this.unlocked.push(id);const a=ACHIEVEMENTS.find(x=>x.id===id);this.log('観測実績「'+a.name+'」を記録。','achievement');}
  checkCrises(){
@@ -525,7 +552,7 @@ class Republic{
   const e=this.lastElection;
   if(e&&e.t===this.t&&e.voteR!==null&&(Math.abs(e.voteR-s.r)>=.15||(e.voteR>.5&&e.government<0)||(e.voteR<.5&&e.government>0)))this.unlock('twist');
  }
- snapshotMetrics(){return{t:this.t,...this.stats,inflation:this.inflation,expected:this.expected,expectationGap:Math.abs(this.inflation-this.expected),unemployment:this.unemployment,welfare:this.welfare,realIndex:this.realIndex,government:this.government,money:this.currentPolicy.mu,appliedMoney:this.appliedPolicy.mu,rule:this.currentPolicy.rule,turnout:this.lastElection?.turnout??null,voteR:this.lastElection?.voteR??null,seatR:this.lastElection?.seatR??null,election:!!this.lastElection&&this.lastElection.t===this.t};}
+ snapshotMetrics(){return{t:this.t,...this.stats,inflation:this.inflation,expected:this.expected,expectationGap:Math.abs(this.inflation-this.expected),unemployment:this.unemployment,welfare:this.welfare,realIndex:this.realIndex,government:this.government,money:this.currentPolicy.mu,appliedMoney:this.appliedPolicy.mu,rule:this.currentPolicy.rule,policyCredibility:this.policyCredibility,policyUncertainty:this.policyUncertainty,discretionDividend:this.discretionDividend,electionOpportunism:this.electionOpportunism,turnout:this.lastElection?.turnout??null,voteR:this.lastElection?.voteR??null,seatR:this.lastElection?.seatR??null,election:!!this.lastElection&&this.lastElection.t===this.t};}
  record(){this.history.push(this.snapshotMetrics());if(this.history.length>480)this.history.shift();}
 }
 const RGB={r:[88,226,196],d:[255,137,126],n:[221,201,151],violet:[164,149,232],muted:[104,129,146]};
@@ -552,7 +579,7 @@ class WorldView{
  setZoom(z){this.zoom=clamp(z,.8,3);if(this.zoom<=1){this.panX=0;this.panY=0;}this.canvas.style.touchAction=this.zoom>1?'none':'pan-y';}
  nearest(x,y,simulation){let d=Infinity,found=-1;for(const a of simulation.agents){const dx=(a.x-x)**2+(a.y-y)**2;if(dx<d){d=dx;found=a.id;}}return d<(simulation.sites[0].r*1.65)**2?found:-1;}
  colorFor(a,simulation){
-  if(this.layer==='knowledge')return blend(RGB.violet,RGB.r,1-Math.abs(a.z-simulation.p.longReal));
+  if(this.layer==='knowledge')return blend(RGB.violet,RGB.r,clamp(1-Math.abs(a.z-simulation.p.longReal)/(1+Math.abs(simulation.p.longReal))));
   if(this.layer==='income')return blend([86,151,186],RGB.n,clamp((Math.log2(Math.max(.1,a.income/simulation.potential))+1.6)/3.2));
   if(this.layer==='vote')return a.vote===1?RGB.r:a.vote===-1?RGB.d:RGB.muted;
   return opinionColor(a.b);
@@ -718,7 +745,7 @@ function renderUI(){
  $('shareR').textContent='R '+Math.round(s.r*100)+'%';$('shareD').textContent='D '+Math.round(s.d*100)+'%';$('shareN').textContent='留保 '+Math.round(s.neutral*100)+'%';
  $('distR').style.width=(s.r*100)+'%';$('distD').style.width=(s.d*100)+'%';$('distN').style.width=(s.neutral*100)+'%';
  $('polarValue').textContent=pct(s.polar);$('knowledgeValue').textContent=pct(s.knowledge);$('bridgeValue').textContent=pct(s.bridge);$('turnoutValue').textContent=e?pct(e.turnout):'未実施';
- const expGap=Math.abs(sim.inflation-sim.expected),misErr=1-s.accuracy;$('expectGapValue').textContent=fmt(expGap)+'pt';$('giniValue').textContent=fmt(s.gini,3);
+ const expGap=Math.abs(sim.inflation-sim.expected),misErr=1-s.accuracy;$('expectGapValue').textContent=fmt(expGap)+'pt';$('giniValue').textContent=fmt(s.gini,3);$('policyCredValue').textContent=pct(sim.policyCredibility);$('discretionDividendValue').textContent=(sim.discretionDividend>=0?'+':'')+fmt(sim.discretionDividend,2)+'pt';$('uncertaintyValue').textContent=fmt(sim.policyUncertainty,2);
  $('misinfoStressValue').textContent=fmt(misErr*100,1)+'%';$('expectStressValue').textContent=fmt(expGap,1)+'pt';$('giniStressValue').textContent=fmt(s.gini,3);
  $('misinfoStressBar').style.width=clamp(misErr/.7)*100+'%';$('expectStressBar').style.width=clamp(expGap/12)*100+'%';$('giniStressBar').style.width=clamp(s.gini/.75)*100+'%';
  $('misinfoStress').classList.toggle('danger',s.accuracy<.45);$('expectStress').classList.toggle('danger',expGap>8);$('giniStress').classList.toggle('danger',s.gini>.62);$('worldPanel').classList.toggle('crisis',[s.accuracy<.45,expGap>8,s.gini>.62].filter(Boolean).length>=2);
@@ -775,7 +802,7 @@ function showAgent(id,event,pinned=false){
  const a=sim.agents[id],p=sim.p,tip=$('agentTooltip');
  const point=event?{x:event.clientX,y:event.clientY}:view.toScreen(a.x,a.y);
  const side=a.b>.2?'規則派 R':a.b<-.2?'裁量派 D':'政策を留保';
- const factualError=Math.abs(a.z-p.longReal);
+ const factualError=Math.abs(a.z-p.longReal)/(1+Math.abs(p.longReal));
  tip.innerHTML=`<h3>市民 #${String(a.id+1).padStart(4,'0')} <small>${sim.districts[a.d].name}${pinned?' / 固定':''}</small></h3><div class="row"><span>政策選好</span><b>${a.b>=0?'+':''}${fmt(a.b,2)} · ${side}</b></div><div class="row"><span>事実認識の正確度</span><b>${pct(1-factualError)}</b></div><div class="row"><span>長期効果の推定 z</span><b>${fmt(a.z,2)} / 真値 ${fmt(p.longReal,2)}</b></div><div class="row"><span>知識量 / 確信度</span><b>${Math.round(a.k*100)} / ${Math.round(a.c*100)}%</b></div><div class="row"><span>実質所得</span><b>${fmt(a.income*100,1)}</b></div><div class="row"><span>移転の受益者</span><b>${a.benefitRank<p.beneficiaryShare?'対象':'対象外'}</b></div><div class="row"><span>直近の投票</span><b>${sim.lastElection?(a.vote===0?'棄権':a.vote>0?'規則派 R':'裁量派 D'):'未実施'}</b></div><p>${a.k>.7&&factualError>.3?'知識は多いが、事実認識には誤りがある。':factualError<.15&&a.b<-.2?'設定した真値に近い理解。それでも、利害や好みは別。':a.c>.8?'強い確信は、新しい情報を通りにくくする。':a.vote===0&&sim.lastElection?'支持の有無と、投票したかどうかは別問題。':'線はこの人の情報ネットワーク。更新は周囲へ伝わる。'}</p>`;
  tip.hidden=false;const r=tip.getBoundingClientRect();let x=point.x+15,y=point.y+15;if(x+r.width>innerWidth-12)x=point.x-r.width-15;if(y+r.height>innerHeight-12)y=point.y-r.height-15;tip.style.left=clamp(x,10,Math.max(10,innerWidth-r.width-10))+'px';tip.style.top=clamp(y,10,Math.max(10,innerHeight-r.height-10))+'px';
 }
@@ -816,8 +843,8 @@ function closeModal(id){
 }
 function download(content,name,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
 function exportCSV(){
- const cols=['t','r','d','neutral','accuracy','knowledge','polar','bridge','gini','inflation','expected','expectationGap','unemployment','welfare','realIndex','government','money','appliedMoney','rule','turnout','voteR','seatR','election'];
- const header=['quarter','support_R_0to1','support_D_0to1','neutral_0to1','factual_accuracy_0to1','knowledge_0to1','polarization_0to1','cross_links_0to1','income_gini_0to1','inflation_pct_annual','expected_inflation_pct_annual','expectation_gap_abs_pctpt','unemployment_pct','living_index_base100','real_output_index_base100','government_R1_Dminus1','money_growth_pct_annual','applied_money_growth_pct_annual','rule_degree_0to1','last_turnout_0to1','last_vote_R_0to1','last_seat_R_0to1','election_this_quarter'];
+ const cols=['t','r','d','neutral','accuracy','knowledge','polar','bridge','gini','inflation','expected','expectationGap','unemployment','welfare','realIndex','government','money','appliedMoney','rule','policyCredibility','policyUncertainty','discretionDividend','electionOpportunism','turnout','voteR','seatR','election'];
+ const header=['quarter','support_R_0to1','support_D_0to1','neutral_0to1','factual_accuracy_0to1','knowledge_0to1','polarization_0to1','cross_links_0to1','income_gini_0to1','inflation_pct_annual','expected_inflation_pct_annual','expectation_gap_abs_pctpt','unemployment_pct','living_index_base100','real_output_index_base100','government_R1_Dminus1','money_growth_pct_annual','applied_money_growth_pct_annual','rule_degree_0to1','rule_credibility_0to1','policy_uncertainty_index','discretion_short_run_dividend_output_gap_pt','election_opportunism_0to1','last_turnout_0to1','last_vote_R_0to1','last_seat_R_0to1','election_this_quarter'];
  const rows=sim.history.map(s=>cols.map(c=>s[c]===null?'':typeof s[c]==='boolean'?Number(s[c]):s[c]).join(','));
  download('\ufeff'+header.join(',')+'\n'+rows.join('\n')+'\n','belief-republic-history.csv','text/csv;charset=utf-8');toast('直近 '+sim.history.length+' 期の履歴を CSV に書き出しました。');
 }
@@ -887,7 +914,7 @@ async function runLab(){
     outputs[condition].push({...model.snapshotMetrics(),governsR:model.government>0?1:0});
    }
   }
-  const metrics=[['accuracy','事実認識の正確度',100,'%'],['knowledge','平均知識量',100,'%'],['r','規則派の人口支持',100,'%'],['d','裁量派の人口支持',100,'%'],['polar','二極化度',100,'%'],['gini','所得 Gini',1,''],['expectationGap','期待ギャップ',1,'pt'],['inflation','インフレ率',1,'%'],['unemployment','失業率',1,'%'],['welfare','生活指数',1,''],['turnout','直近の投票率',100,'%'],['governsR','R 政権の実行比率',100,'%']];
+  const metrics=[['accuracy','事実認識の正確度',100,'%'],['knowledge','平均知識量',100,'%'],['r','規則派の人口支持',100,'%'],['d','裁量派の人口支持',100,'%'],['polar','二極化度',100,'%'],['gini','所得 Gini',1,''],['expectationGap','期待ギャップ',1,'pt'],['policyCredibility','規則への信頼',100,'%'],['policyUncertainty','政策不確実性',1,''],['discretionDividend','裁量の短期利得',1,'pt'],['inflation','インフレ率',1,'%'],['unemployment','失業率',1,'%'],['welfare','生活指数',1,''],['turnout','直近の投票率',100,'%'],['governsR','R 政権の実行比率',100,'%']];
   const results=metrics.map(([key,label,multiple,unit])=>{
    const av=outputs[0].map(s=>(s[key]??0)*multiple),bv=outputs[1].map(s=>(s[key]??0)*multiple),diff=bv.map((v,i)=>v-av[i]);
    return{key,label,unit,a:mean(av),aSD:sd(av),b:mean(bv),bSD:sd(bv),diff:mean(diff),diffSD:sd(diff)};
@@ -935,7 +962,7 @@ function init(){
  document.addEventListener('pointerdown',e=>{if($('settingsPanel').classList.contains('open')&&!e.target.closest('#settingsPanel')&&!e.target.closest('#settingsToggle'))$('settingsPanel').classList.remove('open');});
  $('csvBtn').addEventListener('click',exportCSV);$('saveBtn').addEventListener('click',saveRun);$('loadBtn').addEventListener('click',()=>{if(!loadingReplay)$('loadFile').click();});$('loadFile').addEventListener('change',e=>loadRun(e.target.files[0]));
  $('labParam').addEventListener('change',initLabFields);$('labRun').addEventListener('click',runLab);$('labCancel').addEventListener('click',()=>labAbort=true);
- $('economicEquations').textContent='d = 1{裁量派政権} × (1 − 実効裁量制約)\nμ = μ₀ + d × [s(0.25 + 0.75 r ϕ³) + 0.4 max(u前期 − u*, 0)]\nπ = π前期 + κ(μ[t−L] − g − π前期) + 供給攪乱\n産出ギャップ = 0.8 θ(μ[t−L] − μ₀) + a(π − πᵉ)\n                 + 実物攪乱 − 0.8 max(供給攪乱, 0) − レント損失\nu = u* − 0.55 × 産出ギャップ\n潜在実質所得 = 前期値 × (1 + g / 100)^(1/4)';
+ $('economicEquations').textContent='d = 1{裁量派政権} × (1 − 実効裁量制約)\nμ = μ₀ + d × [s(0.25 + 0.75 r ϕ³) + 0.4 max(u前期 − u*, 0)]\nπ = π前期 + κ(μ[t−L] − g − π前期) + 供給攪乱\nπᵉ ← 適応更新 + 規則信頼 × 再アンカー × (μ₀−g−πᵉ)\n裁量の短期利得 = 裁量強度 × a(π − πᵉ)\n規則信頼 ← 規則順守で回復、ルール逸脱と急変で低下\n政策不確実性 ← 貨幣増加率の急変・逸脱変化の移動平均\n産出ギャップ = 0.8 θ(μ[t−L] − μ₀) + a(π − πᵉ)\n                 + 実物攪乱 − 供給損失 − レント損失 − 不確実性コスト\nu = u* − 0.55 × 産出ギャップ\n潜在実質所得 = 前期値 × (1 + g / 100)^(1/4)';
  document.addEventListener('keydown',e=>{
   const modal=[...document.querySelectorAll('.modal-backdrop')].find(m=>!m.hidden);
   if(modal){
