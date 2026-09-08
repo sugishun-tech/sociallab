@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta name="google-site-verification" content="282HWwFqX5MAEmjMUQXGFlpHvfHdCSs5btSxB52O1vA" />
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080e18">
@@ -38,6 +37,11 @@
  .right-rail>.log-panel{grid-column:1;grid-row:3}
 }
 @media(max-width:365px){.speed-group button{padding:7px 6px}.play-controls .primary{min-width:89px}}
+.phillips-panel{margin:14px 0;border:1px solid #365952;border-radius:9px;background:linear-gradient(140deg,#112329,#101925 55%);padding:17px;scroll-margin-top:15px;min-width:0}
+.pc-heading{display:flex;justify-content:space-between;gap:10px;align-items:center}.pc-heading h2{font-size:17px;margin-top:3px}.pc-tag{font:10px var(--mono);padding:5px 8px;border:1px solid #3e665c;border-radius:20px;color:var(--cyan);white-space:nowrap}.pc-intro{font-size:12px;color:#b9cbd4;margin:9px 0 12px}.pc-toolbar{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.pc-toolbar label{font-size:10px;color:var(--muted)}.pc-toolbar select{flex:1;min-width:200px;font-size:11px}.pc-toolbar button{font-size:11px}.pc-settings{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:13px 0 8px}.pc-settings label{font-size:11px;color:var(--muted)}.pc-settings output{float:right;color:var(--cyan);font-family:var(--mono)}.pc-settings input{display:block;margin:8px 0}.pc-playbar{display:flex;align-items:center;gap:5px;flex-wrap:wrap}.pc-playbar button{font-size:10px;padding:5px 8px}.pc-playbar input{flex:1;min-width:70px;width:auto}.pc-playbar output{font:10px var(--mono);min-width:61px}.pc-note{font-size:10px;color:var(--muted);line-height:1.75;margin:9px 0}.pc-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px 15px;padding:14px 0}.pc-stats small{display:block;font-size:10px}.pc-stats strong{font:17px/1.5 var(--mono);color:#eff8f5}.pc-stats div:nth-child(3) strong{color:var(--cyan)}#phillipsChart{width:100%;height:330px;display:block;background:#0b1420;border-radius:6px}.pc-legend{display:flex;flex-wrap:wrap;gap:6px 13px;font-size:9px;color:#b8cad0;margin-top:10px}.pc-legend span{display:flex;gap:5px;align-items:center}.pc-line{display:inline-block;width:13px;height:2px}.pc-hollow{width:7px;height:7px;border:1px solid #e8f1f3;border-radius:50%;display:inline-block}.pc-equation{font:11px/1.9 var(--mono);color:#a6d7c9;margin-top:12px;overflow-wrap:anywhere}.pc-diagnosis{font-size:12px;line-height:1.9;margin:10px 0 4px;border-left:2px solid var(--cyan);padding:1px 0 1px 11px;color:#e1eded}.pc-detail{margin-top:13px;border-top:1px solid var(--line);padding-top:9px}.pc-detail summary{font-size:11px;cursor:pointer}.pc-detail summary span{display:block;margin-left:15px;font-size:9px;color:var(--muted)}.pc-contribution{display:grid;grid-template-columns:minmax(100px,1fr) 90px minmax(45px,70px) minmax(45px,70px);align-items:center;gap:5px;font-size:10px;padding:5px 0;border-bottom:1px solid #22303a}.pc-contribution b{font:11px var(--mono);text-align:right}.pc-contribution.header{color:var(--muted);font-size:9px}.pc-bar{height:4px;position:relative;background:#26323e}.pc-bar:before{content:'';position:absolute;left:50%;height:8px;top:-2px;border-left:1px solid #8498a3}.pc-bar i{position:absolute;height:4px;background:var(--coral)}.pc-bar i.negative{background:var(--cyan)}.pc-timeline{margin-top:12px}.pc-timeline>small{font-size:10px}#phillipsTimeChart{width:100%;height:130px;display:block}.pc-timeline .chart-legend span:nth-child(1){color:var(--coral)}.pc-timeline .chart-legend span:nth-child(2){color:var(--violet)}.pc-timeline .chart-legend span:nth-child(3){color:var(--gold)}.pc-foot{display:flex;gap:10px;align-items:center;margin-top:10px}.pc-foot button{white-space:nowrap;font-size:10px}.pc-foot small{font-size:9px}.pc-negative{color:var(--cyan)}.pc-positive{color:var(--coral)}
+@media(min-width:1500px){.pc-stats{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:600px){.phillips-panel{padding:12px}.pc-heading h2{font-size:14px}.pc-heading .eyebrow{font-size:8px;letter-spacing:.08em}.pc-tag{font-size:8px;padding:4px 6px}.pc-toolbar select{min-width:180px}.pc-toolbar label{display:none}.pc-toolbar .primary{width:100%}.pc-settings{gap:10px}.pc-stats strong{font-size:16px}#phillipsChart{height:290px}.pc-contribution{grid-template-columns:minmax(95px,1fr) 48px 52px 52px;font-size:9px}.pc-contribution b{font-size:10px}.pc-foot{align-items:flex-start}.pc-playbar input{min-width:95px}.pc-heading{gap:5px}}
+
 </style>
 </head>
 <body>
@@ -45,7 +49,7 @@
 <header class="topbar">
  <div class="brand"><div class="brand-icon" aria-hidden="true">⌬</div><div><div class="eyebrow">BELIEF REPUBLIC / SOCIAL LAB</div><h1>信念の共和国</h1></div></div>
  <p class="top-caption">信じる。伝わる。投票する。<br>その結果が、次の信念をつくる。</p>
- <div class="top-actions"><span class="offline">OFFLINE / NO TRACKING</span><button id="soundBtn" class="icon-btn" aria-pressed="false" title="合成効果音のオン・オフ">音 <span class="sound-label">OFF</span></button><button id="motionBtn" class="icon-btn hide-mobile" aria-pressed="false" title="動きを抑える">低刺激</button><button id="helpBtn" class="icon-btn">遊び方・モデル</button></div>
+ <div class="top-actions"><span class="offline">OFFLINE / NO TRACKING</span><button id="soundBtn" class="icon-btn" aria-pressed="false" title="合成効果音のオン・オフ">音 <span class="sound-label">OFF</span></button><button id="motionBtn" class="icon-btn hide-mobile" aria-pressed="false" title="動きを抑える">低刺激</button><button id="phillipsJump" class="icon-btn">短期／長期</button><button id="helpBtn" class="icon-btn">遊び方・モデル</button></div>
 </header>
 <nav class="toolbar" aria-label="実験操作">
  <button id="settingsToggle">☷ 条件</button>
@@ -60,7 +64,7 @@
   <div class="rail-foot"><span id="paramStatus">変更は次の四半期から反映。※ は再生成が必要。</span><button id="applyInitial" hidden>初期条件を適用して再生成</button></div>
  </aside>
  <section class="center-column" aria-label="社会のシミュレーション">
-  <div class="scenario-note"><p id="scenarioNote"></p><span class="tag">AGENT-BASED SIMULATION / v1.2</span></div>
+  <div class="scenario-note"><p id="scenarioNote"></p><span class="tag">AGENT-BASED SIMULATION / v2.0</span></div>
   <div class="metric-grid">
    <div class="metric"><i class="top-stroke"></i><label>事実認識の正確度</label><div class="metric-value cyan"><span id="accuracyValue">--</span><span class="unit">%</span></div><div class="metric-foot">政策の好みとは別に測定</div></div>
    <div class="metric"><label>インフレ率</label><div class="metric-value"><span id="inflationValue">--</span><span class="unit">%</span></div><div class="metric-foot">年率・モデル内の値</div></div>
@@ -89,6 +93,26 @@
    <div class="chart-box"><div class="chart-head"><h2>信念の勢力と正確度</h2><span>直近 80 四半期</span></div><canvas id="beliefChart" aria-label="規則派と裁量派の支持率、事実認識正確度の時系列"></canvas><div class="chart-legend"><span><i style="background:var(--cyan)"></i>規則派</span><span><i style="background:var(--coral)"></i>裁量派</span><span><i style="background:var(--gold)"></i>正確度</span></div></div>
    <div class="chart-box"><div class="chart-head"><h2>期待と経済のずれ</h2><span>年率 / %</span></div><canvas id="econChart" aria-label="インフレ率、予想インフレ率、失業率の時系列"></canvas><div class="chart-legend"><span><i style="background:var(--coral)"></i>インフレ</span><span><i style="background:var(--violet)"></i>予想</span><span><i style="background:var(--gold)"></i>失業</span></div></div>
   </div>
+  <section class="phillips-panel" id="phillipsPanel" aria-labelledby="phillipsTitle">
+   <div class="pc-heading"><div><div class="eyebrow">EXPECTATIONS / SHORT RUN / LONG RUN</div><h2 id="phillipsTitle">フィリップス曲線の実験室</h2></div><span class="pc-tag" id="pcPhase">本編と連動</span></div>
+   <p class="pc-intro">物価が上がることと、予想を上回ることは別。右下がりの短期曲線が、期待の更新とともに移動します。</p>
+   <div class="pc-toolbar"><label for="pcMode">観察対象</label><select id="pcMode"><option value="live">本編の経済を診断</option><option value="expansion">金融拡張：短期 → 長期</option><option value="anticipated">予見された金融拡張</option><option value="disinflation">引締め：期待の調整コスト</option><option value="supply">供給危機：物価と失業が同時上昇</option></select><button id="pcStartDemo" class="primary">短期 → 長期を再生</button></div>
+   <div id="pcExperimentControls" hidden>
+    <div class="pc-settings"><label>期待の調整速度 <output id="pcGainLabel">0.34</output><input id="pcGain" aria-label="統制実験の期待調整速度" type="range" min="0.02" max="1" step="0.02" value="0.34"></label><label>変更幅 <output id="pcMagnitudeLabel">4.0pt</output><input id="pcMagnitude" aria-label="統制実験の政策変更幅または供給ショック" type="range" min="0.5" max="8" step="0.5" value="4"></label></div>
+    <div class="pc-playbar"><button id="pcPlay">Ⅱ 停止</button><button id="pcStep">+1期</button><button id="pcReset">↻ 最初へ</button><input type="range" id="pcSeek" min="0" max="96" step="1" value="0" aria-label="統制実験の四半期"><output id="pcTime">Q0 / 96</output></div>
+    <p class="pc-note">本編を停止して、同じマクロ計算関数で統制実験を再生。本編の状態は変更しません。選挙・移転・ランダム攪乱・不確実性コスト・再アンカーを除外。μ=4%、g=2%、u*=5%、a=0.8、κ=0.4（引締めの初期μのみ8%）。Q8に変更。</p>
+   </div>
+   <div class="pc-stats"><div><small>実現インフレ π</small><strong id="pcPi">—</strong></div><div><small>期首の期待 πᵉ</small><strong id="pcExpected">—</strong></div><div><small>金融サプライズ εᴹ</small><strong id="pcSurprise">—</strong></div><div><small>失業率 u / 自然率 uⁿ</small><strong id="pcU">—</strong></div></div>
+   <canvas id="phillipsChart" aria-label="横軸は失業率、縦軸はインフレ率。短期フィリップス曲線と長期曲線、経済の軌跡。">曲線の状態は下の文章と寄与度表でも確認できます。</canvas>
+   <div class="pc-legend"><span><i class="pc-line" style="background:var(--cyan)"></i>現在の短期曲線</span><span><i class="pc-line" style="background:var(--violet)"></i>比較開始時の短期曲線</span><span><i class="pc-line" style="background:var(--gold)"></i>長期曲線</span><span><i class="dot r"></i>実現値の軌跡</span><span><i class="pc-hollow"></i>金融サプライズがない当期</span></div>
+   <p class="pc-equation" id="pcEquation"></p>
+   <p class="pc-diagnosis" id="pcDiagnosis" role="status" aria-live="polite"></p>
+   <p class="pc-note" id="pcConditions"></p>
+   <details class="pc-detail" open><summary>失業率への寄与を分解する <span>マイナスは失業を下げる方向 / 単位 pt</span></summary><div id="pcContributions"></div></details>
+   <div class="pc-timeline"><small>同じ期間のインフレ・期待・失業</small><canvas id="phillipsTimeChart" aria-label="選択中の経済のインフレ、期待インフレ、失業率の時系列"></canvas><div class="chart-legend"><span>π：実現インフレ</span><span>πᵉ：期首の期待</span><span>u：失業率</span></div></div>
+   <div class="pc-foot"><button id="pcCsv">診断データ CSV</button><small>短期曲線は期待と供給条件を固定した条件付きの関係。時系列の全点が同じ線に乗る必要はありません。</small></div>
+  </section>
+
   <div class="flow-panel"><div class="flow-heading">規則派 R の、信念から実装まで</div><div class="flow"><div class="flow-item"><label>人口内の支持</label><strong class="cyan" id="flowBelief">--</strong></div><span class="flow-arrow">›</span><div class="flow-item"><label>直近の得票率</label><strong id="flowVotes">未実施</strong></div><span class="flow-arrow">›</span><div class="flow-item"><label>直近の議席比</label><strong id="flowSeats">未実施</strong></div><span class="flow-arrow">›</span><div class="flow-item"><label>政策の規則性</label><strong id="flowPolicy">100%</strong></div></div><p id="flowNote" class="flow-note">支持率と得票率は同じではない。留保層も投票し、支持者も棄権する。</p></div>
   <div id="counterfactualWarning" class="warning-line" hidden>反実仮想モード：恒常的な貨幣の実質効果を仮定しています。フリードマン型の既定モデルとは異なります。</div>
  </section>
@@ -111,11 +135,11 @@
 投票 → 議席 → 政権 → 政策キュー → 遅れた経済結果
   ↓ 帰属の正確さと貨幣錯覚
 次の学習</div><p>社会学習は近隣ネットワーク上の有限個の接触を使い、意見距離が受容幅以内の相手から学びます。同類選好は結び直す相手の選択に効きます。厳密な Hegselmann–Krause モデルの複製ではなく、限定的信頼の考えを使った独自の確率モデルです。同時更新なので、配列の先頭の人だけ先に賢くなる仕組みにはしていません。検証済み媒体と公開講座は、世界の設定した真値に関する外部信号を与えます。これとは別に、金融拡張が十分大きい期には、産出と予想誤差を使ったノイズの多い経験学習を行います。真の経済構造をデータだけから発見する万能な推論器ではありません。</p>
- <h3>経済モデル：既定はフリードマン型</h3><p>既定では θ = 0。持続的な金融拡張に長期の実質雇用効果は与えず、予想外のインフレだけが一時的な産出ギャップへ作用します。重要なのは、裁量派の短期政治便益も刺激額そのものではなく、この予想外インフレによる一時的産出効果からしか生じないことです。同じ刺激を反復して期待が追いつけば、その「賞味期限」は切れます。規則型政策が続けば規則への信頼が回復し、適応的期待を基準インフレへ再アンカーします。逆にルール逸脱と政策急変は信頼低下と政策不確実性を生みます。これらの係数はすべて画面から0にできる明示的仮定です。</p><div class="equation" id="economicEquations"></div><p>μ は年率の貨幣増加率、g は潜在成長率、L は政策ラグ、π は年率のインフレ率です。景気・供給ショックは平均回帰します。継続的なインフレと単発の供給攪乱を同一視しません。完全予見の期待は、今期の外生ショックだけは事前に知らない設定です。「恒常的実質効果」を正にすると、θ &gt; 0 の反実仮想世界になります。実証的なフリードマン理論への反証を生成する機能ではありません。</p>
- <h3>分配、指標、政治の取り扱い</h3><p>裁量派は追加移転を行い、その全額を比例負担で賄います。利益集団への配分は架空の受給順位で決まり、実在の属性とは関係ありません。規則派も基礎的な移転を行います。歳出・移転の予算はモデル内で一致しますが、国債残高、債務危機、詳細な所得税制はモデル化していません。</p><p>生活指数は「実質可処分所得の幾何平均 × インフレ不安定性と政策不確実性に対する仮定上のペナルティ」を初期値100へ正規化した指標です。現実の厚生を測った値ではありません。所得 Gini は個人の実質可処分所得から計算し、0に近いほど均等、1に近いほど集中します。期待ギャップは |実現インフレ率 − 予想インフレ率| です。「規則への信頼」は基準ルールへの継続的な順守で上昇し、裁量的逸脱で低下する0〜1の状態変数。「裁量の短期利得」は裁量強度 × 予想外インフレによる一時的産出ギャップなので、期待が追いつけば0へ近づき、逆方向のサプライズなら負にもなります。「政策不確実性」は貨幣増加率の急変とルール逸脱変化の移動平均です。二極化度は 4 × P(b &gt; 0.65) × P(b &lt; −0.65) です。</p><p>小選挙区では地理的に固定された9地区の多数決で議席を決定。比例型では議席比を全国得票比と同一とする連続近似です。二党だけなので比例型の政権は得票過半数の党になります。同票はシード付き抽選、投票ゼロの地区は議席を空席とし、全体の投票ゼロでは現政権を維持します。政治家の政策変更は翌期に決定し、さらに設定したラグを経て経済へ作用します。</p>
+ <h3>経済モデル：既定はフリードマン型</h3><p>既定では θ = 0。持続的な金融拡張に長期の実質雇用効果は与えず、供給要因を除いた金融サプライズだけが一時的な産出ギャップを押し上げます。供給危機の実物損失は別項です。重要なのは、裁量派の短期政治便益も刺激額そのものではなく、この金融サプライズによる一時的産出効果からしか生じないことです。同じ刺激を反復して期待が追いつけば、その「賞味期限」は切れます。規則型政策が続けば規則への信頼が回復し、適応的期待を基準インフレへ再アンカーします。逆にルール逸脱と政策急変は信頼低下と政策不確実性を生みます。これらの係数はすべて画面から0にできる明示的仮定です。</p><div class="equation" id="economicEquations"></div><p>μ は年率の貨幣増加率、g は潜在成長率、L は政策ラグ、π は年率のインフレ率です。景気・供給ショックは平均回帰します。継続的なインフレと単発の供給攪乱を同一視しません。予見的期待は既知の適用政策から金融トレンドを正確に予測し、供給攪乱は前期値の0.58倍を予測します。当期の新しい外生攪乱は事前に知りません。固定期待は長期の期待一致を保証しない比較条件です。「恒常的実質効果」を正にすると、θ &gt; 0 の反実仮想世界になります。実証的なフリードマン理論への反証を生成する機能ではありません。</p>
+ <h3>短期・長期フィリップス曲線</h3><p>短期の関係は、期待・供給条件・制度を固定した u = uⁿ − β(π − πᵉ − ν) + その他の寄与です。β=0.55a、νは供給価格の予想誤差。長期では θ=0、期待一致、一時的ショック消失なら u=uⁿ の垂直線になります。uⁿは基礎自然失業率に恒常的レント損失の効果を加えた条件付き自然率で、金融政策とは別の制度条件にも依存します。「インフレが前期より上がれば、必ず失業が前期より下がる」という式ではありません。期待がより速く上昇する場合や供給危機、他の実物損失がある場合は、両者が上がることがあります。</p><p>画面の「短期／長期」から本編の曲線・寄与度を観察できます。統制実験は本編と同じ advanceMacro 関数を使い、政治・分配・ランダム攪乱・不確実性コスト・再アンカーを除外します。曲線は推定回帰ではなく、このモデルの条件付き構造式です。上下限に達した場合は寄与度表で補正を明示します。</p><h3>分配、指標、政治の取り扱い</h3><p>裁量派は追加移転を行い、その全額を比例負担で賄います。利益集団への配分は架空の受給順位で決まり、実在の属性とは関係ありません。規則派も基礎的な移転を行います。歳出・移転の予算はモデル内で一致しますが、国債残高、債務危機、詳細な所得税制はモデル化していません。</p><p>生活指数は「実質可処分所得の幾何平均 × インフレ不安定性と政策不確実性に対する仮定上のペナルティ」を初期値100へ正規化した指標です。現実の厚生を測った値ではありません。所得 Gini は個人の実質可処分所得から計算し、0に近いほど均等、1に近いほど集中します。期待ギャップは |実現インフレ率 − 予想インフレ率| です。「規則への信頼」は基準ルールへの継続的な順守で上昇し、裁量的逸脱で低下する0〜1の状態変数。「裁量の短期利得」は裁量強度 × 金融サプライズによる一時的産出ギャップなので、期待が追いつけば0へ近づき、逆方向のサプライズなら負にもなります。「政策不確実性」は貨幣増加率の急変とルール逸脱変化の移動平均です。二極化度は 4 × P(b &gt; 0.65) × P(b &lt; −0.65) です。</p><p>小選挙区では地理的に固定された9地区の多数決で議席を決定。比例型では議席比を全国得票比と同一とする連続近似です。二党だけなので比例型の政権は得票過半数の党になります。同票はシード付き抽選、投票ゼロの地区は議席を空席とし、全体の投票ゼロでは現政権を維持します。政治家の政策変更は翌期に決定し、さらに設定したラグを経て経済へ作用します。</p>
  <h3>介入は何を変えるのか</h3><p>公開講座は半径170以内の知識量と事実認識を改善。市民対話は同じ範囲の確信度と党派的固着を弱め、6期の間だけ社会全体の受容幅を広げます。透明化は8期にわたり帰属精度を加算。広告は指定党寄りの情報源の露出を6期増やします。供給危機は一時的な価格圧力と実物損失。景気後退は実物ショック。投票支援は6期にわたり両陣営の参加確率を同じ幅で上げます。政策ルールは8期の間、裁量を追加的に制約します。局所介入の半径は地図座標単位です。</p>
- <h3>再現性と限界</h3><p>モデルの乱数と描画の乱数は分離。速度・フレームレート・表示レイヤーは結果を変えません。保存される JSON は初期設定、シード、介入・変更の時点、観測終了時点を記録します。読込時には同じ操作を再実行します。CSV は直近480期の履歴。ブラウザに外部通信・追跡・自動保存はしません。</p><p>A/B は現在の適用済みパラメータを初期条件として新しく開始し、手動の介入を引き継ぎません。同じ組のシードを使い、外生ショックの乱数系列を各条件で共通にします。信念や投票の乱数系列は分岐によりずれることがあります。出力の標準偏差は実行間のばらつきで、現実社会の推定誤差でも因果効果の確信区間でもありません。</p><p>「誤認の自己増幅」「期待の外挿」「格差の累積優位」に加え、「規則信頼」「期待再アンカー」「政策不確実性コスト」「選挙前刺激への警戒」も明示的な動学係数です。現実の自然法則として置いているわけではありません。未較正の係数や関数形に強く依存します。確認バイアスを特定の値にしたら現実が必ず分断される、という主張はできません。初期政権 R、党派を2つに束ねた設計、生活指数の定義自体も仮定です。政党ラベルを勝者の証明に使わず、パラメータを変えた感度と複数試行を比較するための作品です。</p>
- <h3>モデルの出発点となる文献</h3><p><a href="https://www.nobelprize.org/prizes/economic-sciences/1976/friedman/lecture/" target="_blank" rel="noopener noreferrer">Milton Friedman, “Inflation and Unemployment” (1976), Nobel Lecture.</a><br>期待と短期・長期の区別。本文の具体的な係数やゲーム上の作用は、本作品独自の設計です。</p><p><a href="https://www.jasss.org/5/3/2.html" target="_blank" rel="noopener noreferrer">Rainer Hegselmann &amp; Ulrich Krause (2002), “Opinion dynamics and bounded confidence models, analysis and simulation”, JASSS 5(3).</a><br>限定的信頼による意見更新。本作品はこの論文の結果を再現・検証したものではありません。</p>
+ <h3>再現性と限界</h3><p>モデルの乱数と描画の乱数は分離。速度・フレームレート・表示レイヤーは結果を変えません。保存JSONはモデル版v2.0、初期設定、シード、介入・変更の時点、観測終了時点を記録。同じモデル版で操作を再実行します。旧形式は条件の移行として読み込み、旧計算結果と一致しない旨を表示します。CSV は直近480期の履歴。ブラウザに外部通信・追跡・自動保存はしません。</p><p>A/B は現在の適用済みパラメータを初期条件として新しく開始し、手動の介入を引き継ぎません。同じ組のシードを使い、外生ショックの乱数系列を各条件で共通にします。信念や投票の乱数系列は分岐によりずれることがあります。出力の標準偏差は実行間のばらつきで、現実社会の推定誤差でも因果効果の確信区間でもありません。</p><p>「誤認の自己増幅」「期待の外挿」「格差の累積優位」に加え、「規則信頼」「期待再アンカー」「政策不確実性コスト」「選挙前刺激への警戒」も明示的な動学係数です。現実の自然法則として置いているわけではありません。未較正の係数や関数形に強く依存します。確認バイアスを特定の値にしたら現実が必ず分断される、という主張はできません。初期政権 R、党派を2つに束ねた設計、生活指数の定義自体も仮定です。政党ラベルを勝者の証明に使わず、パラメータを変えた感度と複数試行を比較するための作品です。</p>
+ <h3>モデルの出発点となる文献</h3><p><a href="https://www.federalreserve.gov/newsevents/speech/kugler20250220a.htm" target="_blank" rel="noopener noreferrer">Federal Reserve, “Navigating Inflation Waves: A Phillips Curve Perspective” (2025).</a><br>期待を加えたフィリップス曲線と供給条件の区別。今回の分解式・係数・統制実験は独自の縮約モデルです。</p><p><a href="https://www.nobelprize.org/prizes/economic-sciences/1976/friedman/lecture/" target="_blank" rel="noopener noreferrer">Milton Friedman, “Inflation and Unemployment” (1976), Nobel Lecture.</a><br>期待と短期・長期の区別。本文の具体的な係数やゲーム上の作用は、本作品独自の設計です。</p><p><a href="https://www.jasss.org/5/3/2.html" target="_blank" rel="noopener noreferrer">Rainer Hegselmann &amp; Ulrich Krause (2002), “Opinion dynamics and bounded confidence models, analysis and simulation”, JASSS 5(3).</a><br>限定的信頼による意見更新。本作品はこの論文の結果を再現・検証したものではありません。</p>
 </div></section></div>
 <div class="modal-backdrop" id="labModal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="labTitle"><div class="modal-head"><h2 id="labTitle">A/B 比較実験</h2><button data-close="labModal" aria-label="閉じる">×</button></div><div class="modal-body"><p>1つの条件だけ変えて、別の共和国を複数回走らせます。現在の国は停止し、書き換えません。</p><div class="lab-form"><div><label for="labParam">変えるパラメータ</label><select id="labParam"></select></div><div><label for="labA">条件 A <span id="labUnitA"></span></label><input type="number" id="labA"></div><div><label for="labB">条件 B <span id="labUnitB"></span></label><input type="number" id="labB"></div></div><p id="labParamHelp" class="lab-disclaimer"></p><div class="batch-options"><label>観測期間<select id="labHorizon"><option value="40">10年 / 40期</option><option value="80" selected>20年 / 80期</option><option value="160">40年 / 160期</option></select></label><label>各条件の実行数<select id="labRuns"><option value="4">4回</option><option value="8" selected>8回</option><option value="16">16回</option><option value="32">32回</option></select></label><button id="labRun" class="primary">比較を実行</button><button id="labCancel" hidden>中止</button></div><div class="lab-progress" id="labProgress" hidden><p id="labProgressText">計算中</p><div class="progress"><i id="labProgressBar"></i></div></div><div id="labOutput"></div><p class="lab-disclaimer">同一シードの組、共通の外生ショック。表は終了時点の「平均 ± 実行間の標準偏差」です。社会の予測値ではありません。</p></div></section></div>
 <script>
@@ -180,16 +204,17 @@ param('macro','stimulus','裁量的拡張の規模',0,16,.5,6,'pt','裁量派が
 param('macro','reelection','政治家の再選志向',0,1,.01,.82,'%','選挙が近づいたときの追加拡張を強めます。');
 param('macro','binding','制度による裁量制約',0,1,.01,.08,'%','裁量派政権でも、金融・移転政策の追加部分を抑制する強さ。');
 param('macro','policyLag','政策効果の遅れ L',0,16,1,4,'期','政策キューから何期前の政策を取り出すか。0なら同じ期に作用。');
-param('macro','expectationGain','期待の調整速度',.02,1,.02,.34,'','適応的期待が、前期の実現インフレへ近づく速さ。');
+param('macro','expectationGain','期待の調整速度',.02,1,.02,.34,'','前期までの情報から金融トレンドの期待を更新する速度。供給要因の期待は前期ショックの0.58倍。今期の実現値は参照しません。');
 param('macro','expectationExtrapolation','期待の外挿',0,2.5,.05,0,'倍','適応的期待が直近のインフレ加速・減速を先へ外挿する強さ。大きすぎると期待が実現値をオーバーシュートします。');
 param('macro','ruleReanchor','規則による期待再アンカー',0,.5,.01,.12,'','規則への信頼が高く、実際に規則型政策が作用しているとき、期待インフレを基準率へ戻す追加速度。');
 param('macro','credibilityGain','規則信頼の回復速度',0,.5,.01,.1,'','規則を守る政策が続いたとき、社会全体の規則への信頼が回復する速度。');
 param('macro','credibilityLoss','規則破りの信頼損失',0,.8,.01,.28,'','裁量的な貨幣増加が基準ルールから離れるほど、規則への信頼を失う速度。');
 param('macro','policyUncertaintyAversion','政策不確実性の実物コスト',0,2,.05,.35,'','貨幣増加率の急変・ルール逸脱の変化が投資や調整を乱す、明示的で未較正のコスト。0で無効。');
 choice('macro','expectationMode','期待形成','adaptive',[['adaptive','適応的期待'],['forward','予見的期待（外生攪乱は未知）'],['fixed','固定期待（初期水準）']],'固定期待は意図的な比較用。既定は適応的期待。');
-param('macro','phillips','予想外インフレの実質効果',0,2,.05,.8,'','予想誤差1ポイントに対する一時的産出ギャップの係数。');
-param('macro','inflationAdjust','物価の調整速度 κ',.02,.8,.02,.24,'','インフレ率が貨幣増加率から潜在成長率を引いた値へ近づく速さ。');
+param('macro','phillips','金融サプライズの実質効果',0,2,.05,.8,'','金融要因の予想誤差1ptに対する産出効果 a。失業率の感応度は β=0.55a。供給価格ショックは別計算。0ならこの短期効果は無効。');
+param('macro','inflationAdjust','貨幣トレンドの物価調整 κ',.02,.8,.02,.24,'','供給要因を除くインフレが μ−g へ近づく速度。総インフレには一過性の供給価格圧力を別途加算。');
 param('macro','illusion','貨幣錯覚',0,1,.01,.35,'%','家計評価に名目所得の増加を混入し、政策選択のインフレ負担認識を弱めます。');
+param('macro','supplyImpact','供給危機の実物損失',0,2,.05,.8,'','供給価格圧力1ptあたりの産出ギャップ損失。金融サプライズとは別に計算。負の供給ショックでは逆方向。0で実物損失のみ無効。');
 param('macro','supplyVol','供給攪乱の大きさ',0,2,.01,.18,'','価格圧力・実物損失を生む平均回帰ショックの標準偏差係数。');
 param('macro','realVol','景気攪乱の大きさ',0,3,.05,.5,'','貨幣政策とは独立した実物循環ショックの標準偏差係数。');
 param('macro','shockRate','突発危機の確率',0,.2,.005,.025,'','各期に供給危機または景気後退が生じる確率。A/Bでは外生乱数を共有。');
@@ -206,7 +231,8 @@ param('distribution','idioVol','個人所得ショック',0,2,.05,.3,'','昇給�
 const DEFAULTS=Object.fromEntries(PARAMS.map(p=>[p.key,p.value]));
 const P_BY_KEY=Object.fromEntries(PARAMS.map(p=>[p.key,p]));
 const ownParameter=key=>Object.prototype.hasOwnProperty.call(P_BY_KEY,key)?P_BY_KEY[key]:null;
-const validNumber=(p,v)=>Number.isFinite(v)&&v>=p.min-1e-8&&v<=p.max+1e-8&&Math.abs((v-p.min)/p.step-Math.round((v-p.min)/p.step))<1e-6;
+// step はUIの操作刻み。旧プリセットに含まれる範囲内の中間値も再現できるように受理する。
+const validNumber=(p,v)=>Number.isFinite(v)&&v>=p.min-1e-8&&v<=p.max+1e-8;
 const SCENARIOS=[
  {id:'baseline',name:'均衡の共和国',note:'二つの陣営、まだ開かれた社会。小さな介入が未来を変える。',p:{}},
  {id:'rulewins',name:'規則派優勢：長期評価社会',note:'長期効果を重く見て、政策帰属も比較的正確。規則派 R が選挙で優勢になりやすい。',p:{initialR:.68,initialPolar:.55,initialKnowledge:.72,initialAccuracy:.82,initialConfidence:.42,expertShare:.1,learning:.25,confirmation:.18,confidenceBound:1.6,conformity:.46,ignorance:.12,experience:.62,attribution:.92,exposure:.84,trust:.74,verified:.9,mediaTilt:0,homophily:.28,econWeight:.9,partisanship:.2,selfInterest:.3,shortTerm:.12,turnout:.78,votingCost:.08,mobilizeR:.04,mobilizeD:0,charisma:0,electoralSystem:'proportional',reelection:.9,binding:.12,expectationGain:.55,illusion:.08,inflationAversion:1.2,fiscalIllusion:.15}},
@@ -235,8 +261,8 @@ const CARD_DEFS=[
  {id:'dialogue',name:'市民対話',icon:'⌘',cost:25,local:true,sub:'地図に置く / 橋渡し',help:'地図をクリック。近隣の確信度・党派固着を弱め、6期だけ社会の異論受容幅を拡大。'},
  {id:'audit',name:'透明な会計',icon:'▤',cost:35,sub:'8期 / 政策の帰属',help:'8期の間、政策帰属の正確さを45ポイント加算します。'},
  {id:'advert',name:'広告の波',icon:'◉',cost:30,sub:'6期 / 選択した陣営',help:'指定陣営の情報源の露出を6期増やします。対象は下の陣営選択で変更。'},
- {id:'supply',name:'供給危機',icon:'ϟ',cost:20,sub:'一時的な価格攪乱',help:'供給ショックへ+2.6。物価と産出へ作用し、平均回帰で減衰します。'},
- {id:'recession',name:'景気後退',icon:'↘',cost:20,sub:'一時的な実物損失',help:'実物循環ショックへ−4。政治的な責任の認識は別に決まります。'},
+ {id:'supply',name:'供給危機',icon:'ϟ',cost:20,sub:'一時的な価格攪乱',help:'次の期の供給ショックへ+2.6。金融刺激と区別して物価と産出へ作用し、平均回帰します。'},
+ {id:'recession',name:'景気後退',icon:'↘',cost:20,sub:'一時的な実物損失',help:'次の期の実物循環ショックへ−4。政治的な責任の認識は別に決まります。'},
  {id:'turnout',name:'投票支援',icon:'✓',cost:25,sub:'6期 / 両陣営へ同じ支援',help:'6期の間、全員の投票参加確率を18ポイント加算。'},
  {id:'charter',name:'政策ルール',icon:'≋',cost:40,sub:'8期 / 裁量の制約',help:'8期の間、政策の裁量制約を65ポイント加算します。'}
 ];
@@ -273,6 +299,92 @@ function makeSites(n){
  a.forEach((s,i)=>{let best=Infinity;let d=0;DISTRICTS.forEach((c,j)=>{const dist=(s.x-c.x)**2+(s.y-c.y)**2;if(dist<best){best=dist;d=j;}});s.d=d;s.i=i;});
  siteCache.set(n,a);return a;
 }
+// 同じ計算を本編と統制実験で共有する。描画や政党評価には依存しない。
+const MODEL_VERSION='2.0-phillips';
+const OKUN=0.55, SUPPLY_PERSISTENCE=0.58;
+const MACRO_METRICS=['inflationCore','expectedCore','expectedSupply','supplyPriceShock','supplyPriceSurprise','monetarySurprise','totalSurprise','inflationDelta','expectedDelta','monetarySurpriseDelta','unemploymentDelta','naturalUBase','effectiveNaturalU','beta','lrTheta','ruleMoney','potentialGrowth','curveInterceptU','uMonetary','uLongRun','uReal','uSupply','uStructural','uUncertainty','uBounds','uMonetaryDelta','uOtherDelta','rawGap'];
+function macroMetrics(state){return Object.fromEntries(MACRO_METRICS.map(k=>[k,state[k]]));}
+function advanceMacro(before,p,policy,shocks){
+ const appliedDiscretion=clamp(1-policy.rule),deltaMu=policy.mu-p.moneyRule;
+ const policyDeviation=Math.abs(deltaMu),policyMove=Math.abs(policy.mu-before.prevAppliedMu),scale=Math.max(1,p.stimulus);
+ // 実際に基準貨幣ルールを守った場合だけ信頼を回復させる。
+ const ruleAdherence=Math.abs(deltaMu)<1e-9?policy.rule:0;
+ const gain=ruleAdherence*p.credibilityGain*(1-before.policyCredibility);
+ const loss=appliedDiscretion*p.credibilityLoss*clamp(policyDeviation/scale)*(.35+.65*clamp(policyMove/scale));
+ const policyCredibility=clamp(before.policyCredibility+gain-loss);
+ const policyUncertainty=.82*before.policyUncertainty+.18*(policyMove+.5*Math.abs(policyDeviation-before.policyDeviation));
+ // 当期の実現物価や外生イノベーションを見てから期待を書き換えない。
+ // forward のみ、既知の当期適用政策から予測する完全情報の比較条件。
+ const corePrediction=clamp(before.inflationCore+p.inflationAdjust*(policy.mu-p.growth-before.inflationCore),-12,45);
+ let expectedCore;
+ if(p.expectationMode==='forward')expectedCore=corePrediction;
+ else if(p.expectationMode==='fixed')expectedCore=before.initialInflation;
+ else{
+  const extrapolation=p.expectationExtrapolation*(before.inflationCore-before.prevInflationCore);
+  const learned=before.expectedCore+p.expectationGain*(before.inflationCore-before.expectedCore)+extrapolation;
+  // 凸結合なので、学習率＋再アンカー係数だけで期待が発散することはない。
+  expectedCore=lerp(learned,p.moneyRule-p.growth,clamp(p.ruleReanchor*before.policyCredibility*ruleAdherence));
+ }
+ expectedCore=clamp(expectedCore,-20,55);
+ const supplyForecast=p.expectationMode==='fixed'?0:SUPPLY_PERSISTENCE*before.supplyShock;
+ const expected=clamp(expectedCore+supplyForecast,-20,55),expectedSupply=expected-expectedCore;
+ // 一過性の供給価格圧力を恒常的な貨幣トレンドへ混入させない。
+ const inflationCore=corePrediction,inflation=clamp(inflationCore+shocks.supply,-12,45);
+ const supplyPriceShock=inflation-inflationCore,supplyPriceSurprise=supplyPriceShock-expectedSupply;
+ const monetarySurprise=inflationCore-expectedCore,totalSurprise=inflation-expected;
+ const rentWedge=p.lobby*Math.max(0,policy.fiscal-2)*.12;
+ const uncertaintyWedge=p.policyUncertaintyAversion*.18*policyUncertainty;
+ const gMonetary=p.phillips*monetarySurprise,gLong=.8*p.longReal*deltaMu;
+ const gReal=shocks.business,gSupply=-p.supplyImpact*shocks.supply;
+ const rawGap=gMonetary+gLong+gReal+gSupply-rentWedge-uncertaintyWedge;
+ const gap=clamp(rawGap,-20,20),unemployment=clamp(p.naturalU-OKUN*gap,.2,30);
+ const uMonetary=-OKUN*gMonetary,uLongRun=-OKUN*gLong,uReal=-OKUN*gReal;
+ const uSupply=-OKUN*gSupply,uStructural=OKUN*rentWedge,uUncertainty=OKUN*uncertaintyWedge;
+ const effectiveNaturalU=p.naturalU+uStructural;
+ const curveInterceptU=effectiveNaturalU+uLongRun+uReal+uSupply+uUncertainty;
+ // 安全上の上下限が作用した場合も寄与度の和を実際の表示に一致させる。
+ const uBounds=unemployment-(curveInterceptU+uMonetary);
+ const dIntensity=appliedDiscretion*clamp(Math.max(0,deltaMu)/Math.max(1,p.stimulus));
+ return {inflation,expected,inflationCore,expectedCore,expectedSupply,prevInflation:before.inflation,prevInflationCore:before.inflationCore,
+  initialInflation:before.initialInflation,supplyShock:shocks.supply,businessShock:shocks.business,
+  supplyPriceShock,supplyPriceSurprise,monetarySurprise,totalSurprise,
+  inflationDelta:inflation-before.inflation,expectedDelta:expected-before.expected,
+  monetarySurpriseDelta:monetarySurprise-(before.monetarySurprise||0),unemploymentDelta:unemployment-before.unemployment,
+  unemployment,gap,rawGap,naturalUBase:p.naturalU,effectiveNaturalU,beta:OKUN*p.phillips,lrTheta:p.longReal,ruleMoney:p.moneyRule,potentialGrowth:p.growth,
+  curveInterceptU,uMonetary,uLongRun,uReal,uSupply,uStructural,uUncertainty,uBounds,
+  uMonetaryDelta:uMonetary-(before.uMonetary||0),uOtherDelta:unemployment-before.unemployment-(uMonetary-(before.uMonetary||0)),
+  policyCredibility,policyUncertainty,policyDeviation,prevAppliedMu:policy.mu,
+  appliedDiscretion,deltaMu,dIntensity,discretionDividend:dIntensity*gMonetary,electionOpportunism:policy.opportunism||0};
+}
+function initialMacro(p){
+ const inflation=p.moneyRule-p.growth;
+ const before={inflation,expected:inflation,inflationCore:inflation,expectedCore:inflation,prevInflationCore:inflation,initialInflation:inflation,
+  unemployment:p.naturalU,monetarySurprise:0,uMonetary:0,supplyShock:0,businessShock:0,
+  policyCredibility:.78,policyUncertainty:0,policyDeviation:0,prevAppliedMu:p.moneyRule};
+ const state=advanceMacro(before,p,{mu:p.moneyRule,fiscal:2+2*p.lobby,rule:1,opportunism:0},{supply:0,business:0});
+ return {...state,policyCredibility:.78,inflationDelta:0,expectedDelta:0,monetarySurpriseDelta:0,unemploymentDelta:0,uMonetaryDelta:0,uOtherDelta:0};
+}
+const PC_EXPERIMENTS={
+ expansion:{name:'金融拡張：短期 → 長期',note:'Q8に貨幣増加率を恒久的に引き上げる。予想外インフレで失業が一時低下し、期待調整で自然率へ戻る。'},
+ anticipated:{name:'予見された金融拡張',note:'適用政策を完全に知る予見的期待。物価は上がっても金融サプライズはゼロ。一般的な合理的期待モデル全体ではなく、本モデルの完全情報条件。'},
+ disinflation:{name:'引締め：期待の調整コスト',note:'Q8に貨幣増加率を恒久的に引き下げる。実現インフレが期待を下回り、失業は一時上昇する。'},
+ supply:{name:'供給危機：物価と失業の同時上昇',note:'Q8に一回だけ供給危機。貨幣増加率は不変。短期曲線そのものが移動し、価格圧力と実物損失は平均回帰する。'}
+};
+function buildPhillipsExperiment(mode='expansion',gain=.34,magnitude=4){
+ if(!PC_EXPERIMENTS[mode]||!Number.isFinite(gain)||gain<.02||gain>1||!Number.isFinite(magnitude)||magnitude<.5||magnitude>8)throw new Error('フィリップス実験の条件が不正です。');
+ const p={...DEFAULTS,moneyRule:mode==='disinflation'?8:4,growth:2,naturalU:5,phillips:.8,inflationAdjust:.4,expectationGain:gain,
+  expectationMode:mode==='anticipated'?'forward':'adaptive',expectationExtrapolation:0,ruleReanchor:0,policyUncertaintyAversion:0,
+  lobby:0,transfer:0,supplyImpact:.8,stimulus:magnitude,longReal:0,policyLag:0,supplyVol:0,realVol:0,shockRate:0};
+ let state=initialMacro(p);const history=[{...state,t:0}];
+ for(let t=1;t<=96;t++){
+  const change=mode==='supply'?0:t>=8?(mode==='disinflation'?-magnitude:magnitude):0;
+  const policy={mu:p.moneyRule+change,fiscal:2,rule:t>=8&&mode!=='supply'?0:1,opportunism:0};
+  const supply=SUPPLY_PERSISTENCE*state.supplyShock+(mode==='supply'&&t===8?magnitude:0);
+  state=advanceMacro(state,p,policy,{supply,business:0});history.push({...state,t,money:policy.mu});
+ }
+ return {p,history,mode,gain,magnitude};
+}
+
 class Republic{
  constructor(parameters=DEFAULTS,seed='REPUBLIC-42'){
   this.p={...DEFAULTS,...parameters};this.seed=String(seed);this.initialParams={...this.p};
@@ -280,10 +392,11 @@ class Republic{
   this.t=0;this.government=1;this.lastElectionAt=0;this.nextElection=this.p.electionPeriod;this.elections=0;
   this.inflation=this.p.moneyRule-this.p.growth;this.expected=this.inflation;this.initialInflation=this.inflation;this.prevInflation=this.inflation;
   this.unemployment=this.p.naturalU;this.gap=0;this.potential=1;this.realIndex=100;this.welfare=100;
-  this.supplyShock=0;this.businessShock=0;this.budget=100;this.effects=[];this.events=[];this.pending=[];this.actions=[];
+  this.supplyShock=0;this.businessShock=0;this.pendingSupply=0;this.pendingBusiness=0;this.budget=100;this.effects=[];this.events=[];this.pending=[];this.actions=[];
   this.unlocked=[];this.lightStreak=0;this.bridgeStreak=0;this.history=[];this.lastElection=null;this.crisisFlags=new Set();
   this.policyQueue=[];this.currentPolicy={mu:this.p.moneyRule,fiscal:2+2*this.p.lobby,rule:1,gov:1,opportunism:0,t:0};this.appliedPolicy={...this.currentPolicy};
   this.policyCredibility=.78;this.policyUncertainty=0;this.policyDeviation=0;this.prevAppliedMu=this.p.moneyRule;this.discretionDividend=0;this.electionOpportunism=0;
+  Object.assign(this,initialMacro(this.p));this.realIndex=100*(1+this.gap/100);
   this.sites=makeSites(this.p.population);this.districts=DISTRICTS.map(d=>({...d,ids:[],r:0,d:0,n:0,winner:0}));
   this.agents=[];
   const benefitOrder=Array.from({length:this.p.population},(_,i)=>i);
@@ -347,8 +460,8 @@ class Republic{
    if(id==='dialogue')this.addEffect('openness',.7,6,'市民対話');
   }else if(id==='audit')this.addEffect('attribution',.45,8,'透明な会計');
   else if(id==='advert')this.addEffect('advert',side*.9,6,side>0?'R 広告':'D 広告');
-  else if(id==='supply')this.supplyShock+=2.6;
-  else if(id==='recession')this.businessShock-=4;
+  else if(id==='supply')this.pendingSupply+=2.6;
+  else if(id==='recession')this.pendingBusiness-=4;
   else if(id==='turnout')this.addEffect('turnout',.18,6,'投票支援');
   else if(id==='charter')this.addEffect('binding',.65,8,'政策ルール');
   if(record)this.actions.push({t:this.t,type:'card',id,x,y,side,unlimited});
@@ -387,12 +500,13 @@ class Republic{
   if(this.initialGeom)this.welfare=100*this.geomIncome/this.initialGeom*Math.exp(-.0018*p.inflationAversion*(this.inflation-anchor)**2-.0012*p.policyUncertaintyAversion*this.policyUncertainty**2);
  }
  step(){
+  const beforeMacro={...this};
   this.t++;const p=this.p,r=this.rng;
   this.effects=this.effects.filter(e=>e.until>=this.t);this.budget=Math.min(100,this.budget+3);
   // Fixed-consumption exogenous stream: paired experiments receive the same innovations.
   const supplyInnovation=this.env.normal(),businessInnovation=this.env.normal(),eventDraw=this.env.next(),eventKind=this.env.next();
-  this.supplyShock=.58*this.supplyShock+p.supplyVol*supplyInnovation;
-  this.businessShock=.72*this.businessShock+p.realVol*businessInnovation;
+  this.supplyShock=SUPPLY_PERSISTENCE*this.supplyShock+p.supplyVol*supplyInnovation+this.pendingSupply;this.pendingSupply=0;
+  this.businessShock=.72*this.businessShock+p.realVol*businessInnovation+this.pendingBusiness;this.pendingBusiness=0;
   if(eventDraw<p.shockRate){if(eventKind<.5){this.supplyShock+=2.1;this.log('突発的な供給危機。価格圧力と実物損失が発生。','shock');}else{this.businessShock-=3.3;this.log('外生的な景気後退。政策以外の要因が経済を揺らす。','shock');}}
   const phase=clamp((this.t-this.lastElectionAt)/Math.max(1,this.nextElection-this.lastElectionAt));
   const binding=clamp(p.binding+this.effect('binding'));
@@ -402,30 +516,8 @@ class Republic{
   this.policyQueue.push({...this.currentPolicy});if(this.policyQueue.length>40)this.policyQueue.shift();
   const target=this.t-p.policyLag;
   this.appliedPolicy=this.policyQueue.find(q=>q.t===target)||{mu:this.initialParams.moneyRule,fiscal:2+2*this.initialParams.lobby,rule:1,gov:1,opportunism:0,t:0};
-  const appliedDiscretion=clamp(1-this.appliedPolicy.rule),deviationScale=Math.max(1,p.stimulus);
-  const policyDeviation=Math.abs(this.appliedPolicy.mu-p.moneyRule),policyMove=Math.abs(this.appliedPolicy.mu-this.prevAppliedMu);
-  const credibilityGain=this.appliedPolicy.rule*p.credibilityGain*(1-this.policyCredibility);
-  const credibilityLoss=appliedDiscretion*p.credibilityLoss*clamp(policyDeviation/deviationScale)*( .35+.65*clamp(policyMove/deviationScale) );
-  this.policyCredibility=clamp(this.policyCredibility+credibilityGain-credibilityLoss);
-  this.policyUncertainty=.82*this.policyUncertainty+.18*(policyMove+.5*Math.abs(policyDeviation-this.policyDeviation));
-  this.policyDeviation=policyDeviation;this.prevAppliedMu=this.appliedPolicy.mu;this.electionOpportunism=this.appliedPolicy.opportunism||0;
-  const laggedInflation=this.inflation,inflationMomentum=this.inflation-this.prevInflation;
-  const noShockPrediction=this.inflation+p.inflationAdjust*(this.appliedPolicy.mu-p.growth-this.inflation);
-  if(p.expectationMode==='forward')this.expected=noShockPrediction;
-  else if(p.expectationMode==='fixed')this.expected=this.initialInflation;
-  else{
-   const anchor=p.moneyRule-p.growth,reanchor=p.ruleReanchor*this.policyCredibility*this.appliedPolicy.rule;
-   this.expected+=p.expectationGain*(this.inflation-this.expected)+p.expectationExtrapolation*inflationMomentum+reanchor*(anchor-this.expected);
-  }
-  this.expected=clamp(this.expected,-20,55);
-  this.inflation=clamp(noShockPrediction+this.supplyShock,-12,45);this.prevInflation=laggedInflation;
-  const surprise=this.inflation-this.expected;
-  const deltaMu=this.appliedPolicy.mu-p.moneyRule,dIntensity=appliedDiscretion*clamp(Math.max(0,deltaMu)/Math.max(1,p.stimulus));
-  this.discretionDividend=dIntensity*p.phillips*surprise;
-  const rentWedge=p.lobby*Math.max(0,this.appliedPolicy.fiscal-2)*.12;
-  const uncertaintyWedge=p.policyUncertaintyAversion*.18*this.policyUncertainty;
-  this.gap=clamp(.8*p.longReal*deltaMu+p.phillips*surprise+this.businessShock-.8*Math.max(this.supplyShock,0)-rentWedge-uncertaintyWedge,-20,20);
-  this.unemployment=clamp(p.naturalU-.55*this.gap,.2,30);
+  Object.assign(this,advanceMacro(beforeMacro,p,this.appliedPolicy,{supply:this.supplyShock,business:this.businessShock}));
+  const appliedDiscretion=this.appliedDiscretion,dIntensity=this.dIntensity,deltaMu=this.deltaMu,surprise=this.monetarySurprise;
   this.potential*=Math.pow(1+p.growth/100,.25);
   this.realIndex=100*this.potential*(1+this.gap/100);
   this.updateIncome(true);
@@ -455,7 +547,8 @@ class Republic{
    const socialTrustZ=Math.exp(-p.confirmation*Math.abs(socialZ-a.z)*3);
    let zMove=.55*contact*p.trust*trustZ*(mediaZ-a.z)+.3*p.conformity*socialTrustZ*(socialZ-a.z);
    if(Math.abs(deltaMu)>1){
-    const empirical=clamp((this.gap-a.k*p.phillips*surprise+r.normal()*.8)/(.8*deltaMu),-1,1);
+    const identifiedTransient=-(this.uMonetary+this.uSupply+this.uReal+this.uStructural+this.uUncertainty)/OKUN;
+    const empirical=clamp((this.gap-a.k*identifiedTransient+r.normal()*.8)/(.8*deltaMu),-1,1);
     zMove+=.12*p.experience*a.k*attribution*Math.exp(-p.confirmation*Math.abs(empirical-a.z)*3)*(empirical-a.z);
    }
    const adapt=p.learning*(1-.75*a.c);
@@ -552,7 +645,7 @@ class Republic{
   const e=this.lastElection;
   if(e&&e.t===this.t&&e.voteR!==null&&(Math.abs(e.voteR-s.r)>=.15||(e.voteR>.5&&e.government<0)||(e.voteR<.5&&e.government>0)))this.unlock('twist');
  }
- snapshotMetrics(){return{t:this.t,...this.stats,inflation:this.inflation,expected:this.expected,expectationGap:Math.abs(this.inflation-this.expected),unemployment:this.unemployment,welfare:this.welfare,realIndex:this.realIndex,government:this.government,money:this.currentPolicy.mu,appliedMoney:this.appliedPolicy.mu,rule:this.currentPolicy.rule,policyCredibility:this.policyCredibility,policyUncertainty:this.policyUncertainty,discretionDividend:this.discretionDividend,electionOpportunism:this.electionOpportunism,turnout:this.lastElection?.turnout??null,voteR:this.lastElection?.voteR??null,seatR:this.lastElection?.seatR??null,election:!!this.lastElection&&this.lastElection.t===this.t};}
+ snapshotMetrics(){return{t:this.t,...this.stats,...macroMetrics(this),inflation:this.inflation,expected:this.expected,expectationGap:Math.abs(this.inflation-this.expected),unemployment:this.unemployment,welfare:this.welfare,realIndex:this.realIndex,government:this.government,money:this.currentPolicy.mu,appliedMoney:this.appliedPolicy.mu,rule:this.currentPolicy.rule,policyCredibility:this.policyCredibility,policyUncertainty:this.policyUncertainty,discretionDividend:this.discretionDividend,electionOpportunism:this.electionOpportunism,turnout:this.lastElection?.turnout??null,voteR:this.lastElection?.voteR??null,seatR:this.lastElection?.seatR??null,election:!!this.lastElection&&this.lastElection.t===this.t};}
  record(){this.history.push(this.snapshotMetrics());if(this.history.length>480)this.history.shift();}
 }
 const RGB={r:[88,226,196],d:[255,137,126],n:[221,201,151],violet:[164,149,232],muted:[104,129,146]};
@@ -679,12 +772,136 @@ function drawChart(canvas,history,series,percent=false){
  });
  c.fillStyle='#8c9faf';c.textAlign='left';c.fillText('Y'+(1+Math.floor((data[0]?.t||0)/4)),left,h-4);c.textAlign='right';c.fillText('Y'+(1+Math.floor((data[data.length-1]?.t||0)/4)),w-right,h-4);
 }
+let pcExperiment=null,pcCursor=0,pcPlaying=false,pcAccumulator=0,pcLastDraw=0,pcResume=false;
+function pcData(){
+ if(pcExperiment){const history=pcExperiment.history.slice(0,pcCursor+1);return {state:history[history.length-1],history,p:pcExperiment.p,mode:pcExperiment.mode};}
+ return {state:sim.history[sim.history.length-1],history:sim.history,p:sim.p,mode:'live'};
+}
+const signed=(v,d=2)=>{const n=Math.abs(v)<.5*10**(-d)?0:v;return(n>=0?'+':'')+fmt(n,d);};
+function setupPhillips(){
+ $('phillipsJump').addEventListener('click',()=>$('phillipsPanel').scrollIntoView({behavior:reducedMotion?'auto':'smooth',block:'start'}));
+ $('pcMode').addEventListener('change',()=>selectPhillips($('pcMode').value));
+ $('pcStartDemo').addEventListener('click',()=>{$('pcMode').value='expansion';selectPhillips('expansion');});
+ $('pcPlay').addEventListener('click',()=>{if(pcCursor>=96)pcCursor=0;pcPlaying=!pcPlaying;pcAccumulator=0;renderPhillips();});
+ $('pcStep').addEventListener('click',()=>{pcPlaying=false;pcCursor=Math.min(96,pcCursor+1);renderPhillips();});
+ $('pcReset').addEventListener('click',()=>{pcCursor=0;pcAccumulator=0;pcPlaying=false;renderPhillips();});
+ $('pcSeek').addEventListener('input',()=>{pcPlaying=false;pcCursor=Number($('pcSeek').value);pcAccumulator=0;renderPhillips();});
+ for(const id of ['pcGain','pcMagnitude'])$(id).addEventListener('input',()=>{if(pcExperiment)selectPhillips(pcExperiment.mode);});
+ $('pcCsv').addEventListener('click',exportPhillipsCSV);
+}
+function selectPhillips(mode){
+ if(mode==='live'){
+  pcExperiment=null;pcPlaying=false;setRunning(pcResume);$('pcExperimentControls').hidden=true;$('pcStartDemo').hidden=false;
+ }else{
+  if(!pcExperiment)pcResume=running;setRunning(false);
+  pcExperiment=buildPhillipsExperiment(mode,Number($('pcGain').value),Number($('pcMagnitude').value));pcCursor=0;pcAccumulator=0;pcPlaying=true;
+  $('pcExperimentControls').hidden=false;$('pcStartDemo').hidden=true;$('pcGain').disabled=mode==='anticipated';
+ }
+ renderPhillips();
+}
+function renderPhillips(){
+ if(!sim||!$('phillipsChart'))return;
+ const {state:s,history,p,mode}=pcData(),prev=history.length>1?history[history.length-2]:s;
+ $('pcGainLabel').textContent=fmt(Number($('pcGain').value),2);$('pcMagnitudeLabel').textContent=fmt(Number($('pcMagnitude').value))+'pt';
+ $('pcPlay').textContent=pcPlaying?'Ⅱ 停止':pcCursor>=96?'▶ もう一度':'▶ 再生';$('pcTime').textContent='Q'+pcCursor+' / 96';$('pcSeek').value=pcCursor;
+ $('pcPi').textContent=fmt(s.inflation,2)+'%';$('pcExpected').textContent=fmt(s.expected,2)+'%';$('pcSurprise').textContent=signed(s.monetarySurprise)+'pt';$('pcU').textContent=fmt(s.unemployment,2)+' / '+fmt(s.effectiveNaturalU,2)+'%';
+ let phase='本編 Q'+s.t;
+ if(mode!=='live')phase=s.t<8?'A / 変更前':s.t===8?'B / 政策・ショック発生':Math.abs(s.monetarySurprise)<.01&&Math.abs(s.uSupply)<.01?'C / 長期へ収束':'期待・供給条件が調整中';
+ $('pcPhase').textContent=phase;
+ $('pcEquation').textContent=s.beta>1e-10?'u = uⁿ − '+fmt(s.beta,3)+' × (π − πᵉ − ν) + その他の寄与　｜　ν = 供給価格の予想誤差':'a = 0：金融サプライズの失業効果は無効。通常の右下がり短期曲線は描けません。';
+ const monetary=s.uMonetaryDelta,other=s.uOtherDelta;
+ let reason;
+ if(s.t===0)reason='初期均衡。統制実験ではQ8に政策または供給条件を変更します。白い輪は、他の条件を固定して金融サプライズだけをゼロにした当期の位置です。';
+ else{
+  reason='前期比：インフレ '+signed(s.inflationDelta)+'pt、失業率 '+signed(s.unemploymentDelta)+'pt。';
+  if(s.inflationDelta>.005&&s.unemploymentDelta>=-.005){
+   if(Math.abs(s.uSupply-(prev.uSupply||0))>.02)reason+=' 供給条件が変化しています。物価上昇を金融緩和の景気押上げと取り違えないでください。';
+   else if(s.monetarySurpriseDelta<=.005)reason+=' 物価は上がっても金融サプライズは増えていません。期待が追いつくため、短期の失業低下は縮小します。';
+   else reason+=' 金融サプライズは失業を下げる方向ですが、他の要因が相殺しています。';
+  }else if(s.monetarySurprise>0.01)reason+=' 期首の期待を上回る金融要因が、当期の失業を自然率より下げる方向に作用。';
+  else if(s.monetarySurprise<-.01)reason+=' 金融要因のインフレが期待を下回り、当期の失業を押し上げる方向に作用。';
+  else reason+=' 金融サプライズはほぼゼロ。予見できるインフレそのものには短期の雇用ボーナスを付けません。';
+  reason+=' 前期比の内訳：金融 '+signed(monetary)+'pt、その他 '+signed(other)+'pt。';
+ }
+ $('pcDiagnosis').textContent=reason;
+ let condition='長期曲線は、θ=0・期待と実現が一致・一時的ショック消失・制度固定という条件で u=uⁿ の垂直線。uⁿ は基礎自然率＋恒常的なレント損失による補正です。';
+ if(p.longReal!==0)condition='反実仮想 θ≠0：恒常的な実質効果を仮定しているため、金色線も傾きます。フリードマン型の垂直な長期曲線とは別の条件です。';
+ if(p.expectationMode==='fixed')condition+=' 固定期待では期待が追いつかないため、この長期均衡へ自動収束しません。';
+ if(Math.abs(s.uBounds)>1e-7)condition+=' 現在は数値安全上限が作用中。実現点は線形曲線から外れます。表の「上下限補正」に差を表示。';
+ if(mode!=='live')condition=PC_EXPERIMENTS[mode].note+' '+condition;
+ $('pcConditions').textContent=condition;
+ const factors=[['naturalUBase','基礎自然率'],['uMonetary','金融サプライズ'],['uSupply','供給の実物損失'],['uReal','実物景気ショック'],['uStructural','制度・レント'],['uUncertainty','政策不確実性'],['uLongRun','θ の恒常効果'],['uBounds','上下限補正']];
+ const max=Math.max(.25,...factors.filter(x=>x[0]!=='naturalUBase').map(([k])=>Math.abs(s[k])));
+ $('pcContributions').innerHTML='<div class="pc-contribution header"><span>要因</span><span>低下 ← → 上昇</span><b>水準への寄与</b><b>前期比</b></div>'+factors.map(([k,label])=>{
+  const v=s[k],diff=v-prev[k],negative=v<0,width=k==='naturalUBase'?0:Math.abs(v)/max*50;
+  return `<div class="pc-contribution"><span>${label}</span><span class="pc-bar"><i class="${negative?'negative':''}" style="width:${width}%;left:${negative?50-width:50}%"></i></span><b class="${k==='naturalUBase'?'':negative?'pc-negative':'pc-positive'}">${k==='naturalUBase'?fmt(v,2):signed(v)}</b><b>${signed(diff)}</b></div>`;
+ }).join('')+`<div class="pc-contribution"><strong>合計：実際の失業率</strong><span></span><b>${fmt(s.unemployment,2)}%</b><b>${signed(s.unemploymentDelta)}</b></div>`;
+ drawPhillipsChart(s,history,performance.now());
+ drawChart($('phillipsTimeChart'),history,[{key:'inflation',color:'#ff897e'},{key:'expected',color:'#b2a1f2',dash:true},{key:'unemployment',color:'#ebca82'}]);
+}
+function drawPhillipsChart(s,history,now){
+ const canvas=$('phillipsChart'),rect=canvas.getBoundingClientRect();if(rect.width<10)return;
+ const w=rect.width,h=rect.height,dpr=Math.min(devicePixelRatio||1,2);
+ if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
+ const c=canvas.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
+ const data=history.slice(-97),first=data[0],L=49,R=17,T=27,B=39,pw=w-L-R,ph=h-T-B;
+ // 統制実験は軸を固定。本編は直近の範囲。原点・自然率・白輪を必ず含める。
+ const all=pcExperiment?pcExperiment.history:data;
+ let xmin=Math.max(0,Math.floor(Math.min(s.effectiveNaturalU-2,...all.map(x=>Math.min(x.unemployment,x.curveInterceptU)))-.5));
+ let xmax=Math.ceil(Math.max(s.effectiveNaturalU+2,...all.map(x=>Math.max(x.unemployment,x.curveInterceptU)))+.5);
+ let ymin=Math.floor(Math.min(0,...all.map(x=>Math.min(x.inflation,x.expected))) -1);
+ let ymax=Math.ceil(Math.max(8,...all.map(x=>Math.max(x.inflation,x.expected)))+1);
+ if(xmax-xmin<4)xmax=xmin+4;
+ const X=x=>L+(x-xmin)/(xmax-xmin)*pw,Y=y=>T+(ymax-y)/(ymax-ymin)*ph;
+ c.font='10px system-ui';c.lineWidth=1;
+ for(let j=0;j<=4;j++){
+  const v=xmin+(xmax-xmin)*j/4,x=X(v);c.strokeStyle='#243747';c.setLineDash([2,4]);c.beginPath();c.moveTo(x,T);c.lineTo(x,T+ph);c.stroke();c.textAlign='center';c.fillStyle='#9bb1bc';c.fillText(fmt(v,1),x,T+ph+17);
+  const q=ymin+(ymax-ymin)*j/4,y=Y(q);c.beginPath();c.moveTo(L,y);c.lineTo(w-R,y);c.stroke();c.textAlign='right';c.fillText(fmt(q,1),L-8,y+3);
+ }
+ c.setLineDash([]);c.fillStyle='#a9c4cc';c.textAlign='left';c.fillText('インフレ率 π / 年率 %',L,14);c.textAlign='right';c.fillText('失業率 u / %',w-R,h-4);
+ c.save();c.beginPath();c.rect(L,T,pw,ph);c.clip();
+ function shortCurve(state,color,dash,width){
+  if(state.beta<1e-10)return;
+  const value=u=>state.expected+state.supplyPriceSurprise+(state.curveInterceptU-u)/state.beta;
+  c.strokeStyle=color;c.lineWidth=width;c.setLineDash(dash);c.beginPath();c.moveTo(X(xmin),Y(value(xmin)));c.lineTo(X(xmax),Y(value(xmax)));c.stroke();c.setLineDash([]);
+ }
+ shortCurve(first,'#b2a1f288',[5,6],1.4);shortCurve(s,'#58e2c4',[],2);
+ // θ ≠ 0 のときは垂直線を偽装せず、同じ経済式の定常軌跡を描く。
+ const lrU=pi=>s.effectiveNaturalU-OKUN*.8*s.lrTheta*(pi+s.potentialGrowth-s.ruleMoney);
+ c.strokeStyle='#ebca82';c.lineWidth=1.6;c.setLineDash([6,5]);c.beginPath();c.moveTo(X(lrU(ymin)),Y(ymin));c.lineTo(X(lrU(ymax)),Y(ymax));c.stroke();c.setLineDash([]);
+ for(let i=1;i<data.length;i++){
+  const a=data[i-1],b=data[i];c.strokeStyle=`rgba(241,244,239,${.12+.63*i/data.length})`;c.lineWidth=1.5;c.beginPath();c.moveTo(X(a.unemployment),Y(a.inflation));c.lineTo(X(b.unemployment),Y(b.inflation));c.stroke();
+  if(i%6===0){const x=X(b.unemployment),y=Y(b.inflation),dx=x-X(a.unemployment),dy=y-Y(a.inflation),angle=Math.atan2(dy,dx);if(Math.hypot(dx,dy)>2){c.beginPath();c.moveTo(x,y);c.lineTo(x-5*Math.cos(angle-.5),y-5*Math.sin(angle-.5));c.moveTo(x,y);c.lineTo(x-5*Math.cos(angle+.5),y-5*Math.sin(angle+.5));c.stroke();}}
+ }
+ const refX=X(s.curveInterceptU),refY=Y(s.inflation-s.monetarySurprise),x=X(s.unemployment),y=Y(s.inflation);
+ c.strokeStyle='#dceef28a';c.lineWidth=1;c.setLineDash([3,4]);c.beginPath();c.moveTo(refX,refY);c.lineTo(x,y);c.stroke();c.setLineDash([]);c.strokeStyle='#eff7f2';c.beginPath();c.arc(refX,refY,4.5,0,Math.PI*2);c.stroke();
+ const radius=reducedMotion?7:8+2.5*Math.sin(now*.004);c.fillStyle='#58e2c422';c.beginPath();c.arc(x,y,radius+5,0,Math.PI*2);c.fill();c.shadowColor='#58e2c4';c.shadowBlur=reducedMotion?0:13;c.fillStyle='#8ef5dc';c.beginPath();c.arc(x,y,4.3,0,Math.PI*2);c.fill();c.shadowBlur=0;
+ for(const [index,label] of [[0,'A'],[8,'B']]){
+  const q=history[index];if(!q||!pcExperiment)continue;const px=X(q.unemployment),py=Y(q.inflation);c.fillStyle=index===0?'#b2a1f2':'#fff4cf';c.beginPath();c.arc(px,py,3,0,Math.PI*2);c.fill();c.font='bold 11px system-ui';c.textAlign='left';c.fillText(label,px+8,py-8);
+ }
+ c.restore();
+ c.font='10px system-ui';c.textAlign='left';c.fillStyle='#ebca82';const lx=clamp(X(lrU(ymax))+6,L+4,w-126);c.fillText(s.lrTheta===0?'長期：u = '+fmt(s.effectiveNaturalU,2)+'%':'長期：θ ≠ 0 の比較条件',lx,T+13);
+ c.fillStyle='#58e2c4';c.textAlign='right';c.fillText('Q'+s.t+'   ('+fmt(s.unemployment,2)+'%, '+fmt(s.inflation,2)+'%)',w-R,T+ph-9);
+}
+function tickPhillips(dt,now){
+ if(document.hidden)return;
+ if(pcExperiment&&pcPlaying&&![...document.querySelectorAll('.modal-backdrop')].some(m=>!m.hidden)){pcAccumulator+=dt*5;if(pcAccumulator>=1){const steps=Math.floor(pcAccumulator);pcAccumulator-=steps;pcCursor=Math.min(96,pcCursor+steps);if(pcCursor>=96)pcPlaying=false;renderPhillips();}}
+ if(now-pcLastDraw>70){const r=$('phillipsChart').getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight){const {state,history}=pcData();drawPhillipsChart(state,history,now);}pcLastDraw=now;}
+}
+function exportPhillipsCSV(){
+ const {history,mode}=pcData();const data=pcExperiment?pcExperiment.history:history;
+ const keys=['t','inflation','expected','unemployment',...MACRO_METRICS];
+ download('\ufeff'+keys.join(',')+'\n'+data.map(s=>keys.map(k=>s[k]??'').join(',')).join('\n')+'\n','phillips-'+mode+'.csv','text/csv;charset=utf-8');
+ toast(pcExperiment?'統制実験の全96期と初期状態を出力しました。':'本編の直近のフィリップス診断を出力しました。');
+}
+
 let sim,view,running=true,speed=1,accumulator=0,lastFrame=performance.now(),lastDraw=0;
 let settings={...DEFAULTS},armedCard=null,pointerWorld=null,selectedScenario='baseline',pendingInitial=false;
 let reducedMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches||false;
 let soundEnabled=false,audioContext=null,toastTimer=null,electionAnimation=null,modalResume=false,previousFocus=null;
 let labBusy=false,labAbort=false,loadingReplay=false,loopFailed=false;
-const NUMBER_DISPLAY=p=>p.unit==='%'?100:1;
+// 比率(0～1)と、既に年率%で記録されたμ・g・u・移転率を区別する。
+const NUMBER_DISPLAY=p=>p.unit==='%'&&p.max<=1&&p.min>=0?100:1;
 function normalizedInput(def,value){const factor=NUMBER_DISPLAY(def),n=Number(value)/factor;if(!Number.isFinite(n))return null;return clamp(Math.round((n-def.min)/def.step)*def.step+def.min,def.min,def.max);}
 function displayNumber(def,value){const n=value*NUMBER_DISPLAY(def);return Number(n.toFixed(4));}
 function toast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),3800);}
@@ -699,7 +916,7 @@ function beep(kind='click'){
 }
 function updateSound(){$('soundBtn').innerHTML='音 <span class="sound-label">'+(soundEnabled?'ON':'OFF')+'</span>';$('soundBtn').setAttribute('aria-pressed',String(soundEnabled));}
 function updatePlay(){$('playBtn').textContent=running?'Ⅱ 一時停止':'▶ 再生';$('worldStatus').textContent=running?'信念の循環を観測中':'時間を停止 / 個人を観察できます';}
-function setRunning(value){if(loadingReplay)return;running=value;accumulator=0;lastFrame=performance.now();updatePlay();}
+function setRunning(value){if(loadingReplay)return;if(value&&pcExperiment){pcExperiment=null;pcPlaying=false;$('pcMode').value='live';$('pcExperimentControls').hidden=true;$('pcStartDemo').hidden=false;renderPhillips();}running=value;accumulator=0;lastFrame=performance.now();updatePlay();}
 function buildParams(){
  $('params').innerHTML=GROUPS.map(([group,title],index)=>`<details class="param-group" data-group="${group}" ${index===0?'open':''}><summary>${title}</summary><div class="param-rows">${PARAMS.filter(p=>p.group===group).map(p=>{
   if(p.options)return `<div class="param-row" data-key="${p.key}"><div class="param-head"><label for="param-${p.key}" title="${esc(p.help)}">${p.label}</label></div><select id="param-${p.key}" data-param="${p.key}">${p.options.map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select><div class="param-help">${esc(p.help)}</div></div>`;
@@ -725,6 +942,7 @@ function changeParameter(key,value){
  if(key==='electionPeriod')renderUI();
 }
 function rebuildWorld(options={}){
+ if(pcExperiment){pcExperiment=null;pcPlaying=false;$('pcMode').value='live';$('pcExperimentControls').hidden=true;$('pcStartDemo').hidden=false;}
  sim=new Republic({...settings},$('seed').value.trim()||'REPUBLIC-42');$('seed').value=sim.seed;accumulator=0;
  if(view){view.dirty=true;view.selected=-1;view.hover=-1;view.ripples=[];view.particles=[];view.zoom=1;view.panX=0;view.panY=0;view.shock=0;view.canvas.style.touchAction='pan-y';}
  pendingInitial=false;$('applyInitial').hidden=true;$('paramStatus').classList.remove('pending');$('paramStatus').textContent='変更は次の四半期から反映。※ は再生成が必要。';
@@ -738,7 +956,7 @@ function chooseScenario(id){
 }
 function renderUI(){
  if(!sim)return;const s=sim.stats,p=sim.p,e=sim.lastElection;
- $('accuracyValue').textContent=fmt(100*s.accuracy,1);$('inflationValue').textContent=fmt(sim.inflation);$('unemploymentValue').textContent=fmt(sim.unemployment);$('welfareValue').textContent=fmt(sim.welfare,1);$('naturalLabel').textContent='自然失業率 '+fmt(p.naturalU)+'%';
+ $('accuracyValue').textContent=fmt(100*s.accuracy,1);$('inflationValue').textContent=fmt(sim.inflation);$('unemploymentValue').textContent=fmt(sim.unemployment);$('welfareValue').textContent=fmt(sim.welfare,1);$('naturalLabel').textContent='構造調整後の自然率 '+fmt(sim.effectiveNaturalU,2)+'%';
  $('timeValue').textContent='Y'+String(1+Math.floor(sim.t/4)).padStart(2,'0')+' Q'+(sim.t%4+1);$('elapsedLabel').textContent='経過 '+sim.t+' 四半期';$('electionCountdown').textContent=(sim.nextElection-sim.t)+'期';
  $('governmentBadge').innerHTML=`<span class="${sim.government>0?'cyan':'coral'}">${sim.government>0?'規則派 R':'裁量派 D'} 政権</span><small>作用中の政策：${sim.appliedPolicy.gov>0?'R':'D'} / μ ${fmt(sim.appliedPolicy.mu)}%</small>`;
  $('worldPopulation').textContent=sim.agents.length+' AGENTS / 9 DISTRICTS';
@@ -762,7 +980,7 @@ function renderUI(){
  drawChart($('beliefChart'),sim.history,[{key:'r',color:'#58e2c4'},{key:'d',color:'#ff897e'},{key:'accuracy',color:'#ebca82',dash:true}],true);
  drawChart($('econChart'),sim.history,[{key:'inflation',color:'#ff897e'},{key:'expected',color:'#b2a1f2',dash:true},{key:'unemployment',color:'#ebca82'}]);
  if(view?.selected>=0)showAgent(view.selected,null,true);
- updatePlay();
+ renderPhillips();updatePlay();
 }
 function processEvents(){
  const events=sim.pending.splice(0);
@@ -845,15 +1063,17 @@ function download(content,name,type){const blob=new Blob([content],{type});const
 function exportCSV(){
  const cols=['t','r','d','neutral','accuracy','knowledge','polar','bridge','gini','inflation','expected','expectationGap','unemployment','welfare','realIndex','government','money','appliedMoney','rule','policyCredibility','policyUncertainty','discretionDividend','electionOpportunism','turnout','voteR','seatR','election'];
  const header=['quarter','support_R_0to1','support_D_0to1','neutral_0to1','factual_accuracy_0to1','knowledge_0to1','polarization_0to1','cross_links_0to1','income_gini_0to1','inflation_pct_annual','expected_inflation_pct_annual','expectation_gap_abs_pctpt','unemployment_pct','living_index_base100','real_output_index_base100','government_R1_Dminus1','money_growth_pct_annual','applied_money_growth_pct_annual','rule_degree_0to1','rule_credibility_0to1','policy_uncertainty_index','discretion_short_run_dividend_output_gap_pt','election_opportunism_0to1','last_turnout_0to1','last_vote_R_0to1','last_seat_R_0to1','election_this_quarter'];
+ cols.push(...MACRO_METRICS);header.push(...MACRO_METRICS);
  const rows=sim.history.map(s=>cols.map(c=>s[c]===null?'':typeof s[c]==='boolean'?Number(s[c]):s[c]).join(','));
  download('\ufeff'+header.join(',')+'\n'+rows.join('\n')+'\n','belief-republic-history.csv','text/csv;charset=utf-8');toast('直近 '+sim.history.length+' 期の履歴を CSV に書き出しました。');
 }
 function saveRun(){
- const data={schema:'belief-republic/1',description:'初期条件・シード・操作時点から再実行する記録。金銭や実在有権者のデータは含みません。',seed:sim.seed,initialParams:sim.initialParams,ticks:sim.t,actions:sim.actions};
+ const data={schema:'belief-republic/2',modelVersion:MODEL_VERSION,description:'初期条件・シード・操作時点から再実行する記録。金銭や実在有権者のデータは含みません。',seed:sim.seed,initialParams:sim.initialParams,ticks:sim.t,actions:sim.actions};
  download(JSON.stringify(data,null,2),'belief-republic-run.json','application/json');toast('初期条件と操作履歴を保存しました。未適用の初期条件は含みません。');
 }
 function validateRun(data){
- if(!data||data.schema!=='belief-republic/1'||typeof data.seed!=='string'||data.seed.length>64||!Number.isInteger(data.ticks)||data.ticks<0||data.ticks>10000)throw new Error('実験ファイルの形式または観測期間が不正です。');
+ if(!data||!['belief-republic/1','belief-republic/2'].includes(data.schema)||typeof data.seed!=='string'||data.seed.length>64||!Number.isInteger(data.ticks)||data.ticks<0||data.ticks>10000)throw new Error('実験ファイルの形式または観測期間が不正です。');
+ if(data.schema==='belief-republic/2'&&data.modelVersion!==MODEL_VERSION)throw new Error('モデル版が一致しません。同じ版のHTMLで再現してください。');
  if(!data.initialParams||typeof data.initialParams!=='object')throw new Error('初期条件がありません。');
  const clean={...DEFAULTS};for(const p of PARAMS){const v=data.initialParams[p.key];if(v===undefined)continue;if(p.options){if(!p.options.some(x=>x[0]===v))throw new Error('選択条件が不正です。');}else if(!validNumber(p,v))throw new Error('数値条件が範囲外です：'+p.label);clean[p.key]=v;}
  if(!Array.isArray(data.actions)||data.actions.length>50000)throw new Error('操作履歴が不正、または大きすぎます。');
@@ -863,21 +1083,21 @@ function validateRun(data){
   else if(a.type==='card'){if(!CARD_DEFS.some(c=>c.id===a.id)||!Number.isFinite(a.x)||!Number.isFinite(a.y)||Math.abs(a.x)>10000||Math.abs(a.y)>10000||![1,-1].includes(a.side)||typeof a.unlimited!=='boolean')throw new Error('介入の記録が不正です。');}
   else throw new Error('未知の操作が含まれています。');
  }
- return{...data,initialParams:clean};
+ return{...data,initialParams:clean,legacy:data.schema==='belief-republic/1'};
 }
 async function loadRun(file){
  if(!file)return;if(file.size>8*1024*1024){toast('実験ファイルは8MB以下にしてください。');return;}
  const wasRunning=running;
  try{
-  const data=validateRun(JSON.parse(await file.text()));setRunning(false);loadingReplay=true;toast('操作履歴から共和国を再現しています。');
+  const data=validateRun(JSON.parse(await file.text()));setRunning(false);loadingReplay=true;toast(data.legacy?'旧形式の条件を新モデルに移行します。旧版の結果とは一致しません。':'操作履歴から共和国を再現しています。');
   const model=new Republic(data.initialParams,data.seed);let index=0,done=false;
   while(!done){const start=performance.now();do{
    while(index<data.actions.length&&data.actions[index].t===model.t){const a=data.actions[index++];if(a.type==='param')model.setParam(a.key,a.value);else if(!model.intervene(a.id,a.x,a.y,a.side,a.unlimited))throw new Error('介入ポイントと記録が一致しません。');}
    if(model.t===data.ticks){done=true;break;}model.step();
   }while(performance.now()-start<14);if(!done)await new Promise(resolve=>setTimeout(resolve,0));}
   sim=model;settings={...sim.p};$('seed').value=sim.seed;pendingInitial=false;syncParams();$('applyInitial').hidden=true;$('paramStatus').textContent='変更は次の四半期から反映。※ は再生成が必要。';$('paramStatus').classList.remove('pending');
-  view.selected=-1;view.hover=-1;view.dirty=true;view.particles=[];view.ripples=[];view.setZoom(1);disarm();sim.pending=[];electionAnimation=null;$('electionOverlay').classList.remove('show');$('agentTooltip').hidden=true;$('scenarioNote').textContent='保存した操作を再実行。'+sim.t+' 期の時点を再現しました。';
-  renderUI();toast(sim.t+' 期と '+sim.actions.length+' 件の操作を再現しました。');
+  view.selected=-1;view.hover=-1;view.dirty=true;view.particles=[];view.ripples=[];view.setZoom(1);disarm();sim.pending=[];electionAnimation=null;$('electionOverlay').classList.remove('show');$('agentTooltip').hidden=true;$('scenarioNote').textContent=data.legacy?'旧モデルの条件をv2.0へ移行。計算式が異なるため、旧版の結果の再現ではありません。':'保存した操作を再実行。'+sim.t+' 期の時点を再現しました。';
+  renderUI();toast(data.legacy?'旧版の条件・操作を新モデルで再計算しました。結果は旧版と異なります。':sim.t+' 期と '+sim.actions.length+' 件の操作を再現しました。');
  }catch(error){console.error(error);toast('読込できません：'+error.message);}
  finally{loadingReplay=false;setRunning(wasRunning);$('loadFile').value='';}
 }
@@ -930,6 +1150,7 @@ function advance(){if(loadingReplay||sim.t>=10000)return;sim.step();view.onStep(
 function loop(now){
  try{
   const dt=Math.min(.10,Math.max(0,(now-lastFrame)/1000));lastFrame=now;
+  tickPhillips(dt,now);
   if(running&&!document.hidden&&!loadingReplay){
    accumulator+=dt*speed;let iterations=0;
    while(accumulator>=1&&iterations<5){accumulator-=1;advance();iterations++;if(sim.t>=10000){setRunning(false);toast('観測上限の10,000期に到達しました。履歴を保存するか、新しい世界を開始してください。');break;}}
@@ -945,9 +1166,9 @@ function loop(now){
 }
 function init(){
  $('scenario').innerHTML=SCENARIOS.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');$('scenarioNote').textContent=SCENARIOS[0].note;
- buildParams();setupCards();view=new WorldView($('world'));rebuildWorld({quiet:true});setupMap();
+ buildParams();setupCards();setupPhillips();view=new WorldView($('world'));rebuildWorld({quiet:true});setupMap();
  $('world').tabIndex=0;
- $('playBtn').addEventListener('click',()=>setRunning(!running));$('stepBtn').addEventListener('click',()=>{setRunning(false);advance();});
+ $('playBtn').addEventListener('click',()=>setRunning(!running));$('stepBtn').addEventListener('click',()=>{if(pcExperiment){$('pcMode').value='live';selectPhillips('live');}setRunning(false);advance();});
  document.querySelectorAll('[data-speed]').forEach(b=>b.addEventListener('click',()=>{speed=Number(b.dataset.speed);document.querySelectorAll('[data-speed]').forEach(x=>x.classList.toggle('active',x===b));}));
  $('scenario').addEventListener('change',e=>{if(!loadingReplay)chooseScenario(e.target.value);});
  $('resetBtn').addEventListener('click',()=>{if(!loadingReplay)rebuildWorld();});$('applyInitial').addEventListener('click',()=>{if(!loadingReplay)rebuildWorld();});
@@ -962,7 +1183,7 @@ function init(){
  document.addEventListener('pointerdown',e=>{if($('settingsPanel').classList.contains('open')&&!e.target.closest('#settingsPanel')&&!e.target.closest('#settingsToggle'))$('settingsPanel').classList.remove('open');});
  $('csvBtn').addEventListener('click',exportCSV);$('saveBtn').addEventListener('click',saveRun);$('loadBtn').addEventListener('click',()=>{if(!loadingReplay)$('loadFile').click();});$('loadFile').addEventListener('change',e=>loadRun(e.target.files[0]));
  $('labParam').addEventListener('change',initLabFields);$('labRun').addEventListener('click',runLab);$('labCancel').addEventListener('click',()=>labAbort=true);
- $('economicEquations').textContent='d = 1{裁量派政権} × (1 − 実効裁量制約)\nμ = μ₀ + d × [s(0.25 + 0.75 r ϕ³) + 0.4 max(u前期 − u*, 0)]\nπ = π前期 + κ(μ[t−L] − g − π前期) + 供給攪乱\nπᵉ ← 適応更新 + 規則信頼 × 再アンカー × (μ₀−g−πᵉ)\n裁量の短期利得 = 裁量強度 × a(π − πᵉ)\n規則信頼 ← 規則順守で回復、ルール逸脱と急変で低下\n政策不確実性 ← 貨幣増加率の急変・逸脱変化の移動平均\n産出ギャップ = 0.8 θ(μ[t−L] − μ₀) + a(π − πᵉ)\n                 + 実物攪乱 − 供給損失 − レント損失 − 不確実性コスト\nu = u* − 0.55 × 産出ギャップ\n潜在実質所得 = 前期値 × (1 + g / 100)^(1/4)';
+ $('economicEquations').textContent="d = 1{裁量派政権} × (1 − 実効裁量制約)\nμ = μ₀ + d × [s(0.25 + 0.75 r ϕ³) + 0.4 max(u前期 − u*, 0)]\nπᴹ[t] = πᴹ[t−1] + κ(μ[t−L] − g − πᴹ[t−1])\nπ[t] = πᴹ[t] + S[t] ／ S[t] = 0.58 S[t−1] + 攪乱\nπᵉᴹ[t] = 前期までの情報による適応更新・外挿・再アンカー\nπᵉ[t] = πᵉᴹ[t] + 0.58 S[t−1]（固定期待以外）\nν[t] = S[t] − 0.58 S[t−1]（安全上限前）\nεᴹ[t] = πᴹ[t] − πᵉᴹ[t] = π[t] − πᵉ[t] − ν[t]\n裁量の短期利得 = 裁量強度 × a εᴹ[t]\n産出ギャップ = 0.8 θ(μ[t−L] − μ₀) + a εᴹ[t]\n                  + 実物攪乱 − 供給実物損失 − レント損失 − 不確実性コスト\nu = u* − 0.55 × 産出ギャップ\nuⁿ = u* + 0.55 × レント損失\n短期：u = uⁿ − 0.55a(π − πᵉ − ν) + その他の寄与\n長期：θ=0、期待一致、一時的攪乱消失なら u = uⁿ\n期待再アンカーは、適応更新後の値と基準値の凸結合。\n上下限が作用した差は診断表の「上下限補正」で表示。";
  document.addEventListener('keydown',e=>{
   const modal=[...document.querySelectorAll('.modal-backdrop')].find(m=>!m.hidden);
   if(modal){
@@ -972,13 +1193,14 @@ function init(){
   }
   if(e.key==='Escape'){disarm();view.selected=-1;$('agentTooltip').hidden=true;$('settingsPanel').classList.remove('open');return;}
   if(e.target.closest('input,select,textarea,button,a'))return;
+  if(pcExperiment&&(e.code==='Space'||e.key.toLowerCase()==='n')){e.preventDefault();if(e.code==='Space'){if(pcCursor>=96)pcCursor=0;pcPlaying=!pcPlaying;}else{pcPlaying=false;pcCursor=Math.min(96,pcCursor+1);}pcAccumulator=0;renderPhillips();return;}
   if(e.code==='Space'){e.preventDefault();setRunning(!running);}else if(e.key.toLowerCase()==='n'){e.preventDefault();setRunning(false);advance();}
  });
  document.addEventListener('visibilitychange',()=>{lastFrame=performance.now();accumulator=0;});
  window.addEventListener('resize',()=>{renderUI();if(view.selected>=0)showAgent(view.selected,null,true);});
  $('loading').remove();lastFrame=performance.now();lastDraw=lastFrame;requestAnimationFrame(loop);
  // Small public API for reproducible checks and extension from developer tools.
- window.BeliefRepublic={version:'1.1',Republic,parameters:PARAMS,defaults:{...DEFAULTS},scenarios:SCENARIOS,getState:()=>sim,getView:()=>view,pause:()=>setRunning(false),step:()=>{setRunning(false);advance();},validateRun};
+ window.BeliefRepublic={version:MODEL_VERSION,Republic,advanceMacro,initialMacro,buildPhillipsExperiment,macroMetrics,selectPhillips,getPhillips:pcData,parameters:PARAMS,defaults:{...DEFAULTS},scenarios:SCENARIOS,getState:()=>sim,getView:()=>view,pause:()=>setRunning(false),step:()=>{setRunning(false);advance();},validateRun};
 }
 try{init();}catch(error){console.error(error);$('loading').innerHTML='<strong>初期化できませんでした</strong><span>'+esc(error.message)+'</span><p>JavaScript と Canvas 2D が有効なブラウザで開いてください。</p>';}
 </script>
