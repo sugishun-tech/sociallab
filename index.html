@@ -60,7 +60,7 @@
   <div class="rail-foot"><span id="paramStatus">変更は次の四半期から反映。※ は再生成が必要。</span><button id="applyInitial" hidden>初期条件を適用して再生成</button></div>
  </aside>
  <section class="center-column" aria-label="社会のシミュレーション">
-  <div class="scenario-note"><p id="scenarioNote"></p><span class="tag">AGENT-BASED SIMULATION / v1.0</span></div>
+  <div class="scenario-note"><p id="scenarioNote"></p><span class="tag">AGENT-BASED SIMULATION / v1.1</span></div>
   <div class="metric-grid">
    <div class="metric"><i class="top-stroke"></i><label>事実認識の正確度</label><div class="metric-value cyan"><span id="accuracyValue">--</span><span class="unit">%</span></div><div class="metric-foot">政策の好みとは別に測定</div></div>
    <div class="metric"><label>インフレ率</label><div class="metric-value"><span id="inflationValue">--</span><span class="unit">%</span></div><div class="metric-foot">年率・モデル内の値</div></div>
@@ -194,6 +194,7 @@ const ownParameter=key=>Object.prototype.hasOwnProperty.call(P_BY_KEY,key)?P_BY_
 const validNumber=(p,v)=>Number.isFinite(v)&&v>=p.min-1e-8&&v<=p.max+1e-8&&Math.abs((v-p.min)/p.step-Math.round((v-p.min)/p.step))<1e-6;
 const SCENARIOS=[
  {id:'baseline',name:'均衡の共和国',note:'二つの陣営、まだ開かれた社会。小さな介入が未来を変える。',p:{}},
+ {id:'rulewins',name:'規則派優勢：長期評価社会',note:'長期効果を重く見て、政策帰属も比較的正確な社会。規則派 R が選挙で優勢になりやすい。',p:{initialR:.68,initialPolar:.55,initialKnowledge:.72,initialAccuracy:.82,initialConfidence:.42,expertShare:.1,learning:.25,confirmation:.18,confidenceBound:1.6,conformity:.46,ignorance:.12,experience:.62,attribution:.92,exposure:.84,trust:.74,verified:.9,mediaTilt:0,homophily:.28,econWeight:.9,partisanship:.2,selfInterest:.3,shortTerm:.12,turnout:.78,votingCost:.08,mobilizeR:.04,mobilizeD:0,charisma:0,electoralSystem:'proportional',reelection:.9,binding:.12,expectationGain:.55,illusion:.08,inflationAversion:1.2,fiscalIllusion:.15}},
  {id:'islands',name:'分断の群島',note:'異論は届かず、仲間の声だけが反響する。橋は架かるか。',p:{initialPolar:.92,initialConfidence:.87,homophily:.95,confirmation:.92,confidenceBound:.35,conformity:.82,partisanship:.8,verified:.24,learning:.22}},
  {id:'lag',name:'見えない政策効果',note:'選挙は2年ごと、政策は3年後。誰が評価され、誰が責められるか。',p:{policyLag:12,electionPeriod:8,attribution:.12,illusion:.82,ignorance:.72,stimulus:10,shortTerm:.88,reelection:.98}},
  {id:'lighthouse',name:'知識の孤島',note:'正確に理解する少数の拠点。その知識は周囲へ伝わるか。',p:{initialKnowledge:.18,initialAccuracy:.08,expertShare:.13,verified:.2,homophily:.79,initialPolar:.55,confirmation:.65,initialConfidence:.67}},
@@ -902,7 +903,7 @@ function init(){
  window.addEventListener('resize',()=>{renderUI();if(view.selected>=0)showAgent(view.selected,null,true);});
  $('loading').remove();lastFrame=performance.now();lastDraw=lastFrame;requestAnimationFrame(loop);
  // Small public API for reproducible checks and extension from developer tools.
- window.BeliefRepublic={version:'1.0',Republic,parameters:PARAMS,defaults:{...DEFAULTS},scenarios:SCENARIOS,getState:()=>sim,getView:()=>view,pause:()=>setRunning(false),step:()=>{setRunning(false);advance();},validateRun};
+ window.BeliefRepublic={version:'1.1',Republic,parameters:PARAMS,defaults:{...DEFAULTS},scenarios:SCENARIOS,getState:()=>sim,getView:()=>view,pause:()=>setRunning(false),step:()=>{setRunning(false);advance();},validateRun};
 }
 try{init();}catch(error){console.error(error);$('loading').innerHTML='<strong>初期化できませんでした</strong><span>'+esc(error.message)+'</span><p>JavaScript と Canvas 2D が有効なブラウザで開いてください。</p>';}
 </script>
