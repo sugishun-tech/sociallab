@@ -69,6 +69,14 @@
 .probe-point{font-size:12px;line-height:1.9;border-left:2px solid var(--gold);padding-left:10px}.probe-warning{font-size:12px;line-height:1.9;color:#e4cfa7;margin-top:15px}#probeExport{margin-top:15px}.probe-range-label{font-size:11px;color:var(--muted)}.probe-range-label select{display:inline-block;width:auto;font-size:11px;margin-left:8px;padding:5px 10px}
 @media(max-width:730px){.transmission-panel{grid-column:1/-1}.probe-chart{height:165px}.probe-cursor{gap:6px}.probe-cursor label{font-size:11px}.probe-cursor output{min-width:82px}.probe-summary{font-size:12px}}
 
+
+.sequence-panel{margin:14px 0;border:1px solid #746041;border-radius:9px;padding:17px;background:linear-gradient(135deg,#27241e,#111c28)}
+.sequence-panel[hidden]{display:none}.sequence-panel h2{font-size:17px;margin:4px 0 9px}.sequence-panel p{font-size:12px;line-height:1.9;color:#c3cdd1}.sequence-badge{font:10px var(--mono);color:var(--gold);letter-spacing:.08em}
+.sequence-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:12px 0}.sequence-stages span{padding:9px 6px;border-bottom:2px solid #45525d;color:#819aa7;font-size:10px;line-height:1.6}.sequence-stages span.active{border-color:var(--gold);color:var(--gold);background:#8f70471a}
+.sequence-numbers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0}.sequence-numbers small{display:block;font-size:10px;color:#9db0bd}.sequence-numbers strong{font:20px/1.8 var(--mono);color:#f1dec1}.sequence-numbers strong.blue{color:var(--cyan)}
+.sequence-charts h3{font-size:11px;margin:15px 0 2px}.sequence-charts canvas{display:block;width:100%;height:120px}.sequence-legend{font-size:10px;color:#99adba}.sequence-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.sequence-actions button{font-size:11px}.sequence-notice{padding:10px 0;border-top:1px solid #63583e}.sequence-danger{color:#ffb5a3!important}.sequence-panel details{margin-top:12px;font-size:11px}.sequence-panel summary{cursor:pointer}.sequence-panel details p{font-size:11px}
+@media(max-width:600px){.sequence-panel{padding:12px}.sequence-panel h2{font-size:15px}.sequence-numbers{grid-template-columns:repeat(2,minmax(0,1fr))}.sequence-numbers strong{font-size:18px}.sequence-stages span{font-size:9px}.sequence-charts canvas{height:130px}}
+
 </style>
 </head>
 <body>
@@ -120,6 +128,24 @@
    <div class="chart-box"><div class="chart-head"><h2>信念の勢力と正確度</h2><span>直近 80 四半期</span></div><canvas id="beliefChart" aria-label="規則派と裁量派の支持率、事実認識正確度の時系列"></canvas><div class="chart-legend"><span><i style="background:var(--cyan)"></i>規則派</span><span><i style="background:var(--coral)"></i>裁量派</span><span><i style="background:var(--gold)"></i>正確度</span></div></div>
    <div class="chart-box"><div class="chart-head"><h2>期待と経済のずれ</h2><span>年率 / %</span></div><canvas id="econChart" aria-label="インフレ率、予想インフレ率、失業率の時系列"></canvas><div class="chart-legend"><span><i style="background:var(--coral)"></i>インフレ</span><span><i style="background:var(--violet)"></i>予想</span><span><i style="background:var(--gold)"></i>失業</span></div></div>
   </div>
+
+<section id="sequencePanel" class="sequence-panel" hidden aria-labelledby="sequenceTitle">
+ <div class="sequence-badge">POLICY CONTINUITY / SOVEREIGN DEBT / HYPOTHETICAL</div>
+ <h2 id="sequenceTitle">政策継承と、遅れて届く国債負担</h2>
+ <p><b>アベノミクス→サナエノミクスという政策継承を題材にした仮想ストレス実験。</b>日本の実績・予測ではありません。政府の支出と中央銀行の貨幣拡張を別々に指定し、同時継続を仮定します。選挙で政策が自動停止する設定ではありません。</p>
+ <div class="sequence-stages" id="sequenceStages"><span data-stage="1">01 緩和＋国債給付</span><span data-stage="2">02 追加刺激の加速</span><span data-stage="3">03 出口／停止</span></div>
+ <div class="sequence-numbers"><div><small>インフレ / 期待（年率）</small><strong id="seqInflation">—</strong></div><div><small>失業率 / 構造自然率</small><strong class="blue" id="seqUnemployment">—</strong></div><div><small>名目債務（開始=100）</small><strong id="seqDebt">—</strong></div><div><small>債務 / 年間所得</small><strong id="seqDebtRatio">—</strong></div><div><small>新発市場利率 / 平均表面利率</small><strong id="seqYield">—</strong></div><div><small>当期利払い / 当期所得</small><strong id="seqInterest">—</strong></div></div>
+ <p id="sequenceDiagnosis" class="sequence-notice" aria-live="polite"></p>
+ <div class="sequence-charts"><h3>インフレと事前期待 / 年率%</h3><canvas id="sequenceInflationChart" aria-label="実現インフレと事前期待の推移"></canvas><div class="sequence-legend">実線：インフレ　点線：期首の期待</div>
+ <h3>失業率と構造自然率 / %</h3><canvas id="sequenceUnemploymentChart" aria-label="失業率と自然失業率の推移"></canvas><div class="sequence-legend">実線：失業　点線：構造自然率</div>
+ <h3>新発国債の市場利率と既発債を含む平均利率 / 年率%</h3><canvas id="sequenceRateChart" aria-label="市場利率と平均表面利率、借換えの遅れ"></canvas><div class="sequence-legend">実線：市場利率　点線：期末の平均表面利率。実際の利払いは期首利率で計算。</div>
+ <h3 id="sequenceNominalTitle">名目債務残高 / 開始時＝100</h3><canvas id="sequenceNominalChart" aria-label="名目債務残高の指数。債務所得比と区別"></canvas>
+ <h3>債務残高 / 年間所得（%）</h3><canvas id="sequenceDebtChart" aria-label="債務の所得比。名目残高と区別"></canvas>
+ </div>
+ <div class="sequence-actions"><button id="sequenceStop">以後の自動刺激を停止</button><button id="sequenceContinue">加速経路を再開</button><button id="sequenceCsv">この経路をCSVへ</button></div>
+ <details><summary>この経路の仮定・金利と債務の計算</summary><p id="sequenceAssumptions"></p><p>既発国債は名目固定利付です。インフレで元本の実質価値は減ります。市場金利上昇は新発・借換分から徐々に利払いに届きます。借換え自体を純債務増には数えません。名目金利の上昇分すべてを実物損失にせず、期待インフレ補償分を除いた追加負担だけをラグ付きで扱います。</p><p>常に上昇・下落するよう数値を操作しません。失業率は金融サプライズが消耗すると戻りえます。名目債務が増えても、インフレや成長で債務比率は下がりえます。政策金利・国債価格・中央銀行の付利・財政破綻確率・日本の人口構造は未実装です。新発の市場利率と平均表面利率は四半期利払いを年率換算した値。年間所得は当期総稼得所得の4倍であり、実測GDPではありません。債務比1000%または利払いが当期所得100%で適用上限として停止し、その先を予測しません。</p></details>
+</section>
+
   <section class="phillips-panel" id="phillipsPanel" aria-labelledby="phillipsTitle">
    <div class="pc-heading"><div><div class="eyebrow">EXPECTATIONS / SHORT RUN / LONG RUN</div><h2 id="phillipsTitle">フィリップス曲線の実験室</h2></div><span class="pc-tag" id="pcPhase">本編と連動</span></div>
    <p class="pc-intro">同じ短期曲線上の移動と、期待による曲線自体の移動を分けて表示。各期の実現点は、その期の事前期待で決まる曲線と対応します。</p>
@@ -155,7 +181,7 @@
 <div class="policy-preview" id="policyPreview"><div class="policy-preview-label">POLICY DESK / 実施案</div><h3 id="policyName"></h3><p id="policyHelp"></p><p id="policyAmount"></p><div class="policy-config"><label for="policyStrength">規模</label><select id="policyStrength"><option value="0.5">0.5倍</option><option value="1" selected>1倍</option><option value="2">2倍</option></select><span id="policyCost"></span></div><p id="policyTiming"></p><button class="primary" id="policyExecute">この政策を決定</button><button id="policyProbeBtn" type="button">介入あり／なしの波及を比較</button></div>
 <div id="policyQueue" class="policy-queue" aria-live="polite"></div><p class="card-note" id="cardNote">政策カードを選び、実施案で内容を確認して決定。財源と期限を確認できます。</p><div class="budget-options"><select id="adTarget" aria-label="広告の対象陣営"><option value="1">広告：規則派 R</option><option value="-1">広告：裁量派 D</option></select><label><input type="checkbox" id="unlimited"> 制限なし</label></div><div class="effect-list" id="effectList"></div></section>
    <section class="side-panel transmission-panel" id="transmissionPanel"><div class="side-head"><h2>介入は、今どこまで届いたか</h2><small>TRANSMISSION</small></div><p class="treasury-note">実施 → 待ち時間 L → 分散波及 → 物価調整 → 期待との差で雇用。給付終了と物価への作用終了は別です。</p><div id="transmissionMetrics"></div><p id="transmissionStatus" class="treasury-note" aria-live="polite"></p><div id="transmissionQueue"></div><p class="treasury-check" id="transmissionCheck"></p></section>
-   <section class="side-panel treasury-panel" id="treasuryPanel"><div class="side-head"><h2>財源と、その後</h2><small>TREASURY</small></div><div class="treasury-metrics"><div><small>追加債務 / 年間所得</small><strong id="treasuryDebt">0%</strong></div><div><small>当期の通貨発行 / 所得</small><strong id="treasuryMoney">0%</strong></div></div><canvas id="treasuryChart" aria-label="介入債務と通貨発行給付の履歴"></canvas><p class="treasury-legend">実線：追加債務 / 年間所得　点線：当期発行 / 四半期所得</p><div id="treasuryLedger"></div><p id="treasuryCheck" class="treasury-check"></p><p class="treasury-note">表は当期総稼得所得比。債務は実質・物価連動で簡略化。国債購入は所得から控除せず、金融取引として別記録。</p></section>
+   <section class="side-panel treasury-panel" id="treasuryPanel"><div class="side-head"><h2>財源と、その後</h2><small>TREASURY</small></div><div class="treasury-metrics"><div><small id="treasuryDebtLabel">追加債務 / 年間所得</small><strong id="treasuryDebt">0%</strong></div><div><small>当期の通貨発行 / 所得</small><strong id="treasuryMoney">0%</strong></div></div><canvas id="treasuryChart" aria-label="介入債務と通貨発行給付の履歴"></canvas><p class="treasury-legend">実線：債務 / 年間所得　点線：当期発行 / 四半期所得</p><div id="treasuryLedger"></div><p id="treasuryCheck" class="treasury-check"></p><p class="treasury-note" id="treasuryAccountingNote">表は当期総稼得所得比。債務は実質・物価連動で簡略化。国債購入は所得から控除せず、金融取引として別記録。</p></section>
   <section class="side-panel"><div class="side-head"><h2>社会の断面</h2><small>LIVE</small></div><div class="share-labels"><span class="cyan" id="shareR">R --</span><span class="gold" id="shareN">留保 --</span><span class="coral" id="shareD">D --</span></div><div class="distribution"><div id="distR" style="background:var(--cyan)"></div><div id="distN" style="background:var(--gold)"></div><div id="distD" style="background:var(--coral)"></div></div><div class="society-detail"><div><label>二極化度</label><strong id="polarValue">--</strong></div><div><label>直近の投票率</label><strong id="turnoutValue">--</strong></div><div><label>平均知識量</label><strong id="knowledgeValue">--</strong></div><div><label>陣営をまたぐ縁</label><strong id="bridgeValue">--</strong></div><div><label>期待ギャップ</label><strong id="expectGapValue">--</strong></div><div><label>所得 Gini</label><strong id="giniValue">--</strong></div><div><label>規則への信頼</label><strong id="policyCredValue">--</strong></div><div><label>裁量の短期利得</label><strong id="discretionDividendValue">--</strong></div><div><label>政策不確実性</label><strong id="uncertaintyValue">--</strong></div></div></section>
   <section class="side-panel"><div class="side-head"><h2>観測実績</h2><small id="achievementCount">0 / 9</small></div><div id="achievements"></div></section>
   <section class="side-panel log-panel"><div class="side-head"><h2>共和国の記録</h2><small id="logCount">0 EVENTS</small></div><div class="event-log" id="eventLog" tabindex="0" aria-label="出来事の履歴"></div></section>
@@ -174,17 +200,18 @@
   ↓ 帰属の正確さと貨幣錯覚
 次の学習</div><p>社会学習は近隣ネットワーク上の有限個の接触を使い、意見距離が受容幅以内の相手から学びます。同類選好は結び直す相手の選択に効きます。厳密な Hegselmann–Krause モデルの複製ではなく、限定的信頼の考えを使った独自の確率モデルです。同時更新なので、配列の先頭の人だけ先に賢くなる仕組みにはしていません。検証済み媒体と公開講座は、世界の設定した真値に関する外部信号を与えます。これとは別に、金融拡張が十分大きい期には、産出と予想誤差を使ったノイズの多い経験学習を行います。真の経済構造をデータだけから発見する万能な推論器ではありません。</p>
  <h3>経済モデル：既定はフリードマン型</h3><p>既定では θ = 0。持続的な金融拡張に長期の実質雇用効果は与えず、供給要因を除いた金融サプライズだけが一時的な産出ギャップを押し上げます。供給危機の実物損失は別項です。重要なのは、裁量派の短期政治便益も刺激額そのものではなく、この金融サプライズによる一時的産出効果からしか生じないことです。同じ刺激を反復して期待が追いつけば、その「賞味期限」は切れます。規則型政策が続けば規則への信頼が回復し、適応的期待を基準インフレへ再アンカーします。逆にルール逸脱と政策急変は信頼低下と政策不確実性を生みます。これらの係数はすべて画面から0にできる明示的仮定です。</p><div class="equation" id="economicEquations"></div><p>μ は年率の貨幣増加率、g は潜在成長率、L は政策ラグ、π は年率のインフレ率です。景気・供給ショックは平均回帰します。継続的なインフレと単発の供給攪乱を同一視しません。予見的期待は既知の適用政策から金融トレンドを正確に予測し、供給攪乱は前期値の0.58倍を予測します。当期の新しい外生攪乱は事前に知りません。固定期待は長期の期待一致を保証しない比較条件です。「恒常的実質効果」を正にすると、θ &gt; 0 の反実仮想世界になります。実証的なフリードマン理論への反証を生成する機能ではありません。</p>
- <h3>短期・長期フィリップス曲線</h3><p>短期の関係は、期待・供給条件・制度を固定した u = uⁿ − β(π − πᵉ − ν) + その他の寄与です。β=0.55a、νは供給価格の予想誤差。長期では θ=0、期待一致、一時的ショック消失なら u=uⁿ の垂直線になります。uⁿは基礎自然失業率に恒常的レント損失の効果を加えた条件付き自然率で、金融政策とは別の制度条件にも依存します。「インフレが前期より上がれば、必ず失業が前期より下がる」という式ではありません。期待がより速く上昇する場合や供給危機、他の実物損失がある場合は、両者が上がることがあります。</p><p>画面の「短期／長期」から本編の曲線・寄与度を観察できます。統制実験は本編と同じ advanceMacro 関数を使い、政治・分配・ランダム攪乱・不確実性コスト・再アンカーを除外します。曲線は推定回帰ではなく、このモデルの条件付き構造式です。上下限に達した場合は寄与度表で補正を明示します。</p><h3>分配、指標、政治の取り扱い</h3><p>裁量派は追加移転を行い、その全額を比例負担で賄います。利益集団への配分は架空の受給順位で決まり、実在の属性とは関係ありません。規則派も基礎的な移転を行います。歳出・移転の予算はモデル内で一致しますが、国債残高、債務危機、詳細な所得税制はモデル化していません。</p><p>生活指数は「実質可処分所得の幾何平均 × インフレ不安定性と政策不確実性に対する仮定上のペナルティ」を初期値100へ正規化した指標です。現実の厚生を測った値ではありません。所得 Gini は個人の実質可処分所得から計算し、0に近いほど均等、1に近いほど集中します。期待ギャップは |実現インフレ率 − 予想インフレ率| です。「規則への信頼」は基準ルールへの継続的な順守で上昇し、裁量的逸脱で低下する0〜1の状態変数。「裁量の短期利得」は裁量強度 × 金融サプライズによる一時的産出ギャップなので、期待が追いつけば0へ近づき、逆方向のサプライズなら負にもなります。「政策不確実性」は貨幣増加率の急変とルール逸脱変化の移動平均です。二極化度は 4 × P(b &gt; 0.65) × P(b &lt; −0.65) です。</p><p>小選挙区では地理的に固定された9地区の多数決で議席を決定。比例型では議席比を全国得票比と同一とする連続近似です。二党だけなので比例型の政権は得票過半数の党になります。同票はシード付き抽選、投票ゼロの地区は議席を空席とし、全体の投票ゼロでは現政権を維持します。政治家の政策変更は翌期に決定し、さらに設定したラグを経て経済へ作用します。</p>
+ <h3>短期・長期フィリップス曲線</h3><p>短期の関係は、期待・供給条件・制度を固定した u = uⁿ − β(π − πᵉ − ν) + その他の寄与です。β=0.55a、νは供給価格の予想誤差。長期では θ=0、期待一致、一時的ショック消失なら u=uⁿ の垂直線になります。uⁿは基礎自然失業率に恒常的レント損失の効果を加えた条件付き自然率で、金融政策とは別の制度条件にも依存します。「インフレが前期より上がれば、必ず失業が前期より下がる」という式ではありません。期待がより速く上昇する場合や供給危機、他の実物損失がある場合は、両者が上がることがあります。</p><p>画面の「短期／長期」から本編の曲線・寄与度を観察できます。統制実験は本編と同じ advanceMacro 関数を使い、政治・分配・ランダム攪乱・不確実性コスト・再アンカーを除外します。曲線は推定回帰ではなく、このモデルの条件付き構造式です。上下限に達した場合は寄与度表で補正を明示します。</p><h3>分配、指標、政治の取り扱い</h3><p>裁量派は追加移転を行い、その全額を比例負担で賄います。利益集団への配分は架空の受給順位で決まり、実在の属性とは関係ありません。規則派も基礎的な移転を行います。歳出・移転の予算はモデル内で一致しますが、国債残高と借換負担は下記の拡張で扱います。デフォルト処理や詳細な所得税制はモデル化していません。</p><p>生活指数は「実質可処分所得の幾何平均 × インフレ不安定性と政策不確実性に対する仮定上のペナルティ」を初期値100へ正規化した指標です。現実の厚生を測った値ではありません。所得 Gini は個人の実質可処分所得から計算し、0に近いほど均等、1に近いほど集中します。期待ギャップは |実現インフレ率 − 予想インフレ率| です。「規則への信頼」は基準ルールへの継続的な順守で上昇し、裁量的逸脱で低下する0〜1の状態変数。「裁量の短期利得」は裁量強度 × 金融サプライズによる一時的産出ギャップなので、期待が追いつけば0へ近づき、逆方向のサプライズなら負にもなります。「政策不確実性」は貨幣増加率の急変とルール逸脱変化の移動平均です。二極化度は 4 × P(b &gt; 0.65) × P(b &lt; −0.65) です。</p><p>小選挙区では地理的に固定された9地区の多数決で議席を決定。比例型では議席比を全国得票比と同一とする連続近似です。二党だけなので比例型の政権は得票過半数の党になります。同票はシード付き抽選、投票ゼロの地区は議席を空席とし、全体の投票ゼロでは現政権を維持します。政治家の政策変更は翌期に決定し、さらに設定したラグを経て経済へ作用します。</p>
  <h3>介入は何を変えるのか</h3><p>公開講座は半径170以内の知識量と事実認識を改善。市民対話は同じ範囲の確信度と党派的固着を弱め、6期の間だけ社会全体の受容幅を広げます。透明化は8期にわたり帰属精度を加算。広告は指定党寄りの情報源の露出を6期増やします。供給危機は一時的な価格圧力と実物損失。景気後退は実物ショック。投票支援は6期にわたり両陣営の参加確率を同じ幅で上げます。政策ルールは8期の間、裁量を追加的に制約します。局所介入の半径は地図座標単位です。</p>
  <h3>税・給付・通貨を区別する政策カード</h3>
  <p>「税・給付」「通貨」「供給・制度」で政策を選び、規模を0.5・1・2倍から指定して決定します。介入ptはゲーム上の操作予算であり、国の財源ではありません。新カード16種は決定時点の政権を記録し、既定で1期後に発効します。発効待ちと物価波及の待ちは別です。通貨カードは実施後にL期待ち、さらに指定期間で分散波及します。同一カードの重ね掛けはせず、終了後に再決定できます。</p>
  <p>税率の変更は当期所得へのポイント差。給付・購入枠は決定時の四半期総稼得所得を基準とする実質額です。国債給付は金融緩和ではなく、通貨発行給付だけが追加発行と連動します。実施期の換算入力は q = 給付 / (4 × M/Y仮定 × 前期総所得)、I = 100[(1+μ/100)(1+q)⁴−1] − μ。入力Iを実施期＋Lから重みwで配分（Σw=1）し、到着分だけをマクロ計算へ加算します。既定の4期分散は1:2:2:1。支給・発行の会計は実施期に一度だけ計上します。固定M/Y比による縮約で、中央銀行・市中銀行の完全な貸借対照表は扱いません。金融の期待形成とフィリップス曲線の式は従来と共通です。</p>
- <p>会計は 税収＋通貨発行＋新規国債＋準備金取崩 = 給付＋公的購入＋利払い＋償還＋準備金積立。国債は国内市民の保有額と一致し、購入・元本返済は所得ではなく金融取引として別記録します。物価連動の実質債務で簡略化しており、インフレによる名目債務の目減りは未実装。前期債務の利払い・償還を追加財源税で賄い、財源税が総稼得所得20%の上限に達した場合は元本償還を縮小し、利払い不足は借換えます。</p>
+ <p>会計は 税収＋通貨発行＋新規国債＋準備金取崩 = 給付＋公的購入＋利払い＋償還＋準備金積立。国債は国内市民の保有額と一致し、購入・元本返済は所得ではなく金融取引として別記録します。従来モードは物価連動の実質債務。v3.2の名目モードは固定利付債とし、インフレによる元本の実質負担減少も計上。前期債務の利払い・償還を追加財源税で賄い、財源税が総稼得所得20%の上限に達した場合は元本償還を縮小し、利払い不足は借換えます。</p>
  <p>借金・通貨発行による給付を、実質GDPへの同額ボーナスとしては加えません。公的購入も当期GDPに自動乗数を付けず、完成待ち（既定4期）後に設定した効率だけ供給条件を改善します。移転・公共購入・金融取引は別々です。投資効率や規制緩和効果は未較正の仮定で、0にできます。規制試行は16期で終了し、投資の能力ストックは減衰します。供給改善は診断の「制度・レント・供給能力」に入り、自然率の変化と短期曲線上の金融サプライズを区別します。</p>
  <p>政策カードは外部からの上書き実験であり、通常のD政権の裁量制約bindingによっては止まりません。貨幣ルールを逸脱すればR政権でも信頼の低下が起こります。国債購入原資の不足、銀行・企業・消費者の最適化、消費・貯蓄の厳密な動学、法人税・消費税・政策金利は未実装です。国債取引後の資金が負になる場合は、暗黙に家計の既存貯蓄を取り崩す近似です。これは予測用の一般均衡モデルではありません。</p>
  <p>財政・金融の区別：<a href="https://www.federalreserve.gov/faqs/money_12855.htm" target="_blank" rel="noopener noreferrer">Federal Reserve FAQ</a>。通貨発行による給付と通常の金融操作の区別：<a href="https://www.richmondfed.org/publications/research/econ_focus/2016/q2/jargon_alert" target="_blank" rel="noopener noreferrer">Richmond Fed, Helicopter Money</a>。短期・長期の区別は既存のFriedman講演に依拠し、カードの係数と財政閉鎖ルールは独自の仮定です。</p>
  <h3>ラグと効果の検証</h3><p>「介入あり／なしの波及を比較」は同じRepublic.stepを2回使い、選挙・外生攪乱などを止めて経路を比較します。本編の実現値には他の要因も重なるため、「入力がプラス」と「実現インフレの前期比がプラス」は同じではありません。貨幣発行がない給付や減税に直接の物価乗数は置いていません。消費・貯蓄・金利・労働供給経路を省略した近似であり、現実の効果ゼロを意味しません。</p><p>物価指数は P[t]=P[t−1]×(1+π[t]/100)^(1/4)。一回の貨幣注入では率の押上げが消えても、水準差が残りえます。失業は当期の金融サプライズで計算し、後から失業率だけを遅らせて短期曲線との一致を壊す処理はしません。独立した採用ラグや、政策発表だけで先に動く資産価格は未実装です。時間差は未較正の仮定で、現実の何か月という推定値ではありません。<a href="https://www.ecb.europa.eu/mopo/intro/transmission/html/index.en.html" target="_blank" rel="noopener noreferrer">ECB: monetary policy transmission</a>。</p>
- <h3>再現性と限界</h3><p>モデルの乱数と描画の乱数は分離。速度・フレームレート・表示レイヤーは結果を変えません。保存JSONはモデル版v3.1、初期設定、シード、介入・変更の時点、観測終了時点を記録。同じモデル版で操作を再実行します。旧形式は条件の移行として読み込み、旧計算結果と一致しない旨を表示します。CSV は直近480期の履歴。ブラウザに外部通信・追跡・自動保存はしません。</p><p>A/B は現在の適用済みパラメータを初期条件として新しく開始し、手動の介入を引き継ぎません。同じ組のシードを使い、外生ショックの乱数系列を各条件で共通にします。信念や投票の乱数系列は分岐によりずれることがあります。出力の標準偏差は実行間のばらつきで、現実社会の推定誤差でも因果効果の確信区間でもありません。</p><p>「誤認の自己増幅」「期待の外挿」「格差の累積優位」に加え、「規則信頼」「期待再アンカー」「政策不確実性コスト」「選挙前刺激への警戒」も明示的な動学係数です。現実の自然法則として置いているわけではありません。未較正の係数や関数形に強く依存します。確認バイアスを特定の値にしたら現実が必ず分断される、という主張はできません。初期政権 R、党派を2つに束ねた設計、生活指数の定義自体も仮定です。政党ラベルを勝者の証明に使わず、パラメータを変えた感度と複数試行を比較するための作品です。</p>
+<h3>連続政策と名目国債（v3.2）</h3><p>「アベノミクス→サナエノミクス型」は実績再現でも日本の予測でもありません。政策名称を題材に、金融拡張と国債給付が続く仮想条件を設定。政府が中央銀行を直接操作しているという事実主張ではありません。選挙結果と独立に経済政策が継続する外生シナリオです。</p><p>新発市場利回りは、実質基準・前期までの期待インフレ・債務や予想誤差のプレミアムから徐々に形成。既発債は固定名目利率なので、利払いは借換え・新発によって遅れて増加。物価上昇による元本の実質負担減少も計上します。利払いの自動増税充当率を0にすると未充当分は新規国債に含まれます。出口経路も自動増税は行わないため、金融拡張を止めるだけで債務問題が解決するとは限りません。債務の名目額・所得比・利率を区別して観察してください。</p><p>市場利率は政策金利ではありません。基準実質金利と期間プレミアムを超える追加的実質借入負担だけをラグ付きの産出損失へ反映。βを変えず、既存の短期曲線のその他寄与に表示します。</p><p><a href="https://www.kantei.go.jp/jp/105/statement/2026/0220shiseihoshin.html" target="_blank" rel="noopener noreferrer">施政方針演説（2026年2月20日）</a>は政策方針の参照用。<a href="https://www.mof.go.jp/jgbs/individual/how_to/index.htm" target="_blank" rel="noopener noreferrer">財務省：固定利付国債の表面利率</a>、<a href="https://www.stlouisfed.org/publications/regional-economist/april-2014/the-ups-and-downs-of-inflation-and-the-role-of-fed-credibility" target="_blank" rel="noopener noreferrer">St. Louis Fed：期待インフレと名目金利</a>を概念の出発点にしています。係数・段階の時期・債務額は本作品独自です。</p>
+ <h3>再現性と限界</h3><p>モデルの乱数と描画の乱数は分離。速度・フレームレート・表示レイヤーは結果を変えません。保存JSONはモデル版v3.2、初期設定、シード、介入・変更の時点、観測終了時点を記録。同じモデル版で操作を再実行します。旧形式は条件の移行として読み込み、旧計算結果と一致しない旨を表示します。CSV は直近480期の履歴。ブラウザに外部通信・追跡・自動保存はしません。</p><p>A/B は現在の適用済みパラメータを初期条件として新しく開始し、手動の介入を引き継ぎません。同じ組のシードを使い、外生ショックの乱数系列を各条件で共通にします。信念や投票の乱数系列は分岐によりずれることがあります。出力の標準偏差は実行間のばらつきで、現実社会の推定誤差でも因果効果の確信区間でもありません。</p><p>「誤認の自己増幅」「期待の外挿」「格差の累積優位」に加え、「規則信頼」「期待再アンカー」「政策不確実性コスト」「選挙前刺激への警戒」も明示的な動学係数です。現実の自然法則として置いているわけではありません。未較正の係数や関数形に強く依存します。確認バイアスを特定の値にしたら現実が必ず分断される、という主張はできません。初期政権 R、党派を2つに束ねた設計、生活指数の定義自体も仮定です。政党ラベルを勝者の証明に使わず、パラメータを変えた感度と複数試行を比較するための作品です。</p>
  <h3>モデルの出発点となる文献</h3><p><a href="https://www.richmondfed.org/press_room/speeches/jeffrey_m_lacker/2007/lacker_speech_20070411" target="_blank" rel="noopener noreferrer">Federal Reserve Bank of Richmond, “Inflation and Unemployment (revised)” (2007).</a><br>フリードマン＝フェルプス型の事前期待・曲線の移動・自然率への回帰を説明。標準図のκ=1、係数、適応速度は本作品の統制条件です。</p><p><a href="https://www.federalreserve.gov/newsevents/speech/kugler20250220a.htm" target="_blank" rel="noopener noreferrer">Federal Reserve, “Navigating Inflation Waves: A Phillips Curve Perspective” (2025).</a><br>期待を加えたフィリップス曲線と供給条件の区別。今回の分解式・係数・統制実験は独自の縮約モデルです。</p><p><a href="https://www.nobelprize.org/prizes/economic-sciences/1976/friedman/lecture/" target="_blank" rel="noopener noreferrer">Milton Friedman, “Inflation and Unemployment” (1976), Nobel Lecture.</a><br>期待と短期・長期の区別。本文の具体的な係数やゲーム上の作用は、本作品独自の設計です。</p><p><a href="https://www.jasss.org/5/3/2.html" target="_blank" rel="noopener noreferrer">Rainer Hegselmann &amp; Ulrich Krause (2002), “Opinion dynamics and bounded confidence models, analysis and simulation”, JASSS 5(3).</a><br>限定的信頼による意見更新。本作品はこの論文の結果を再現・検証したものではありません。</p>
 </div></section></div>
 <div class="modal-backdrop" id="policyProbeModal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="policyProbeTitle"><div class="modal-head"><h2 id="policyProbeTitle">介入の波及を比較</h2><button data-close="policyProbeModal" aria-label="閉じる">×</button></div><div class="modal-body"><p id="probeLoading">同じ計算式で、介入する経路としない経路を比較しています。</p><div id="probeBody" hidden><p id="probeSummary" class="probe-summary"></p><p class="treasury-note">図は「介入あり − 介入なし」。0の破線は介入なし。インフレ率・失業率の差はポイント、物価水準の差は%です。</p><div class="probe-cursor"><label for="probeCursor">観察期</label><input id="probeCursor" type="range" min="0" max="160" value="0" step="1"><output id="probeQuarter"></output></div><label class="probe-range-label" for="probeRange">グラフの表示範囲 <select id="probeRange"><option value="40" selected>40期</option><option value="80">80期</option><option value="160">160期</option></select></label><p id="probePoint" class="probe-point"></p><h3 class="probe-chart-title">インフレ率への差分 / pt</h3><canvas class="probe-chart" id="probePiChart" aria-label="金融・財政介入によるインフレ率の差分"></canvas><h3 class="probe-chart-title">失業率への差分 / pt</h3><canvas class="probe-chart" id="probeUChart" aria-label="介入による失業率の差分"></canvas><h3 class="probe-chart-title">物価水準への差分 / %</h3><canvas class="probe-chart" id="probePriceChart" aria-label="物価水準の累積的な差分"></canvas><p id="probeCaveat" class="probe-warning"></p><details><summary>比較条件・省略した経路</summary><p id="probeAssumptions" class="treasury-note"></p></details><button id="probeExport">この比較をCSVで保存</button></div></div></section></div>
@@ -203,7 +230,7 @@ class RNG{
  next(){let t=this.s+=0x6D2B79F5;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);this.s>>>=0;return ((t^(t>>>14))>>>0)/4294967296;}
  normal(){return Math.sqrt(-2*Math.log(Math.max(this.next(),1e-12)))*Math.cos(2*Math.PI*this.next());}
 }
-const GROUPS=[['initial','01 / 人口と初期条件'],['mind','02 / 学習と信念'],['network','03 / 情報とつながり'],['election','04 / 投票と制度'],['macro','05 / 貨幣・期待・経済'],['distribution','06 / 利益と分配'],['policy','07 / 介入と財政']];
+const GROUPS=[['initial','01 / 人口と初期条件'],['mind','02 / 学習と信念'],['network','03 / 情報とつながり'],['election','04 / 投票と制度'],['macro','05 / 貨幣・期待・経済'],['distribution','06 / 利益と分配'],['policy','07 / 介入と財政'],['sovereign','08 / 連続政策と国債市場']];
 const PARAMS=[];
 function param(group,key,label,min,max,step,value,unit,help,reset=false){PARAMS.push({group,key,label,min,max,step,value,unit,help,reset});}
 function choice(group,key,label,value,options,help){PARAMS.push({group,key,label,value,options,help});}
@@ -278,19 +305,47 @@ param('distribution','idioVol','個人所得ショック',0,2,.05,.3,'','昇給�
 param('policy','interventionLag','政策カードの発効待ち',1,8,1,1,'期','新しく決定する政策カードの発効待ち。通常の政権政策ラグとは別。決定済みの日程は変わりません。');
 param('policy','interventionSpread','金融カードの波及分散期間',1,12,1,4,'期','発効後L期待ち、貨幣増加率への入力をこの期間の三角型重みで分配。重みの合計は1。1なら一括波及。給付・通貨発行の会計は実施期だけで二重計上しません。')
 param('policy','investmentLag','公共投資・訓練の完成待ち',1,16,1,4,'期','各期の公的購入から供給能力への反映まで。金融のLとは独立。決定時に日程を固定し、支出終了後も完成待ちは残ります。')
-param('policy','debtRealRate','介入債務の実質金利',0,8,.25,2,'%','追加国債は物価連動の実質債務として簡略化。利払いは国内の国債保有者へ。一般の政策金利ではありません。');
+param('policy','debtRealRate','介入債務の実質金利',0,8,.25,2,'%','追加国債は物価連動の実質債務として簡略化。利払いは国内の国債保有者へ。一般の政策金利ではありません。名目モードではこの固定実質金利を使わず、新発市場利率と平均表面利率で計算。');
 param('policy','debtRepay','介入債務の毎期償還率',0,.2,.005,.04,'%','前期末債務のうち毎期償還を計画する割合。利払いと合わせた自動財源税には当期総稼得所得20%の上限。');
 param('policy','moneyIncomeRatio','貨幣残高 / 年間所得の仮定',.2,2,.05,.5,'倍','通貨発行給付を貨幣増加率へ換算するためのM/Y近似。銀行の信用創造・内生的貨幣需要は未実装。');
 param('policy','infrastructureEfficiency','公共投資の供給改善効率',0,.4,.01,.12,'','支出1%分が完成待ち（既定4期）後に供給能力を何pt改善するか。0で無効。累積能力は毎期0.5%減衰する未較正の仮定。');
 param('policy','trainingEfficiency','職業訓練の供給改善効率',0,.4,.01,.08,'','支出1%分が完成待ち（既定4期）後に供給能力を何pt改善するか。0で無効。技能効果は毎期1%減衰する未較正の仮定。');
 param('policy','reformCapacity','参入規制緩和の供給改善',0,2,.05,.6,'pt','期限付き試行の間、供給側の構造寄与を改善する幅。実証値ではなく仮定。0で効果を無効化。');
+
+// 名目債務・段階的政策は明示的な追加モード。既存の既定計算は変更しない。
+choice('sovereign','policySequence','連続政策の経路','off',[['off','自動政策なし'],['escalate','追加刺激を強める（仮想）'],['exit','途中で規則へ戻す（比較）']],'日本の実績・予測ではない外生的な政策日程。選挙の勝者にかかわらず、継続を仮定する。実行中も停止・切替可能。');
+choice('sovereign','sovereignDebtMode','国債の会計方式 ※','indexed',[['indexed','従来の物価連動・実質金利固定'],['nominal','名目固定利付・市場金利と借換え']],'名目モードでは物価上昇で既発債の実質負担が減り、新規・借換分だけが市場利率へ移る。変更は再生成が必要。');PARAMS[PARAMS.length-1].reset=true;
+param('sovereign','inheritedDebt','初期債務 / 年間所得 ※',0,4,.05,0,'倍','開始時の架空債務。2は年間所得200%。日本の実績値ではない。対応する債権を所得比例で家計へ配置。',true);
+param('sovereign','initialCoupon','初期の国債平均利率 ※',0,10,.1,.6,'%','名目モードの既発債の表面利率（年率）。開始後は借換・新発で変化。',true);
+param('sovereign','bondRealAnchor','国債の実質金利基準',0,5,.1,.5,'%','市場金利の基準。政策金利ではない。名目利回りは期待インフレとプレミアムも含む。');
+param('sovereign','bondTermPremium','期間プレミアム',0,5,.1,.3,'pt','代表的な新発国債の上乗せ。特定年限の実測推定ではない。');
+param('sovereign','bondDebtRisk','債務比率への金利感応度',0,5,.1,.6,'','債務/年間所得が1倍を超える部分に掛ける上乗せpt。必然の法則ではなく0にできる仮定。');
+param('sovereign','bondInflationRisk','予想誤差への金利感応度',0,2,.05,.15,'','過去のインフレ予想誤差の移動平均へ掛けるリスク上乗せ。0で無効。');
+param('sovereign','bondYieldGain','市場金利の調整速度',.02,1,.02,.3,'','事前情報で作った要求利回りへ実際の新発利率が近づく速さ。');
+param('sovereign','bondExpectationGain','債券市場の期待更新',.02,1,.02,.2,'','前期の家計期待を債券市場の期待へ取り込む速度。期間構造全体ではない縮約モデル。');
+param('sovereign','bondRollover','毎期の借換比率',.005,.25,.005,.03,'','幾何分布型の満期近似。0.03なら平均約33四半期。借換えそのものは純債務増ではない。');
+param('sovereign','serviceTaxCover','利払い・償還の増税充当率',0,1,.05,1,'%','名目モードで必要な債務サービスのうち当期増税で賄う割合。0なら不足は借入。現実の増税率の推定ではない。');
+param('sovereign','creditSpreadCost','実質借入プレミアムの損失',0,2,.05,.25,'','期待インフレを除く市場利率が実質基準＋期間分を上回る部分に対する産出損失。名目金利そのものではない。0で無効。');
+param('sovereign','creditSpreadLag','借入負担の実物波及待ち',0,16,1,4,'期','市場の追加的実質借入負担が産出・失業へ届くまで。');
+param('sovereign','sequenceSwitch','第2段階へ移る決定期',8,80,1,25,'期','仮想の政策継承時期。現実の2013年や2025年を示す暦ではない。');
+param('sovereign','sequenceExit','出口の決定期',16,200,1,65,'期','比較経路で拡張を止める時期。既に決めた政策と金融ラグは消去しない。');
+param('sovereign','sequenceEase','第1段階の追加貨幣増加率',0,10,.5,3,'pt','初期8四半期でこの値へ増やす年率の追加貨幣増加率。家計給付とは別。');
+param('sovereign','sequenceAcceleration','第2段階の追加刺激加速',0,.15,.005,.035,'','経過四半期の2乗へ掛ける追加貨幣増加率。期待を上回り続けようとする政策の仮定。');
+param('sovereign','sequenceMoneyCeiling','追加貨幣増加率の上限',0,30,.5,18,'pt','加速経路の上限。上限後は期待が追いつき、短期便益が消耗する。');
+param('sovereign','sequenceDeficit1','第1段階の国債給付',0,30,.5,5,'%','毎期の決定時総所得に対する国債財源の給付規模。予算赤字の実測値ではない。');
+param('sovereign','sequenceDeficit2','第2段階の国債給付',0,40,.5,15,'%','第2段階に12四半期かけて移行する給付規模。借入と金利負担を接続するストレス仮定。');
+param('sovereign','sequenceMoneyGrant','第2段階の通貨発行給付',0,5,.25,.5,'%','追加の一律給付。発行と物価波及は既存の金融キュー経由。0で無効。');
+
 const DEFAULTS=Object.fromEntries(PARAMS.map(p=>[p.key,p.value]));
 const P_BY_KEY=Object.fromEntries(PARAMS.map(p=>[p.key,p]));
 const ownParameter=key=>Object.prototype.hasOwnProperty.call(P_BY_KEY,key)?P_BY_KEY[key]:null;
 // step はUIの操作刻み。旧プリセットに含まれる範囲内の中間値も再現できるように受理する。
 const validNumber=(p,v)=>Number.isFinite(v)&&v>=p.min-1e-8&&v<=p.max+1e-8;
+const JAPAN_STRESS_DEFAULTS={policySequence:'escalate',sovereignDebtMode:'nominal',inheritedDebt:2,initialCoupon:.6,moneyRule:1,growth:1,naturalU:5,stimulus:0,transfer:0,lobby:0,binding:1,ruleReanchor:0,expectationGain:.12,expectationExtrapolation:0,policyUncertaintyAversion:0,supplyVol:0,realVol:0,shockRate:0,idioVol:.1,debtRepay:0,serviceTaxCover:0,initialR:.45,initialKnowledge:.5,initialAccuracy:.6,verified:.75,attribution:.8,electionPeriod:16};
 const SCENARIOS=[
  {id:'baseline',name:'均衡の共和国',note:'二つの陣営、まだ開かれた社会。小さな介入が未来を変える。',p:{}},
+ {id:'japan_stress',name:'アベノミクス→サナエノミクス型：追加刺激の罠〈仮想〉',note:'実績再現ではないストレス実験。緩和と国債給付から、加速する刺激・期待・借換金利へ。失業率の永久低下も債務比率の単調増加も保証しない。',p:{...JAPAN_STRESS_DEFAULTS}},
+ {id:'japan_exit',name:'比較：同じ出発点から途中で規則へ',note:'同じ第1・第2段階を経て65期目の決定から拡張を停止。到着待ち・債務・既発債の利率は残る。実際の日本の予測ではない。',p:{...JAPAN_STRESS_DEFAULTS,policySequence:'exit'}},
  {id:'rulewins',name:'規則派優勢：長期評価社会',note:'長期効果を重く見て、政策帰属も比較的正確。規則派 R が選挙で優勢になりやすい。',p:{initialR:.68,initialPolar:.55,initialKnowledge:.72,initialAccuracy:.82,initialConfidence:.42,expertShare:.1,learning:.25,confirmation:.18,confidenceBound:1.6,conformity:.46,ignorance:.12,experience:.62,attribution:.92,exposure:.84,trust:.74,verified:.9,mediaTilt:0,homophily:.28,econWeight:.9,partisanship:.2,selfInterest:.3,shortTerm:.12,turnout:.78,votingCost:.08,mobilizeR:.04,mobilizeD:0,charisma:0,electoralSystem:'proportional',reelection:.9,binding:.12,expectationGain:.55,illusion:.08,inflationAversion:1.2,fiscalIllusion:.15}},
  {id:'shortpleasure',name:'裁量派優勢：短期快楽国家',note:'選挙は近く、政策効果は遅い。目先の刺激を評価し、長期コストを強く割り引く社会。',p:{initialR:.42,initialPolar:.5,initialKnowledge:.28,initialAccuracy:.28,ignorance:.74,attribution:.16,econWeight:.86,shortTerm:.96,illusion:.9,partisanship:.38,electionPeriod:6,policyLag:8,stimulus:14,reelection:1,expectationGain:.12,inflationAversion:.25,fiscalIllusion:.82,transfer:10}},
  {id:'misinfo',name:'認識腐食スパイラル',note:'知識量がゼロでなくても、誤認だけが毎期自己増幅する。真値からの距離が時間とともに広がる。',p:{initialKnowledge:.52,initialAccuracy:.7,initialConfidence:.65,learning:.12,forgetting:.04,confirmation:.88,misperceptionDrift:.018,verified:.08,trust:.94,exposure:.96,adVolume:1.8,homophily:.9,rewiring:.24,ignorance:.35,expertShare:.03}},
@@ -372,12 +427,12 @@ function makeSites(n){
  siteCache.set(n,a);return a;
 }
 // 同じ計算を本編と統制実験で共有する。描画や政党評価には依存しない。
-const MODEL_VERSION='3.1-policy-transmission';
+const MODEL_VERSION='3.2-sovereign-sequence';
 // 旧版は条件と操作の移行として読めるが、同一結果の保証は同じモデル版に限る。
-const REPLAY_COMPATIBLE=[MODEL_VERSION];
+const REPLAY_COMPATIBLE=[MODEL_VERSION,'3.1-policy-transmission'];
 const MIGRATABLE_VERSIONS=['2.0-phillips','2.1-phillips-geometry','3.0-policy-cards'];
 const OKUN=0.55, SUPPLY_PERSISTENCE=0.58;
-const MACRO_METRICS=['inflationCore','expectedCore','expectedSupply','supplyPriceShock','supplyPriceSurprise','monetarySurprise','totalSurprise','inflationDelta','expectedDelta','monetarySurpriseDelta','unemploymentDelta','naturalUBase','effectiveNaturalU','beta','lrTheta','ruleMoney','potentialGrowth','curveInterceptU','uMonetary','uLongRun','uReal','uSupply','uStructural','uUncertainty','uBounds','uMonetaryDelta','uOtherDelta','rawGap','expectationMode'];
+const MACRO_METRICS=['inflationCore','expectedCore','expectedSupply','supplyPriceShock','supplyPriceSurprise','monetarySurprise','totalSurprise','inflationDelta','expectedDelta','monetarySurpriseDelta','unemploymentDelta','naturalUBase','effectiveNaturalU','beta','lrTheta','ruleMoney','potentialGrowth','curveInterceptU','uMonetary','uLongRun','uReal','uSupply','uStructural','uUncertainty','uCredit','uBounds','uMonetaryDelta','uOtherDelta','rawGap','expectationMode'];
 function macroMetrics(state){return Object.fromEntries(MACRO_METRICS.map(k=>[k,state[k]]));}
 function advanceMacro(before,p,policy,shocks){
  const appliedDiscretion=clamp(1-policy.rule),deltaMu=policy.mu-p.moneyRule;
@@ -411,12 +466,14 @@ function advanceMacro(before,p,policy,shocks){
  const uncertaintyWedge=p.policyUncertaintyAversion*.18*policyUncertainty;
  const gMonetary=p.phillips*monetarySurprise,gLong=.8*p.longReal*deltaMu;
  const gReal=shocks.business,gSupply=-p.supplyImpact*shocks.supply;
- const rawGap=gMonetary+gLong+gReal+gSupply-rentWedge-uncertaintyWedge;
+ const creditWedge=policy.creditWedge||0;
+ const rawGap=gMonetary+gLong+gReal+gSupply-rentWedge-uncertaintyWedge-creditWedge;
  const gap=clamp(rawGap,-20,20),unemployment=clamp(p.naturalU-OKUN*gap,.2,30);
  const uMonetary=-OKUN*gMonetary,uLongRun=-OKUN*gLong,uReal=-OKUN*gReal;
  const uSupply=-OKUN*gSupply,uStructural=OKUN*rentWedge,uUncertainty=OKUN*uncertaintyWedge;
  const effectiveNaturalU=p.naturalU+uStructural;
- const curveInterceptU=effectiveNaturalU+uLongRun+uReal+uSupply+uUncertainty;
+ const uCredit=OKUN*creditWedge;
+ const curveInterceptU=effectiveNaturalU+uLongRun+uReal+uSupply+uUncertainty+uCredit;
  // 安全上の上下限が作用した場合も寄与度の和を実際の表示に一致させる。
  const uBounds=unemployment-(curveInterceptU+uMonetary);
  const dIntensity=appliedDiscretion*clamp(Math.max(0,deltaMu)/Math.max(1,p.stimulus));
@@ -426,7 +483,7 @@ function advanceMacro(before,p,policy,shocks){
   inflationDelta:inflation-before.inflation,expectedDelta:expected-before.expected,
   monetarySurpriseDelta:monetarySurprise-(before.monetarySurprise||0),unemploymentDelta:unemployment-before.unemployment,
   unemployment,gap,rawGap,naturalUBase:p.naturalU,effectiveNaturalU,beta:OKUN*p.phillips,lrTheta:p.longReal,ruleMoney:p.moneyRule,potentialGrowth:p.growth,
-  curveInterceptU,uMonetary,uLongRun,uReal,uSupply,uStructural,uUncertainty,uBounds,
+  curveInterceptU,uMonetary,uLongRun,uReal,uSupply,uStructural,uUncertainty,uCredit,uBounds,
   uMonetaryDelta:uMonetary-(before.uMonetary||0),uOtherDelta:unemployment-before.unemployment-(uMonetary-(before.uMonetary||0)),
   policyCredibility,policyUncertainty,policyDeviation,prevAppliedMu:policy.mu,
   appliedDiscretion,deltaMu,dIntensity,discretionDividend:dIntensity*gMonetary,electionOpportunism:policy.opportunism||0};
@@ -443,7 +500,7 @@ function initialMacro(p){
 // π = πe + ν + Ω/β − (u − un)/β ; β = 0.55a.
 function phillipsRelation(s){
  const beta=s.beta,nu=s.supplyPriceSurprise;
- const omega=s.uLongRun+s.uReal+s.uSupply+s.uUncertainty;
+ const omega=s.uLongRun+s.uReal+s.uSupply+s.uUncertainty+(s.uCredit||0);
  const u0=s.effectiveNaturalU+omega,pi0=s.expected+nu;
  const rawU=u0-beta*(s.inflation-pi0),residual=s.unemployment-rawU;
  const accountingResidual=residual-s.uBounds;
@@ -508,6 +565,7 @@ class Republic{
   this.inflation=this.p.moneyRule-this.p.growth;this.expected=this.inflation;this.initialInflation=this.inflation;this.prevInflation=this.inflation;
   this.unemployment=this.p.naturalU;this.gap=0;this.potential=1;this.realIndex=100;this.welfare=100;
   this.transmissionQueue=[];this.transmissionActive=[];this.issuedImpulseTotal=0;this.appliedImpulseTotal=0;this.logPriceLevel=0;this.priceLevelIndex=100;
+  this.bondMarketYield=this.p.initialCoupon;this.bondAverageCoupon=this.p.initialCoupon;this.bondCouponUsed=this.p.initialCoupon;this.bondExpectedInflation=this.p.moneyRule-this.p.growth;this.bondRiskPremium=0;this.bondRiskMemory=0;this.creditQueue=[];this.creditWedge=0;this.sequencePhase=0;this.sequenceMoneyPlan=0;this.sequenceGrantPlan=0;this.sequenceStopped=false;this.sequencePeakSurprise=0;this.sequencePeakInflation=0;this.sequenceFlags=new Set();this.debtPriceIndex=1;this.debtRevaluation=0;this.nominalDebtInitial=0;this.nominalDebtResidual=0;this.sovereignRateCapped=false;this.sovereignTerminal=false;this.terminalReason='';
   this.programmes=[];this.investmentQueue=[];this.publicCapital=0;this.skillsCapital=0;this.publicDebt=0;this.debtOriginR=0;this.debtOriginD=0;this.fiscalReserve=0;this.lastPolicyError='';this.policyFrame=null;this.fiscalLedger=null;
   this.supplyShock=0;this.businessShock=0;this.pendingSupply=0;this.pendingBusiness=0;this.budget=100;this.effects=[];this.events=[];this.pending=[];this.actions=[];
   this.unlocked=[];this.lightStreak=0;this.bridgeStreak=0;this.history=[];this.lastElection=null;this.crisisFlags=new Set();
@@ -535,8 +593,84 @@ class Republic{
   for(const a of this.agents)for(let j=0;j<5;j++)a.links.push(this.choosePeer(a));
   this.bufB=new Float64Array(this.agents.length);this.bufZ=new Float64Array(this.agents.length);this.bufK=new Float64Array(this.agents.length);
   this.updateIncome(false);this.initialGeom=this.geomIncome;this.welfare=100;
+  this.seedInheritedDebt();
   this.measure();this.record();this.log('共和国が成立。規則派 R が暫定政権を担当。','start');
  }
+
+ seedInheritedDebt(){
+  const Y=this.fiscalLedger?.Y||this.agents.length;
+  this.publicDebt=this.p.inheritedDebt*4*Y;this.nominalDebtInitial=this.publicDebt;
+  this.debtOriginR=this.publicDebt;this.debtOriginD=0;
+  const total=this.agents.reduce((v,a)=>v+a.earn,0);
+  for(const a of this.agents)a.bonds=this.publicDebt*a.earn/Math.max(.01,total);
+  this.fiscalLedger.debt=this.publicDebt;this.fiscalLedger.bondResidual=this.publicDebt-this.agents.reduce((v,a)=>v+a.bonds,0);
+ }
+ runPolicySequence(){
+  const p=this.p;if(p.policySequence==='off')return;
+  const q=this.t,stage=q<p.sequenceSwitch?1:(p.policySequence==='exit'&&q>=p.sequenceExit?3:2);
+  const k=Math.max(0,q-p.sequenceSwitch),f=clamp(k/12);
+  let money=stage===1?p.sequenceEase*clamp((q+1)/8):Math.min(p.sequenceMoneyCeiling,p.sequenceEase+.10*k+p.sequenceAcceleration*k*k);
+  let grant=stage===1?p.sequenceDeficit1:lerp(p.sequenceDeficit1,p.sequenceDeficit2,f);
+  if(stage===3){money=0;grant=0;}
+  this.sequenceMoneyPlan=money;this.sequenceGrantPlan=grant;
+  if(stage!==this.sequencePhase){
+   this.sequencePhase=stage;
+   const title=stage===1?'第1段階：緩和と国債給付':stage===2?'第2段階：追加刺激を加速':'出口：新しい刺激を停止（到着待ちと債務は残る）';
+   this.log('仮想の政策継承 / '+title+'。実際の日本の年表ではありません。','sequence');
+  }
+  const reference=Math.max(.01,this.agents.reduce((v,a)=>v+a.earn*this.potential,0));
+  const start=this.t+Math.round(p.interventionLag);
+  const add=(id,strength,budget)=>{if(Math.abs(strength)<1e-12&&budget===0)return;
+   this.programmes.push({id,start,end:start,decided:this.t,issuer:this.government,strength,reference,budget,scripted:true,
+    moneyLag:Math.round(p.policyLag),spread:Math.round(p.interventionSpread),supplyLag:Math.round(p.investmentLag)});
+  };
+  // 給付は既存の同一会計へ、金融入力は既存の同一ラグキューへ。
+  add('monetary_ease',money/4,0);
+  add('cash_debt',grant/3,reference*grant/100);
+  if(stage===2&&p.sequenceMoneyGrant>0)add('helicopter',p.sequenceMoneyGrant/3,reference*p.sequenceMoneyGrant/100);
+ }
+ advanceBondMarket(){
+  const p=this.p;if(p.sovereignDebtMode!=='nominal')return;
+  const Y=Math.max(.01,this.fiscalLedger?.Y||this.agents.length),b=this.publicDebt/(4*Y);
+  // 前期までに判明した期待・債務・予想誤差だけで新発利回りを形成する。
+  this.bondExpectedInflation+=p.bondExpectationGain*(this.expectedCore-this.bondExpectedInflation);
+  this.bondRiskMemory=.85*this.bondRiskMemory+.15*Math.abs(this.monetarySurprise||0);
+  this.bondRiskPremium=p.bondTermPremium+p.bondDebtRisk*Math.max(0,b-1)+p.bondInflationRisk*this.bondRiskMemory;
+  const fairCoupon=400*(Math.pow((1+p.bondRealAnchor/100)*(1+this.bondExpectedInflation/100),.25)-1);
+  const required=fairCoupon+this.bondRiskPremium;
+  const raw=this.bondMarketYield+p.bondYieldGain*(required-this.bondMarketYield);
+  this.sovereignRateCapped=raw<0||raw>80;this.bondMarketYield=clamp(raw,0,80);
+  // インフレ補償分を差し引いた実質金利のみを実物損失へ使う。
+  this.bondExAnteReal=100*(Math.pow(1+this.bondMarketYield/400,4)/(1+this.bondExpectedInflation/100)-1);
+  const fairReal=100*(Math.pow(1+(fairCoupon+p.bondTermPremium)/400,4)/(1+this.bondExpectedInflation/100)-1);
+  const cost=p.creditSpreadCost*Math.max(0,this.bondExAnteReal-fairReal);
+  this.creditQueue.push({at:this.t+Math.round(p.creditSpreadLag),cost});
+  const arrived=this.creditQueue.filter(x=>x.at===this.t);if(arrived.length)this.creditWedge=arrived[arrived.length-1].cost;
+  this.creditQueue=this.creditQueue.filter(x=>x.at>this.t);
+ }
+ revalueNominalDebt(){
+  if(this.p.sovereignDebtMode!=='nominal'||this.t===0){this.debtRevaluation=0;return;}
+  const P=this.priceLevelIndex/100,factor=this.debtPriceIndex/P,before=this.publicDebt;
+  this.publicDebt*=factor;this.debtOriginR*=factor;this.debtOriginD*=factor;this.fiscalReserve*=factor;
+  for(const a of this.agents)a.bonds*=factor;
+  this.debtRevaluation=this.publicDebt-before;this.debtPriceIndex=P;
+ }
+ checkSequenceEvents(){
+  if(this.p.sovereignDebtMode!=='nominal')return;
+  const fire=(key,test,text)=>{if(test&&!this.sequenceFlags.has(key)){this.sequenceFlags.add(key);this.log(text,'sequenceAlert');}};
+  this.sequencePeakSurprise=Math.max(this.sequencePeakSurprise,this.monetarySurprise);
+  this.sequencePeakInflation=Math.max(this.sequencePeakInflation,this.inflation);
+  fire('yield',this.bondMarketYield>=5,'新発国債の市場利率が5%域へ。既発債すべてが同時にこの利率になるわけではありません。');
+  fire('service',this.fiscalLedger.interest/Math.max(.01,this.fiscalLedger.Y)>=.08,'利払いが当期所得の8%を超えました。未充当分は借入へ回り、次の利払いを増やします。');
+  fire('erosion',this.sequencePeakSurprise>.8&&this.monetarySurprise<this.sequencePeakSurprise*.35&&this.inflation>3,'刺激の短期効果が消耗。期待が追いつき、高インフレだけでは低失業を維持できません。');
+  const Y=Math.max(.01,this.fiscalLedger.Y);
+  if(this.publicDebt/(4*Y)>=10||this.fiscalLedger.interest/Y>=1){
+   this.sovereignTerminal=true;this.terminalReason='モデル適用上限：債務/年間所得1000%、または利払い/当期所得100%に到達。この先の債務再編・徴税限界・デフォルトをモデル化していないため停止。実際の破綻判定ではありません。';
+   fire('terminal',true,this.terminalReason);
+  }
+  fire('cap',Math.abs(this.uBounds)>1e-8||this.sovereignRateCapped||this.inflation>=45,'安全上下限が作用。ここから先の形を経済理論の予測として読まないでください。');
+ }
+
  choosePeer(a){
   const r=this.rng,p=this.p;
   let best=-1,bestDist=Infinity;
@@ -610,14 +744,14 @@ class Republic{
   let allocated=0;
   weights.forEach((weight,j)=>{
    const value=j===weights.length-1?extra-allocated:extra*weight;allocated+=value;
-   this.transmissionQueue.push({id:item.id,issuer:item.issuer,decided:item.decided,issued:this.t,at:first+j,first,last:first+weights.length-1,extra:value});
+   this.transmissionQueue.push({id:item.id,issuer:item.issuer,scripted:!!item.scripted,decided:item.decided,issued:this.t,at:first+j,first,last:first+weights.length-1,extra:value});
   });
   this.issuedImpulseTotal+=extra;
  }
  preparePolicyFrame(base){
   const p=this.p,active=this.programmes.filter(a=>a.start<=this.t&&a.end>=this.t);
-  for(const a of active)if(a.start===this.t)this.log(CARD_DEFS.find(c=>c.id===a.id).name+'が発効。','policyStart',{policyId:a.id});
-  for(const a of this.programmes)if(a.end===this.t-1)this.log(CARD_DEFS.find(c=>c.id===a.id).name+'が終了。債務や投資効果は残ります。','policyEnd');
+  for(const a of active)if(a.start===this.t&&!a.scripted)this.log(CARD_DEFS.find(c=>c.id===a.id).name+'が発効。','policyStart',{policyId:a.id});
+  for(const a of this.programmes)if(a.end===this.t-1&&!a.scripted)this.log(CARD_DEFS.find(c=>c.id===a.id).name+'が終了。債務や投資効果は残ります。','policyEnd');
   this.programmes=this.programmes.filter(a=>a.end>=this.t);
   this.publicCapital*=.995;this.skillsCapital*=.99;
   for(const a of this.investmentQueue.filter(a=>a.at===this.t)){
@@ -655,7 +789,7 @@ class Republic{
   const muExtra=arrivals.reduce((sum,q)=>sum+q.extra,0);
   this.appliedImpulseTotal+=muExtra;this.transmissionActive=arrivals;
   this.transmissionQueue=this.transmissionQueue.filter(q=>q.at>this.t);
-  for(const q of arrivals)if(q.at===q.first){
+  for(const q of arrivals)if(q.at===q.first&&!q.scripted){
    const def=CARD_DEFS.find(c=>c.id===q.id);
    this.log(def.name+'：経過'+q.issued+'期の実施分が物価側へ到着。雇用は期待との差から計算。','policyTransmission',{policyId:q.id});
   }
@@ -706,8 +840,10 @@ class Republic{
    }
   }
   const primaryRevenue=revenue,primaryBalance=revenue-transfers-purchases;
-  const interest=debtBefore*p.debtRealRate/400,requestedRepay=debtBefore*p.debtRepay;
-  const serviceLevy=Math.min(.2*Y,interest+requestedRepay),scheduledRepay=Math.min(requestedRepay,Math.max(0,serviceLevy-interest));
+  const nominal=p.sovereignDebtMode==='nominal';
+  this.bondCouponUsed=nominal?this.bondAverageCoupon:p.debtRealRate;
+  const interest=debtBefore*this.bondCouponUsed/400,requestedRepay=debtBefore*p.debtRepay;
+  const serviceLevy=Math.min(.2*Y,(interest+requestedRepay)*(nominal?p.serviceTaxCover:1)),scheduledRepay=Math.min(requestedRepay,Math.max(0,serviceLevy-interest));
   const originR=debtBefore>0?clamp(this.debtOriginR/debtBefore):0;
   revenue+=serviceLevy;
   if(serviceLevy){apply(-serviceLevy*originR,taxable,1);apply(-serviceLevy*(1-originR),taxable,-1);}
@@ -721,6 +857,15 @@ class Republic{
   const reserveAdd=surplus-extraRepay;
   this.publicDebt=Math.max(0,debtBefore-repayment+issuance);
   this.fiscalReserve=Math.max(0,reserveBefore-reserveUse+reserveAdd);
+  let refinanced=0;
+  if(nominal){
+   const surviving=Math.max(0,debtBefore-repayment);refinanced=surviving*p.bondRollover;
+   const coupons=(surviving-refinanced)*this.bondAverageCoupon+(refinanced+issuance)*this.bondMarketYield;
+   this.bondAverageCoupon=this.publicDebt>1e-12?coupons/this.publicDebt:this.bondMarketYield;
+   const P=this.priceLevelIndex/100;
+   const beforeNominal=debtBefore*P,afterNominal=this.publicDebt*P;
+   this.nominalDebtResidual=afterNominal-(beforeNominal+(issuance-repayment)*P);
+  }
   const needR=Math.max(0,defR)+Math.max(0,interest-serviceLevy)*originR;
   const needD=Math.max(0,defD)+Math.max(0,interest-serviceLevy)*(1-originR);
   const newR=needR+needD>0?needR/(needR+needD):(this.government>0?1:0);
@@ -739,12 +884,19 @@ class Republic{
   this.fiscalLedger={Y,primaryRevenue,revenue,transfers,purchases,interest,creation,issuance,repayment,serviceLevy,
    primaryBalance,reserveUse,reserveAdd,debt:this.publicDebt,reserve:this.fiscalReserve,fiscalResidual,
    bondResidual:this.publicDebt-as.reduce((v,a)=>v+a.bonds,0),active:f.active.length,
-   muExtra:f.muExtra||0};
+   muExtra:f.muExtra||0,refinanced,nominalDebtResidual:this.nominalDebtResidual};
   return net;
  }
  policyMetrics(){
   const l=this.fiscalLedger||{},Y=l.Y||1;
-  return {interventionDebt:this.publicDebt,interventionDebtGDP:this.publicDebt/(4*Y),governmentReserve:this.fiscalReserve,
+  return {sequencePhase:this.sequencePhase,sequenceMoneyPlan:this.sequenceMoneyPlan,sequenceGrantPlan:this.sequenceGrantPlan,
+   sovereignTerminal:this.sovereignTerminal,nominalDebtMode:this.p.sovereignDebtMode==='nominal',bondMarketYield:this.bondMarketYield,bondAverageCoupon:this.bondAverageCoupon,
+   bondCouponUsed:this.bondCouponUsed,bondExpectedInflation:this.bondExpectedInflation,bondRiskPremium:this.bondRiskPremium,
+   bondExAnteReal:this.bondExAnteReal??this.p.bondRealAnchor,bondRefinanced:l.refinanced||0,creditWedge:this.creditWedge,
+   nominalPublicDebt:this.publicDebt*this.priceLevelIndex/100,nominalDebtIndex:this.nominalDebtInitial>0?100*this.publicDebt*this.priceLevelIndex/100/this.nominalDebtInitial:0,
+   nominalDebtResidual:this.nominalDebtResidual,debtRevaluation:this.debtRevaluation,interestIncomeShare:(l.interest||0)/Y,
+   couponGap:this.bondMarketYield-this.bondAverageCoupon,sovereignRateCapped:this.sovereignRateCapped,
+   interventionDebt:this.publicDebt,interventionDebtGDP:this.publicDebt/(4*Y),governmentReserve:this.fiscalReserve,
    fiscalRevenue:l.revenue||0,fiscalTransfers:l.transfers||0,fiscalPurchases:l.purchases||0,fiscalInterest:l.interest||0,
    monetaryFinance:l.creation||0,bondIssuance:l.issuance||0,bondRepayment:l.repayment||0,debtServiceTax:l.serviceLevy||0,
    fiscalPrimaryBalance:l.primaryBalance||0,fiscalResidual:l.fiscalResidual||0,bondResidual:l.bondResidual||0,
@@ -792,6 +944,8 @@ class Republic{
   if(this.initialGeom)this.welfare=100*this.geomIncome/this.initialGeom*Math.exp(-.0018*p.inflationAversion*(this.inflation-anchor)**2-.0012*p.policyUncertaintyAversion*this.policyUncertainty**2);
  }
  step(){
+  if(this.sovereignTerminal)return false;
+  this.runPolicySequence();
   const beforeMacro={...this};
   this.t++;const p=this.p,r=this.rng;
   this.effects=this.effects.filter(e=>e.until>=this.t);this.budget=Math.min(100,this.budget+3);
@@ -809,6 +963,8 @@ class Republic{
   const target=this.t-p.policyLag;
   this.appliedPolicy=this.policyQueue.find(q=>q.t===target)||{mu:this.initialParams.moneyRule,fiscal:2+2*this.initialParams.lobby,rule:1,gov:1,opportunism:0,t:0};
   this.appliedPolicy=this.preparePolicyFrame(this.appliedPolicy);
+  this.advanceBondMarket();
+  if(p.sovereignDebtMode==='nominal')this.appliedPolicy={...this.appliedPolicy,creditWedge:this.creditWedge};
   Object.assign(this,advanceMacro(beforeMacro,p,this.appliedPolicy,{supply:this.supplyShock,business:this.businessShock}));
   const appliedDiscretion=this.appliedDiscretion,dIntensity=this.dIntensity,deltaMu=this.deltaMu,surprise=this.monetarySurprise;
   // 年率インフレを四半期複利で積み上げる。物価の水準と上昇率を区別。
@@ -816,7 +972,9 @@ class Republic{
   this.priceLevelCapped=this.logPriceLevel>700;this.priceLevelIndex=100*Math.exp(Math.min(700,this.logPriceLevel));
   this.potential*=Math.pow(1+p.growth/100,.25);
   this.realIndex=100*this.potential*(1+this.gap/100);
+  this.revalueNominalDebt();
   this.updateIncome(true);
+  this.checkSequenceEvents();
   this.districts.forEach(d=>{d.mean=d.ids.reduce((s,i)=>s+this.agents[i].b,0)/Math.max(1,d.ids.length);});
   const bound=clamp(p.confidenceBound+this.effect('openness'),.05,2);
   const attribution=clamp(p.attribution+this.effect('attribution'));
@@ -843,7 +1001,7 @@ class Republic{
    const socialTrustZ=Math.exp(-p.confirmation*Math.abs(socialZ-a.z)*3);
    let zMove=.55*contact*p.trust*trustZ*(mediaZ-a.z)+.3*p.conformity*socialTrustZ*(socialZ-a.z);
    if(Math.abs(deltaMu)>1){
-    const identifiedTransient=-(this.uMonetary+this.uSupply+this.uReal+this.uStructural+this.uUncertainty)/OKUN;
+    const identifiedTransient=-(this.uMonetary+this.uSupply+this.uReal+this.uStructural+this.uUncertainty+(this.uCredit||0))/OKUN;
     const empirical=clamp((this.gap-a.k*identifiedTransient+r.normal()*.8)/(.8*deltaMu),-1,1);
     zMove+=.12*p.experience*a.k*attribution*Math.exp(-p.confirmation*Math.abs(empirical-a.z)*3)*(empirical-a.z);
    }
@@ -951,7 +1109,7 @@ class Republic{
 // 政策だけを変える統制比較。本編と同じRepublic.step / advanceMacroを利用する。
 function createPolicyProbe(parameters,id='helicopter',strength=1,seed='POLICY-TRANSMISSION'){
  const card=CARD_DEFS.find(c=>c.id===id&&c.policy);if(!card)throw new Error('比較できる政策を選んでください。');
- const p={...DEFAULTS,...parameters,population:180,supplyVol:0,realVol:0,shockRate:0,idioVol:0,inequalityDrift:0,
+ const p={...DEFAULTS,...parameters,policySequence:'off',sovereignDebtMode:'indexed',inheritedDebt:0,population:180,supplyVol:0,realVol:0,shockRate:0,idioVol:0,inequalityDrift:0,
   expectationExtrapolation:0,policyUncertaintyAversion:0,ruleReanchor:0};
  const without=new Republic(p,seed),withPolicy=new Republic(p,seed);
  without.nextElection=10000;withPolicy.nextElection=10000;
@@ -1230,12 +1388,12 @@ function renderPhillips(){
   '<small>②の内訳：期待 '+signed(transition.expectation,3)+'、供給価格 '+signed(transition.supplyPrice,3)+'、その他条件 '+signed(transition.other,3)+'、傾き変更 '+signed(transition.slope,3)+' pt。分解の誤差 '+Math.abs(transition.residual).toExponential(1)+'pt。</small>'+
   '<small>①→②は式に基づく反実仮想の分解です。同じ四半期の中にこの順で取引が起きたと主張する経路ではありません。</small>';
  let condition='β>0では、期待・供給・その他条件を固定した短期曲線は必ず右下がり。πᵉだけ1pt上がれば曲線は1pt上へ平行移動します。';
- if(s.lrTheta===0)condition+=' 金色の長期曲線は、期待一致・一時的ショック消失・制度固定のとき u=uⁿ。';
+ if(s.lrTheta===0)condition+=' 金色の長期曲線は、期待一致・一時的ショック消失・追加的な信用負担ゼロ・制度固定のとき u=uⁿ。';
  else condition+=' θ≠0の反実仮想：恒常的実質効果を仮定した長期線も傾きます。フリードマン型の垂直な長期線ではありません。';
  if(s.expectationMode==='fixed')condition+=' 固定期待は学習を止める比較条件。期待一致の長期均衡へ自動収束しません。';
  if(demo)condition=PC_EXPERIMENTS[mode].note+' '+condition;
  $('pcConditions').textContent=condition;
- const factors=[['naturalUBase','基礎自然率'],['uMonetary','金融サプライズ'],['uSupply','供給の実物損失'],['uReal','実物景気ショック'],['uStructural','制度・レント・供給能力'],['uUncertainty','政策不確実性'],['uLongRun','θ の恒常効果'],['uBounds','上下限補正']];
+ const factors=[['naturalUBase','基礎自然率'],['uMonetary','金融サプライズ'],['uSupply','供給の実物損失'],['uReal','実物景気ショック'],['uStructural','制度・レント・供給能力'],['uUncertainty','政策不確実性'],['uCredit','実質借入プレミアム'],['uLongRun','θ の恒常効果'],['uBounds','上下限補正']];
  const max=Math.max(.25,...factors.filter(x=>x[0]!=='naturalUBase').map(([k])=>Math.abs(s[k])));
  $('pcContributions').innerHTML='<div class="pc-contribution header"><span>要因</span><span>低下 ← → 上昇</span><b>水準への寄与</b><b>前期比</b></div>'+factors.map(([k,label])=>{
   const v=s[k],diff=v-prev[k],negative=v<0,width=k==='naturalUBase'?0:Math.abs(v)/max*50;
@@ -1416,6 +1574,35 @@ function chooseScenario(id){
  const sc=SCENARIOS.find(x=>x.id===id)||SCENARIOS[0];selectedScenario=sc.id;settings={...DEFAULTS,...sc.p};$('scenarioNote').textContent=sc.note;
  rebuildWorld({quiet:true});beep();toast(sc.name+'を開始。初期条件を再生成しました。');
 }
+
+function renderSequence(){
+ const p=sim.p,m=sim.policyMetrics(),enabled=p.policySequence!=='off'||p.sovereignDebtMode==='nominal';
+ $('sequencePanel').hidden=!enabled;if(!enabled)return;
+ const phase=p.policySequence==='off'?3:sim.sequencePhase;
+ $('sequenceTitle').textContent=sim.sovereignTerminal?'モデル適用上限に到達（実際の破綻判定ではない）':'政策継承と、遅れて届く国債負担';
+ document.querySelectorAll('#sequenceStages [data-stage]').forEach(x=>x.classList.toggle('active',Number(x.dataset.stage)===phase));
+ $('seqInflation').textContent=fmt(sim.inflation,2)+' / '+fmt(sim.expected,2)+'%';
+ $('seqUnemployment').textContent=fmt(sim.unemployment,2)+' / '+fmt(sim.effectiveNaturalU,2)+'%';
+ $('seqDebt').textContent=sim.nominalDebtInitial>0?fmt(m.nominalDebtIndex,1):'初期債務ゼロ';$('seqDebtRatio').textContent=fmt(100*m.interventionDebtGDP,1)+'%';
+ $('seqYield').textContent=fmt(sim.bondMarketYield,2)+' / '+fmt(sim.bondAverageCoupon,2)+'%';
+ $('seqInterest').textContent=fmt(m.interestIncomeShare*100,2)+'%';
+ const stopped=p.policySequence==='off'||phase===3;
+ const base=stopped?'新しい自動刺激は停止中。予約済み給付・金融入力・借換負担は引き続き到着します。':
+  '直近の自動決定：追加貨幣増加率 '+fmt(sim.sequenceMoneyPlan,2)+'pt、国債給付 '+fmt(sim.sequenceGrantPlan,2)+'% / 決定時所得。';
+ const benefit=sim.monetarySurprise>0?'金融サプライズ '+signed(sim.monetarySurprise,2)+'pt は失業を下げる方向。':'金融サプライズ '+signed(sim.monetarySurprise,2)+'pt。高インフレだけでは失業を下げられません。';
+ $('sequenceDiagnosis').textContent=(sim.sovereignTerminal?sim.terminalReason+' ':base+' ')+benefit+' 実質借入負担の失業寄与 '+signed(sim.uCredit||0,2)+'pt。'+(sim.sovereignRateCapped||Math.abs(sim.uBounds)>1e-8||sim.inflation>=45?'安全上下限が作用しています。':'' );
+ $('sequenceDiagnosis').classList.toggle('sequence-danger',m.interestIncomeShare>.08||sim.sovereignRateCapped);
+ const h=sim.history;
+ drawChart($('sequenceInflationChart'),h,[{key:'inflation',color:'#ff897e'},{key:'expected',color:'#b2a1f2',dash:true}],false,240,true);
+ drawChart($('sequenceUnemploymentChart'),h,[{key:'unemployment',color:'#58e2c4'},{key:'effectiveNaturalU',color:'#ebca82',dash:true}],false,240,true);
+ drawChart($('sequenceRateChart'),h,[{key:'bondMarketYield',color:'#ff897e'},{key:'bondAverageCoupon',color:'#ebca82',dash:true}],false,240,true);
+ $('sequenceNominalTitle').textContent=sim.nominalDebtInitial>0?'名目債務残高 / 開始時＝100':'名目債務残高 / 模型内の貨幣単位';
+ drawChart($('sequenceNominalChart'),h,[{key:sim.nominalDebtInitial>0?'nominalDebtIndex':'nominalPublicDebt',color:'#58e2c4'}],false,240,true);
+ drawChart($('sequenceDebtChart'),h.map(x=>({...x,debtPct:x.interventionDebtGDP*100})),[{key:'debtPct',color:'#ebca82'}],false,240,true);
+ $('sequenceAssumptions').textContent='初期債務 '+fmt(p.inheritedDebt*100,0)+'% / 年間所得、初期平均利率 '+fmt(p.initialCoupon,2)+'%。決定期 '+p.sequenceSwitch+' から第2段階。比較経路は '+p.sequenceExit+' から出口。実施待ち '+p.interventionLag+'期＋金融ラグ '+p.policyLag+'期＋分散 '+p.interventionSpread+'期。毎期借換 '+fmt(p.bondRollover*100,1)+'%、当期増税充当 '+fmt(p.serviceTaxCover*100,0)+'%。すべて未較正の設定値。日本の実績値ではありません。';
+ $('sequenceStop').disabled=sim.sovereignTerminal||p.policySequence==='off';$('sequenceContinue').disabled=sim.sovereignTerminal||p.policySequence==='escalate';
+}
+
 function renderUI(){
  if(!sim)return;const s=sim.stats,p=sim.p,e=sim.lastElection;
  $('accuracyValue').textContent=fmt(100*s.accuracy,1);$('inflationValue').textContent=fmt(sim.inflation);$('unemploymentValue').textContent=fmt(sim.unemployment);$('welfareValue').textContent=fmt(sim.welfare,1);$('naturalLabel').textContent='構造調整後の自然率 '+fmt(sim.effectiveNaturalU,2)+'%';
@@ -1442,11 +1629,14 @@ function renderUI(){
  drawChart($('beliefChart'),sim.history,[{key:'r',color:'#58e2c4'},{key:'d',color:'#ff897e'},{key:'accuracy',color:'#ebca82',dash:true}],true);
  drawChart($('econChart'),sim.history,[{key:'inflation',color:'#ff897e'},{key:'expected',color:'#b2a1f2',dash:true},{key:'unemployment',color:'#ebca82'}]);
  if(view?.selected>=0)showAgent(view.selected,null,true);
- renderPolicyDesk();renderTransmission();renderPhillips();updatePlay();
+ renderPolicyDesk();renderTransmission();renderPhillips();renderSequence();updatePlay();
+ $('treasuryDebtLabel').textContent=p.sovereignDebtMode==='nominal'?'初期＋追加債務 / 年間所得':'追加債務 / 年間所得';
+ $('treasuryAccountingNote').textContent=p.sovereignDebtMode==='nominal'?'名目固定利付債を当期物価で実質換算。初期債務を含む。市場利率は新発・借換分だけへ反映。国債購入は所得ではなく金融取引。':'表は当期総稼得所得比。債務は実質・物価連動で簡略化。国債購入は所得から控除せず、金融取引として別記録。';
 }
 function processEvents(){
  const events=sim.pending.splice(0);
  for(const e of events){
+  if(e.type==='sequence'||e.type==='sequenceAlert'){view.pulse(500,300,e.type==='sequenceAlert'?RGB.d:RGB.n,420);toast(e.text);}
   if(e.type==='policyTransmission'){view.pulse(500,300,RGB.violet,330);}
   if(e.type==='policyStart'){view.policyBurst(CARD_DEFS.find(c=>c.id===e.policyId));beep('click');}
   if(e.type==='election'){showElection(sim.lastElection);beep('election');}
@@ -1518,7 +1708,7 @@ async function runPolicyProbeUI(){
   const p=experiment.p,s=experiment.summary;
   const when=t=>t===null?'この実験では発生せず':'経過'+t+'期';
   $('probeSummary').textContent=`実施：経過${experiment.programme.start}期。金融入力の到着：${when(s.firstTransmission)}。インフレ差が初めて発生：${when(s.firstPi)}。160期内の最大絶対差：${signed(s.peakAbsPi.deltaPi,3)}pt（経過${s.peakAbsPi.t}期）。`;
-  $('probeAssumptions').textContent=`180人、同じシード・初期条件。規則派政権を固定し選挙、外生・個人所得攪乱、格差ドリフト、不確実性コスト、再アンカー、期待外挿を停止。現在の本編の途中状態ではなく初期条件から比較。L=${p.policyLag}期、分散=${p.interventionSpread}期、κ=${p.inflationAdjust}、期待=${p.expectationMode}、θ=${p.longReal}。初期分配と財源の会計は維持。`;
+  $('probeAssumptions').textContent=`180人、同じシード・初期条件。規則派政権を固定し選挙、外生・個人所得攪乱、格差ドリフト、不確実性コスト、再アンカー、期待外挿を停止。連続政策・初期債務・名目国債モードも停止し、従来の物価連動会計に固定。現在の本編の途中状態ではなく初期条件から比較。L=${p.policyLag}期、分散=${p.interventionSpread}期、κ=${p.inflationAdjust}、期待=${p.expectationMode}、θ=${p.longReal}。初期分配と財源の会計は維持。`;
   $('probeCaveat').textContent=['taxcut','balanced','taxrise','spendcut','grant'].includes(c.kind)&&c.finance!=='通貨発行'?
    'このモデルでは非通貨財源の給付・減税に直接の物価乗数はありません。インフレ差ゼロは、現実で効果が必ずゼロという意味ではなく、消費・貯蓄・金利経路を省略した帰結です。':
    '各差は「介入あり − 介入なし」。前期比ではありません。金融入力が届いても、事前に予見されていれば金融経路の失業低下はゼロです。終了後はインフレ率と物価水準を区別してください。';
@@ -1578,13 +1768,13 @@ function renderPolicyDesk(){
   $('policyCost').textContent=cost+' pt / 財源：'+c.finance;
   $('policyProbeBtn').hidden=!c.policy;
   $('policyTiming').textContent=policyTimingText(c,status,strength);
-  $('policyExecute').disabled=!!status||(! $('unlimited').checked&&sim.budget<cost)||loadingReplay;
+  $('policyExecute').disabled=sim.sovereignTerminal||!!status||(! $('unlimited').checked&&sim.budget<cost)||loadingReplay;
   $('policyExecute').textContent=status?'予約・実施中':cost>sim.budget&&!$('unlimited').checked?'介入ポイント不足':'この政策を決定';
  }
  $('policyQueue').innerHTML=sim.programmes.filter(a=>a.end>=sim.t).map(a=>{
   const def=CARD_DEFS.find(c=>c.id===a.id),queued=a.start>sim.t;
   const width=queued?12:clamp((sim.t-a.start+1)/def.duration)*100;
-  return `<div class="policy-track ${queued?'queued':''}"><div class="policy-track-head"><b>${esc(def.name)}</b><span>${queued?'あと'+(a.start-sim.t)+'期':a.end===sim.t?'当期で終了':'残り'+(a.end-sim.t)+'期'}</span></div><small>${a.strength}倍 · ${a.issuer>0?'R':'D'}決定 · ${def.finance}</small><i style="width:${width}%"></i></div>`;
+  return `<div class="policy-track ${queued?'queued':''}"><div class="policy-track-head"><b>${esc(def.name)}</b><span>${queued?'あと'+(a.start-sim.t)+'期':a.end===sim.t?'当期で終了':'残り'+(a.end-sim.t)+'期'}</span></div><small>${a.scripted?'自動日程 / ':''}${fmt(a.strength,2)}倍 · ${a.issuer>0?'R':'D'}決定 · ${def.finance}</small><i style="width:${width}%"></i></div>`;
  }).join('');
  const l=sim.fiscalLedger;if(!l)return;
  $('treasuryDebt').textContent=pct(sim.publicDebt/(4*l.Y));$('treasuryMoney').textContent=pct(l.creation/l.Y);
@@ -1619,7 +1809,7 @@ function showAgent(id,event,pinned=false){
  const point=event?{x:event.clientX,y:event.clientY}:view.toScreen(a.x,a.y);
  const side=a.b>.2?'規則派 R':a.b<-.2?'裁量派 D':'政策を留保';
  const factualError=Math.abs(a.z-p.longReal)/(1+Math.abs(p.longReal));
- tip.innerHTML=`<h3>市民 #${String(a.id+1).padStart(4,'0')} <small>${sim.districts[a.d].name}${pinned?' / 固定':''}</small></h3><div class="row"><span>政策選好</span><b>${a.b>=0?'+':''}${fmt(a.b,2)} · ${side}</b></div><div class="row"><span>事実認識の正確度</span><b>${pct(1-factualError)}</b></div><div class="row"><span>長期効果の推定 z</span><b>${fmt(a.z,2)} / 真値 ${fmt(p.longReal,2)}</b></div><div class="row"><span>知識量 / 確信度</span><b>${Math.round(a.k*100)} / ${Math.round(a.c*100)}%</b></div><div class="row"><span>実質所得</span><b>${fmt(a.income*100,1)}</b></div><div class="row"><span>介入の当期純受取</span><b>${a.policyNet>=0?'+':''}${fmt((a.policyNet||0)*100,2)}</b></div><div class="row"><span>保有する追加国債</span><b>${fmt((a.bonds||0)*100,2)}</b></div><div class="row"><span>国債取引後の資金</span><b>${fmt((a.afterBondCash||0)*100,2)}</b></div><div class="row"><span>移転の受益者</span><b>${a.benefitRank<p.beneficiaryShare?'対象':'対象外'}</b></div><div class="row"><span>直近の投票</span><b>${sim.lastElection?(a.vote===0?'棄権':a.vote>0?'規則派 R':'裁量派 D'):'未実施'}</b></div><p>${a.k>.7&&factualError>.3?'知識は多いが、事実認識には誤りがある。':factualError<.15&&a.b<-.2?'設定した真値に近い理解。それでも、利害や好みは別。':a.c>.8?'強い確信は、新しい情報を通りにくくする。':a.vote===0&&sim.lastElection?'支持の有無と、投票したかどうかは別問題。':'線はこの人の情報ネットワーク。更新は周囲へ伝わる。'}</p>`;
+ tip.innerHTML=`<h3>市民 #${String(a.id+1).padStart(4,'0')} <small>${sim.districts[a.d].name}${pinned?' / 固定':''}</small></h3><div class="row"><span>政策選好</span><b>${a.b>=0?'+':''}${fmt(a.b,2)} · ${side}</b></div><div class="row"><span>事実認識の正確度</span><b>${pct(1-factualError)}</b></div><div class="row"><span>長期効果の推定 z</span><b>${fmt(a.z,2)} / 真値 ${fmt(p.longReal,2)}</b></div><div class="row"><span>知識量 / 確信度</span><b>${Math.round(a.k*100)} / ${Math.round(a.c*100)}%</b></div><div class="row"><span>実質所得</span><b>${fmt(a.income*100,1)}</b></div><div class="row"><span>介入の当期純受取</span><b>${a.policyNet>=0?'+':''}${fmt((a.policyNet||0)*100,2)}</b></div><div class="row"><span>保有する国債（実質評価）</span><b>${fmt((a.bonds||0)*100,2)}</b></div><div class="row"><span>国債取引後の資金</span><b>${fmt((a.afterBondCash||0)*100,2)}</b></div><div class="row"><span>移転の受益者</span><b>${a.benefitRank<p.beneficiaryShare?'対象':'対象外'}</b></div><div class="row"><span>直近の投票</span><b>${sim.lastElection?(a.vote===0?'棄権':a.vote>0?'規則派 R':'裁量派 D'):'未実施'}</b></div><p>${a.k>.7&&factualError>.3?'知識は多いが、事実認識には誤りがある。':factualError<.15&&a.b<-.2?'設定した真値に近い理解。それでも、利害や好みは別。':a.c>.8?'強い確信は、新しい情報を通りにくくする。':a.vote===0&&sim.lastElection?'支持の有無と、投票したかどうかは別問題。':'線はこの人の情報ネットワーク。更新は周囲へ伝わる。'}</p>`;
  tip.hidden=false;const r=tip.getBoundingClientRect();let x=point.x+15,y=point.y+15;if(x+r.width>innerWidth-12)x=point.x-r.width-15;if(y+r.height>innerHeight-12)y=point.y-r.height-15;tip.style.left=clamp(x,10,Math.max(10,innerWidth-r.width-10))+'px';tip.style.top=clamp(y,10,Math.max(10,innerHeight-r.height-10))+'px';
 }
 function setLayer(layer){
@@ -1692,10 +1882,10 @@ async function loadRun(file){
   const model=new Republic(data.initialParams,data.seed);let index=0,done=false;
   while(!done){const start=performance.now();do{
    while(index<data.actions.length&&data.actions[index].t===model.t){const a=data.actions[index++];if(a.type==='param')model.setParam(a.key,a.value);else if(!model.intervene(a.id,a.x,a.y,a.side,a.unlimited,true,a.strength??1))throw new Error('介入ポイントと記録が一致しません。');}
-   if(model.t===data.ticks){done=true;break;}model.step();
+   if(model.t===data.ticks){done=true;break;}if(model.sovereignTerminal)throw new Error('記録の期数がモデルの適用上限を超えています。');model.step();
   }while(performance.now()-start<14);if(!done)await new Promise(resolve=>setTimeout(resolve,0));}
   pcExperiment=null;pcPlaying=false;pcLiveQuarter=null;$('pcMode').value='live';sim=model;settings={...sim.p};$('seed').value=sim.seed;pendingInitial=false;syncParams();$('applyInitial').hidden=true;$('paramStatus').textContent='変更は次の四半期から反映。※ は再生成が必要。';$('paramStatus').classList.remove('pending');
-  view.selected=-1;view.hover=-1;view.dirty=true;view.particles=[];view.ripples=[];view.policyVisuals=[];view.setZoom(1);disarm();sim.pending=[];electionAnimation=null;$('electionOverlay').classList.remove('show');$('agentTooltip').hidden=true;$('scenarioNote').textContent=data.legacy?'旧モデルの条件をv3.1へ移行。計算式が異なるため、旧版の結果の再現ではありません。':'保存した操作を再実行。'+sim.t+' 期の時点を再現しました。';
+  view.selected=-1;view.hover=-1;view.dirty=true;view.particles=[];view.ripples=[];view.policyVisuals=[];view.setZoom(1);disarm();sim.pending=[];electionAnimation=null;$('electionOverlay').classList.remove('show');$('agentTooltip').hidden=true;$('scenarioNote').textContent=data.legacy?'旧モデルの条件をv3.2へ移行。計算式が異なるため、旧版の結果の再現ではありません。':'保存した操作を再実行。'+sim.t+' 期の時点を再現しました。';
   renderUI();toast(data.legacy?'旧版の条件・操作を新モデルで再計算しました。結果は旧版と異なります。':sim.t+' 期と '+sim.actions.length+' 件の操作を再現しました。');
  }catch(error){console.error(error);toast('読込できません：'+error.message);}
  finally{loadingReplay=false;setRunning(wasRunning);$('loadFile').value='';}
@@ -1726,28 +1916,28 @@ async function runLab(){
     if(labAbort)return;
     const model=new Republic({...base,[def.key]:condition===0?A:B},baseSeed+'/AB/'+pair);
     if(commonPolicy)model.intervene(commonPolicy,500,300,1,true,true,1);
-    while(model.t<horizon){
+    while(model.t<horizon&&!model.sovereignTerminal){
      const start=performance.now();
-     do{model.step();completed++;}while(model.t<horizon&&performance.now()-start<13);
+     do{model.step();completed++;}while(model.t<horizon&&!model.sovereignTerminal&&performance.now()-start<13);
      $('labProgressBar').style.width=(completed/(2*count*horizon)*100)+'%';$('labProgressText').textContent=`${def.label}を比較中 / ${pair+1}組目 · 条件 ${condition===0?'A':'B'} / ${Math.floor(completed/(2*count*horizon)*100)}%`;
      await new Promise(resolve=>setTimeout(resolve,0));if(labAbort)return;
     }
     outputs[condition].push({...model.snapshotMetrics(),governsR:model.government>0?1:0});
    }
   }
-  const metrics=[['accuracy','事実認識の正確度',100,'%'],['knowledge','平均知識量',100,'%'],['r','規則派の人口支持',100,'%'],['d','裁量派の人口支持',100,'%'],['polar','二極化度',100,'%'],['gini','所得 Gini',1,''],['expectationGap','期待ギャップ',1,'pt'],['policyCredibility','規則への信頼',100,'%'],['policyUncertainty','政策不確実性',1,''],['discretionDividend','裁量の短期利得',1,'pt'],['inflation','インフレ率',1,'%'],['unemployment','失業率',1,'%'],['welfare','生活指数',1,''],['interventionDebtGDP','追加債務 / 年間所得',100,'%'],['policyCapacity','介入の供給改善',1,'pt'],['turnout','直近の投票率',100,'%'],['governsR','R 政権の実行比率',100,'%']];
+  const metrics=[['t','実際の観測期数',1,'期'],['sovereignTerminal','適用上限へ到達した実行比率',100,'%'],['accuracy','事実認識の正確度',100,'%'],['knowledge','平均知識量',100,'%'],['r','規則派の人口支持',100,'%'],['d','裁量派の人口支持',100,'%'],['polar','二極化度',100,'%'],['gini','所得 Gini',1,''],['expectationGap','期待ギャップ',1,'pt'],['policyCredibility','規則への信頼',100,'%'],['policyUncertainty','政策不確実性',1,''],['discretionDividend','裁量の短期利得',1,'pt'],['inflation','インフレ率',1,'%'],['unemployment','失業率',1,'%'],['welfare','生活指数',1,''],['interventionDebtGDP','追加債務 / 年間所得',100,'%'],['bondMarketYield','新発国債の市場利率',1,'%'],['bondAverageCoupon','国債平均表面利率',1,'%'],['interestIncomeShare','利払い / 当期所得',100,'%'],['policyCapacity','介入の供給改善',1,'pt'],['turnout','直近の投票率',100,'%'],['governsR','R 政権の実行比率',100,'%']];
   const results=metrics.map(([key,label,multiple,unit])=>{
    const av=outputs[0].map(s=>(s[key]??0)*multiple),bv=outputs[1].map(s=>(s[key]??0)*multiple),diff=bv.map((v,i)=>v-av[i]);
    return{key,label,unit,a:mean(av),aSD:sd(av),b:mean(bv),bSD:sd(bv),diff:mean(diff),diffSD:sd(diff)};
   });
   $('labProgressText').textContent=`完了：各条件 ${count} 回 × ${horizon} 期。`;
-  $('labOutput').innerHTML=`<table class="lab-results"><thead><tr><th>終了時の指標</th><th class="lA">A：${displayNumber(def,A)}${def.unit}</th><th class="lB">B：${displayNumber(def,B)}${def.unit}</th><th>B − A 平均</th></tr></thead><tbody>${results.map(r=>`<tr><td>${r.label}</td><td>${fmt(r.a)} ± ${fmt(r.aSD)}${r.unit}</td><td>${fmt(r.b)} ± ${fmt(r.bSD)}${r.unit}</td><td>${r.diff>=0?'+':''}${fmt(r.diff)}${r.unit==='%'?'pt':''}</td></tr>`).join('')}</tbody></table><p class="lab-disclaimer">「R 政権の実行比率」は、終了時に R 政権だった実行の割合です。得票率ではありません。指標が近くても、別々の社会状態を表している場合があります。</p><button id="labCsv">比較結果 CSV</button>`;
+  $('labOutput').innerHTML=`<table class="lab-results"><thead><tr><th>終了時の指標</th><th class="lA">A：${displayNumber(def,A)}${def.unit}</th><th class="lB">B：${displayNumber(def,B)}${def.unit}</th><th>B − A 平均</th></tr></thead><tbody>${results.map(r=>`<tr><td>${r.label}</td><td>${fmt(r.a)} ± ${fmt(r.aSD)}${r.unit}</td><td>${fmt(r.b)} ± ${fmt(r.bSD)}${r.unit}</td><td>${r.diff>=0?'+':''}${fmt(r.diff)}${r.unit==='%'?'pt':''}</td></tr>`).join('')}</tbody></table><p class="lab-disclaimer">「R 政権の実行比率」は、終了時に R 政権だった実行の割合です。得票率ではありません。適用上限で止まった条件は実際の観測期数を併記します。観測期間が違う条件の終了値を同時点比較として読まないでください。指標が近くても、別々の社会状態を表している場合があります。</p><button id="labCsv">比較結果 CSV</button>`;
   $('labCsv').addEventListener('click',()=>{const rows=['parameter,condition_A,condition_B,runs_each,horizon_quarters,common_policy,metric,mean_A,sd_A,mean_B,sd_B,paired_mean_diff,paired_sd_diff',...results.map(r=>[def.key,A,B,count,horizon,commonPolicy,r.key,r.a,r.aSD,r.b,r.bSD,r.diff,r.diffSD].join(','))];download('\ufeff'+rows.join('\n')+'\n','belief-republic-comparison.csv','text/csv;charset=utf-8');});
   beep('achievement');
  }catch(error){console.error(error);$('labOutput').textContent='比較を完了できませんでした：'+error.message;}
  finally{labBusy=false;$('labRun').disabled=false;$('labCancel').hidden=true;['labParam','labA','labB','labRuns','labHorizon','labPolicy'].forEach(id=>$(id).disabled=false);if(labAbort)$('labProgressText').textContent='比較を中止しました。';}
 }
-function advance(){if(loadingReplay||sim.t>=10000)return;sim.step();view.onStep(sim);processEvents();renderUI();}
+function advance(){if(loadingReplay||sim.t>=10000)return;if(sim.sovereignTerminal){setRunning(false);toast(sim.terminalReason);return;}sim.step();view.onStep(sim);processEvents();if(sim.sovereignTerminal)setRunning(false);renderUI();}
 function loop(now){
  try{
   const dt=Math.min(.10,Math.max(0,(now-lastFrame)/1000));lastFrame=now;
@@ -1769,6 +1959,9 @@ function init(){
  $('scenario').innerHTML=SCENARIOS.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');$('scenarioNote').textContent=SCENARIOS[0].note;
  buildParams();setupCards();setupPhillips();view=new WorldView($('world'));rebuildWorld({quiet:true});setupMap();
  $('world').tabIndex=0;
+ $('sequenceStop').addEventListener('click',()=>{changeParameter('policySequence','off');sim.log('以後の自動政策を停止。予約・債務は残ります。','sequence');renderUI();});
+ $('sequenceContinue').addEventListener('click',()=>{changeParameter('policySequence','escalate');renderUI();});
+ $('sequenceCsv').addEventListener('click',exportCSV);
  $('policyJump').addEventListener('click',()=>$('policyDesk').scrollIntoView({behavior:reducedMotion?'auto':'smooth',block:'start'}));
  $('playBtn').addEventListener('click',()=>setRunning(!running));$('stepBtn').addEventListener('click',()=>{if(pcExperiment){$('pcMode').value='live';selectPhillips('live');}setRunning(false);advance();});
  document.querySelectorAll('[data-speed]').forEach(b=>b.addEventListener('click',()=>{speed=Number(b.dataset.speed);document.querySelectorAll('[data-speed]').forEach(x=>x.classList.toggle('active',x===b));}));
@@ -1785,7 +1978,7 @@ function init(){
  document.addEventListener('pointerdown',e=>{if($('settingsPanel').classList.contains('open')&&!e.target.closest('#settingsPanel')&&!e.target.closest('#settingsToggle'))$('settingsPanel').classList.remove('open');});
  $('csvBtn').addEventListener('click',exportCSV);$('saveBtn').addEventListener('click',saveRun);$('loadBtn').addEventListener('click',()=>{if(!loadingReplay)$('loadFile').click();});$('loadFile').addEventListener('change',e=>loadRun(e.target.files[0]));
  $('labParam').addEventListener('change',initLabFields);$('labRun').addEventListener('click',runLab);$('labCancel').addEventListener('click',()=>labAbort=true);
- $('economicEquations').textContent="d = 1{裁量派政権} × (1 − 実効裁量制約)\nμ = μ₀ + d × [s(0.25 + 0.75 r ϕ³) + 0.4 max(u前期 − u*, 0)]\nπᴹ[t] = πᴹ[t−1] + κ(μ[t−L] − g − πᴹ[t−1])\nπ[t] = πᴹ[t] + S[t] ／ S[t] = 0.58 S[t−1] + 攪乱\nπᵉᴹ[t] = 前期までの情報による適応更新・外挿・再アンカー\nπᵉ[t] = πᵉᴹ[t] + 0.58 S[t−1]（固定期待以外）\nν[t] = S[t] − 0.58 S[t−1]（安全上限前）\nεᴹ[t] = πᴹ[t] − πᵉᴹ[t] = π[t] − πᵉ[t] − ν[t]\n裁量の短期利得 = 裁量強度 × a εᴹ[t]\n産出ギャップ = 0.8 θ(μ[t−L] − μ₀) + a εᴹ[t]\n                  + 実物攪乱 − 供給実物損失 − レント損失 − 不確実性コスト\nu = u* − 0.55 × 産出ギャップ\nuⁿ = u* + 0.55 × レント損失\n短期：u = uⁿ − 0.55a(π − πᵉ − ν) + その他の寄与\n長期：θ=0、期待一致、一時的攪乱消失なら u = uⁿ\n期待再アンカーは、適応更新後の値と基準値の凸結合。\n上下限が作用した差は診断表の「上下限補正」で表示。";
+ $('economicEquations').textContent="d = 1{裁量派政権} × (1 − 実効裁量制約)\nμ = μ₀ + d × [s(0.25 + 0.75 r ϕ³) + 0.4 max(u前期 − u*, 0)]\nπᴹ[t] = πᴹ[t−1] + κ(μ[t−L] − g − πᴹ[t−1])\nπ[t] = πᴹ[t] + S[t] ／ S[t] = 0.58 S[t−1] + 攪乱\nπᵉᴹ[t] = 前期までの情報による適応更新・外挿・再アンカー\nπᵉ[t] = πᵉᴹ[t] + 0.58 S[t−1]（固定期待以外）\nν[t] = S[t] − 0.58 S[t−1]（安全上限前）\nεᴹ[t] = πᴹ[t] − πᵉᴹ[t] = π[t] − πᵉ[t] − ν[t]\n裁量の短期利得 = 裁量強度 × a εᴹ[t]\n産出ギャップ = 0.8 θ(μ[t−L] − μ₀) + a εᴹ[t]\n                  + 実物攪乱 − 供給実物損失 − レント損失 − 不確実性コスト − 実質借入負担\nu = u* − 0.55 × 産出ギャップ\nuⁿ = u* + 0.55 × レント損失\n短期：u = uⁿ − 0.55a(π − πᵉ − ν) + その他の寄与\n長期：θ=0、期待一致、一時的攪乱消失なら u = uⁿ\n期待再アンカーは、適応更新後の値と基準値の凸結合。\n上下限が作用した差は診断表の「上下限補正」で表示。";
  document.addEventListener('keydown',e=>{
   const modal=[...document.querySelectorAll('.modal-backdrop')].find(m=>!m.hidden);
   if(modal){
