@@ -77,6 +77,11 @@
 .sequence-charts h3{font-size:11px;margin:15px 0 2px}.sequence-charts canvas{display:block;width:100%;height:120px}.sequence-legend{font-size:10px;color:#99adba}.sequence-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.sequence-actions button{font-size:11px}.sequence-notice{padding:10px 0;border-top:1px solid #63583e}.sequence-danger{color:#ffb5a3!important}.sequence-panel details{margin-top:12px;font-size:11px}.sequence-panel summary{cursor:pointer}.sequence-panel details p{font-size:11px}
 @media(max-width:600px){.sequence-panel{padding:12px}.sequence-panel h2{font-size:15px}.sequence-numbers{grid-template-columns:repeat(2,minmax(0,1fr))}.sequence-numbers strong{font-size:18px}.sequence-stages span{font-size:9px}.sequence-charts canvas{height:130px}}
 
+
+.interest-panel{margin:14px 0;padding:16px;border:1px solid #66533b;border-radius:9px;background:linear-gradient(135deg,#22251e,#101c27);min-width:0;scroll-margin-top:15px}
+.interest-panel h2{font-size:17px}.interest-intro,.interest-note{font-size:11px;line-height:1.85;color:#bbc9c9;margin:9px 0}.interest-flow{display:flex;gap:6px;flex-wrap:wrap;font-size:11px;color:var(--gold);line-height:2}.interest-flow b{font-weight:500}.interest-numbers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:13px 0}.interest-numbers small{font-size:10px;color:var(--muted);display:block}.interest-numbers strong{font:19px/1.8 var(--mono);color:var(--gold)}.interest-buttons{display:flex;gap:6px;flex-wrap:wrap}.interest-buttons button{font-size:11px}.interest-chart{width:100%;height:135px;display:block}.interest-districts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:10px 0}.interest-cell{font-size:10px;line-height:1.8;padding:6px;background:#ffffff05;border-radius:4px}.interest-cell i{display:block;height:3px;background:var(--gold);margin:3px 0}.interest-cell small{font-size:9px;color:var(--muted)}.interest-note b{color:#ecdcb4}.view-tabs{flex-wrap:wrap}.log-entry.interest{border-color:var(--gold)}
+@media(max-width:600px){.interest-panel{padding:12px}.interest-numbers{grid-template-columns:repeat(2,minmax(0,1fr))}.interest-districts{grid-template-columns:repeat(2,minmax(0,1fr))}.interest-numbers strong{font-size:18px}}
+
 </style>
 </head>
 <body>
@@ -99,7 +104,7 @@
   <div class="rail-foot"><span id="paramStatus">変更は次の四半期から反映。※ は再生成が必要。</span><button id="applyInitial" hidden>初期条件を適用して再生成</button></div>
  </aside>
  <section class="center-column" aria-label="社会のシミュレーション">
-  <div class="scenario-note"><p id="scenarioNote"></p><span class="tag">AGENT-BASED SIMULATION / v2.1</span></div>
+  <div class="scenario-note"><p id="scenarioNote"></p><span class="tag">AGENT-BASED SIMULATION / v3.3</span></div>
   <div class="metric-grid">
    <div class="metric"><i class="top-stroke"></i><label>事実認識の正確度</label><div class="metric-value cyan"><span id="accuracyValue">--</span><span class="unit">%</span></div><div class="metric-foot">政策の好みとは別に測定</div></div>
    <div class="metric"><label>インフレ率</label><div class="metric-value"><span id="inflationValue">--</span><span class="unit">%</span></div><div class="metric-foot">年率・モデル内の値</div></div>
@@ -114,7 +119,7 @@
   <div class="world-panel" id="worldPanel">
    <div class="world-wrap" id="worldWrap">
     <div class="world-head"><h2 id="mapTitle">社会の信念マップ</h2><small id="mapSubtitle">ONE LIGHT = ONE PERSON</small></div>
-    <div class="view-tabs" role="group" aria-label="マップの表示切替"><button data-view="belief" class="active">信念</button><button data-view="knowledge">知識</button><button data-view="income">家計</button><button data-view="vote">投票</button></div>
+    <div class="view-tabs" role="group" aria-label="マップの表示切替"><button data-view="belief" class="active">信念</button><button data-view="knowledge">知識</button><button data-view="income">家計</button><button data-view="vote">投票</button><button data-view="interests">利権</button></div>
     <canvas id="world" aria-label="各個人の信念と交流を表示する社会マップ。個人をクリックすると詳細を確認できます。">Canvas が無効です。数値と履歴は下部で確認できます。</canvas>
     <div class="scanline"></div><div class="world-corner"><span id="worldPopulation"></span><br><span id="worldStatus">信念の循環を観測中</span></div>
     <div class="map-scale"><button id="zoomOut" aria-label="縮小">−</button><button id="zoomReset" aria-label="全体を表示">全体</button><button id="zoomIn" aria-label="拡大">＋</button></div>
@@ -146,6 +151,17 @@
  <details><summary>この経路の仮定・金利と債務の計算</summary><p id="sequenceAssumptions"></p><p>既発国債は名目固定利付です。インフレで元本の実質価値は減ります。市場金利上昇は新発・借換分から徐々に利払いに届きます。借換え自体を純債務増には数えません。名目金利の上昇分すべてを実物損失にせず、期待インフレ補償分を除いた追加負担だけをラグ付きで扱います。</p><p>常に上昇・下落するよう数値を操作しません。失業率は金融サプライズが消耗すると戻りえます。名目債務が増えても、インフレや成長で債務比率は下がりえます。政策金利・国債価格・中央銀行の付利・財政破綻確率・日本の人口構造は未実装です。新発の市場利率と平均表面利率は四半期利払いを年率換算した値。年間所得は当期総稼得所得の4倍であり、実測GDPではありません。債務比1000%または利払いが当期所得100%で適用上限として停止し、その先を予測しません。</p></details>
 </section>
 
+
+<section class="interest-panel" id="interestPanel" aria-labelledby="interestTitle">
+ <div class="side-head"><h2 id="interestTitle">給付が票になるまで</h2><small>INTEREST GROUPS / FEEDBACK</small></div>
+ <p class="interest-intro">支給 → 継続受給への依存 → 組織化 → 広告・動員 → 選挙 → 移転を残す圧力。受給者全員を不正とみなすものではなく、利益集団形成の仮説を観察します。</p>
+ <div class="interest-flow"><b>給付・補助金</b><span>→</span><b id="interestLagLabel">組織化待ち</b><span>→</span><b>受益組織</b><span>→</span><b>票・政策</b></div>
+ <div class="interest-numbers"><div><small>給付依存の記憶（平均）</small><strong id="interestDependence">0%</strong></div><div><small>組織力（平均）</small><strong id="interestPower">0%</strong></div><div><small>Dの直接得票期待差</small><strong id="interestVote">未選挙</strong></div><div><small>削減抵抗で残った移転</small><strong id="interestCapture">0pt</strong></div></div>
+ <div class="interest-buttons"><button id="interestMap">地図で組織を見る</button><button id="interestAB">利権あり／なしをA/B比較</button><button id="interestAudit">公開監査を実施</button></div>
+ <canvas class="interest-chart" id="interestChart" aria-label="給付依存の記憶と受益組織の強さの履歴"></canvas><p class="interest-note">実線：組織力 / 点線：給付依存。どちらも0〜1の代理指標で、人数や金額ではありません。</p>
+ <div id="interestDistricts" class="interest-districts"></div>
+ <p class="interest-note" id="interestExplanation"></p><p class="interest-note"><b>直接得票期待差</b>は、直近選挙の信念・景気・候補者評価を固定し、依存の投票効用と動員だけを切った計算との差です。実際の得票差でも歴史全体の因果効果でもありません。累積影響はA/Bで比較してください。</p>
+</section>
   <section class="phillips-panel" id="phillipsPanel" aria-labelledby="phillipsTitle">
    <div class="pc-heading"><div><div class="eyebrow">EXPECTATIONS / SHORT RUN / LONG RUN</div><h2 id="phillipsTitle">フィリップス曲線の実験室</h2></div><span class="pc-tag" id="pcPhase">本編と連動</span></div>
    <p class="pc-intro">同じ短期曲線上の移動と、期待による曲線自体の移動を分けて表示。各期の実現点は、その期の事前期待で決まる曲線と対応します。</p>
@@ -211,7 +227,8 @@
  <p>財政・金融の区別：<a href="https://www.federalreserve.gov/faqs/money_12855.htm" target="_blank" rel="noopener noreferrer">Federal Reserve FAQ</a>。通貨発行による給付と通常の金融操作の区別：<a href="https://www.richmondfed.org/publications/research/econ_focus/2016/q2/jargon_alert" target="_blank" rel="noopener noreferrer">Richmond Fed, Helicopter Money</a>。短期・長期の区別は既存のFriedman講演に依拠し、カードの係数と財政閉鎖ルールは独自の仮定です。</p>
  <h3>ラグと効果の検証</h3><p>「介入あり／なしの波及を比較」は同じRepublic.stepを2回使い、選挙・外生攪乱などを止めて経路を比較します。本編の実現値には他の要因も重なるため、「入力がプラス」と「実現インフレの前期比がプラス」は同じではありません。貨幣発行がない給付や減税に直接の物価乗数は置いていません。消費・貯蓄・金利・労働供給経路を省略した近似であり、現実の効果ゼロを意味しません。</p><p>物価指数は P[t]=P[t−1]×(1+π[t]/100)^(1/4)。一回の貨幣注入では率の押上げが消えても、水準差が残りえます。失業は当期の金融サプライズで計算し、後から失業率だけを遅らせて短期曲線との一致を壊す処理はしません。独立した採用ラグや、政策発表だけで先に動く資産価格は未実装です。時間差は未較正の仮定で、現実の何か月という推定値ではありません。<a href="https://www.ecb.europa.eu/mopo/intro/transmission/html/index.en.html" target="_blank" rel="noopener noreferrer">ECB: monetary policy transmission</a>。</p>
 <h3>連続政策と名目国債（v3.2）</h3><p>「アベノミクス→サナエノミクス型」は実績再現でも日本の予測でもありません。政策名称を題材に、金融拡張と国債給付が続く仮想条件を設定。政府が中央銀行を直接操作しているという事実主張ではありません。選挙結果と独立に経済政策が継続する外生シナリオです。</p><p>新発市場利回りは、実質基準・前期までの期待インフレ・債務や予想誤差のプレミアムから徐々に形成。既発債は固定名目利率なので、利払いは借換え・新発によって遅れて増加。物価上昇による元本の実質負担減少も計上します。利払いの自動増税充当率を0にすると未充当分は新規国債に含まれます。出口経路も自動増税は行わないため、金融拡張を止めるだけで債務問題が解決するとは限りません。債務の名目額・所得比・利率を区別して観察してください。</p><p>市場利率は政策金利ではありません。基準実質金利と期間プレミアムを超える追加的実質借入負担だけをラグ付きの産出損失へ反映。βを変えず、既存の短期曲線のその他寄与に表示します。</p><p><a href="https://www.kantei.go.jp/jp/105/statement/2026/0220shiseihoshin.html" target="_blank" rel="noopener noreferrer">施政方針演説（2026年2月20日）</a>は政策方針の参照用。<a href="https://www.mof.go.jp/jgbs/individual/how_to/index.htm" target="_blank" rel="noopener noreferrer">財務省：固定利付国債の表面利率</a>、<a href="https://www.stlouisfed.org/publications/regional-economist/april-2014/the-ups-and-downs-of-inflation-and-the-role-of-fed-credibility" target="_blank" rel="noopener noreferrer">St. Louis Fed：期待インフレと名目金利</a>を概念の出発点にしています。係数・段階の時期・債務額は本作品独自です。</p>
- <h3>再現性と限界</h3><p>モデルの乱数と描画の乱数は分離。速度・フレームレート・表示レイヤーは結果を変えません。保存JSONはモデル版v3.2、初期設定、シード、介入・変更の時点、観測終了時点を記録。同じモデル版で操作を再実行します。旧形式は条件の移行として読み込み、旧計算結果と一致しない旨を表示します。CSV は直近480期の履歴。ブラウザに外部通信・追跡・自動保存はしません。</p><p>A/B は現在の適用済みパラメータを初期条件として新しく開始し、手動の介入を引き継ぎません。同じ組のシードを使い、外生ショックの乱数系列を各条件で共通にします。信念や投票の乱数系列は分岐によりずれることがあります。出力の標準偏差は実行間のばらつきで、現実社会の推定誤差でも因果効果の確信区間でもありません。</p><p>「誤認の自己増幅」「期待の外挿」「格差の累積優位」に加え、「規則信頼」「期待再アンカー」「政策不確実性コスト」「選挙前刺激への警戒」も明示的な動学係数です。現実の自然法則として置いているわけではありません。未較正の係数や関数形に強く依存します。確認バイアスを特定の値にしたら現実が必ず分断される、という主張はできません。初期政権 R、党派を2つに束ねた設計、生活指数の定義自体も仮定です。政党ラベルを勝者の証明に使わず、パラメータを変えた感度と複数試行を比較するための作品です。</p>
+ <h3>給付・利権・組織票（v3.3）</h3><p>通常移転と実施済み給付の受取・財源負担を記録し、既定2期後に継続受給の記憶と9地区の組織資本へ反映します。同額でも便益が集中すると活動の維持が容易という仮定です。受給者を違法行為者とする意味ではなく、組織資本・広告圧力は金額ではありません。国債購入・利払い受取・減税・給付なしの金融操作を、新しい受給として数えません。</p><p>提供者への帰属はR/D対称です。継続期待は両陣営の提示移転額から計算するため、追加移転を好むDが優位になりやすい一方、Rが給付を行えばRへの支持も形成されます。組織は党派媒体の露出、支持者の投票参加、移転削減抵抗へ作用。移転保護分は税財源・政策ラグ・財政会計を通し、マクロ式を直接変えません。監査・一般ルール・財源負担の認知はこの循環を抑えます。相関は現実の実証結果ではありません。</p><p>理論上の出発点：<a href="https://www.nber.org/papers/w30991" target="_blank" rel="noopener noreferrer">Battaglini &amp; Palfrey, Organizing for Collective Action: Olson Revisited</a>、<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1583806" target="_blank" rel="noopener noreferrer">Alston, Libecap &amp; Mueller, Interest Groups, Information Manipulation in the Media, and Public Policy</a>。本作品の係数・式はこれらの推定値でも厳密な再現でもありません。</p>
+<h3>再現性と限界</h3><p>モデルの乱数と描画の乱数は分離。速度・フレームレート・表示レイヤーは結果を変えません。保存JSONはモデル版v3.3、初期設定、シード、介入・変更の時点、観測終了時点を記録。同じモデル版で操作を再実行します。旧形式は条件の移行として読み込み、旧計算結果と一致しない旨を表示します。CSV は直近480期の履歴。ブラウザに外部通信・追跡・自動保存はしません。</p><p>A/B は現在の適用済みパラメータを初期条件として新しく開始し、手動の介入を引き継ぎません。同じ組のシードを使い、外生ショックの乱数系列を各条件で共通にします。信念や投票の乱数系列は分岐によりずれることがあります。出力の標準偏差は実行間のばらつきで、現実社会の推定誤差でも因果効果の確信区間でもありません。</p><p>「誤認の自己増幅」「期待の外挿」「格差の累積優位」に加え、「規則信頼」「期待再アンカー」「政策不確実性コスト」「選挙前刺激への警戒」も明示的な動学係数です。現実の自然法則として置いているわけではありません。未較正の係数や関数形に強く依存します。確認バイアスを特定の値にしたら現実が必ず分断される、という主張はできません。初期政権 R、党派を2つに束ねた設計、生活指数の定義自体も仮定です。政党ラベルを勝者の証明に使わず、パラメータを変えた感度と複数試行を比較するための作品です。</p>
  <h3>モデルの出発点となる文献</h3><p><a href="https://www.richmondfed.org/press_room/speeches/jeffrey_m_lacker/2007/lacker_speech_20070411" target="_blank" rel="noopener noreferrer">Federal Reserve Bank of Richmond, “Inflation and Unemployment (revised)” (2007).</a><br>フリードマン＝フェルプス型の事前期待・曲線の移動・自然率への回帰を説明。標準図のκ=1、係数、適応速度は本作品の統制条件です。</p><p><a href="https://www.federalreserve.gov/newsevents/speech/kugler20250220a.htm" target="_blank" rel="noopener noreferrer">Federal Reserve, “Navigating Inflation Waves: A Phillips Curve Perspective” (2025).</a><br>期待を加えたフィリップス曲線と供給条件の区別。今回の分解式・係数・統制実験は独自の縮約モデルです。</p><p><a href="https://www.nobelprize.org/prizes/economic-sciences/1976/friedman/lecture/" target="_blank" rel="noopener noreferrer">Milton Friedman, “Inflation and Unemployment” (1976), Nobel Lecture.</a><br>期待と短期・長期の区別。本文の具体的な係数やゲーム上の作用は、本作品独自の設計です。</p><p><a href="https://www.jasss.org/5/3/2.html" target="_blank" rel="noopener noreferrer">Rainer Hegselmann &amp; Ulrich Krause (2002), “Opinion dynamics and bounded confidence models, analysis and simulation”, JASSS 5(3).</a><br>限定的信頼による意見更新。本作品はこの論文の結果を再現・検証したものではありません。</p>
 </div></section></div>
 <div class="modal-backdrop" id="policyProbeModal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="policyProbeTitle"><div class="modal-head"><h2 id="policyProbeTitle">介入の波及を比較</h2><button data-close="policyProbeModal" aria-label="閉じる">×</button></div><div class="modal-body"><p id="probeLoading">同じ計算式で、介入する経路としない経路を比較しています。</p><div id="probeBody" hidden><p id="probeSummary" class="probe-summary"></p><p class="treasury-note">図は「介入あり − 介入なし」。0の破線は介入なし。インフレ率・失業率の差はポイント、物価水準の差は%です。</p><div class="probe-cursor"><label for="probeCursor">観察期</label><input id="probeCursor" type="range" min="0" max="160" value="0" step="1"><output id="probeQuarter"></output></div><label class="probe-range-label" for="probeRange">グラフの表示範囲 <select id="probeRange"><option value="40" selected>40期</option><option value="80">80期</option><option value="160">160期</option></select></label><p id="probePoint" class="probe-point"></p><h3 class="probe-chart-title">インフレ率への差分 / pt</h3><canvas class="probe-chart" id="probePiChart" aria-label="金融・財政介入によるインフレ率の差分"></canvas><h3 class="probe-chart-title">失業率への差分 / pt</h3><canvas class="probe-chart" id="probeUChart" aria-label="介入による失業率の差分"></canvas><h3 class="probe-chart-title">物価水準への差分 / %</h3><canvas class="probe-chart" id="probePriceChart" aria-label="物価水準の累積的な差分"></canvas><p id="probeCaveat" class="probe-warning"></p><details><summary>比較条件・省略した経路</summary><p id="probeAssumptions" class="treasury-note"></p></details><button id="probeExport">この比較をCSVで保存</button></div></div></section></div>
@@ -230,7 +247,7 @@ class RNG{
  next(){let t=this.s+=0x6D2B79F5;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);this.s>>>=0;return ((t^(t>>>14))>>>0)/4294967296;}
  normal(){return Math.sqrt(-2*Math.log(Math.max(this.next(),1e-12)))*Math.cos(2*Math.PI*this.next());}
 }
-const GROUPS=[['initial','01 / 人口と初期条件'],['mind','02 / 学習と信念'],['network','03 / 情報とつながり'],['election','04 / 投票と制度'],['macro','05 / 貨幣・期待・経済'],['distribution','06 / 利益と分配'],['policy','07 / 介入と財政'],['sovereign','08 / 連続政策と国債市場']];
+const GROUPS=[['initial','01 / 人口と初期条件'],['mind','02 / 学習と信念'],['network','03 / 情報とつながり'],['election','04 / 投票と制度'],['macro','05 / 貨幣・期待・経済'],['distribution','06 / 利益と分配'],['policy','07 / 介入と財政'],['sovereign','08 / 連続政策と国債市場'],['interests','09 / 給付・利権と組織票']];
 const PARAMS=[];
 function param(group,key,label,min,max,step,value,unit,help,reset=false){PARAMS.push({group,key,label,min,max,step,value,unit,help,reset});}
 function choice(group,key,label,value,options,help){PARAMS.push({group,key,label,value,options,help});}
@@ -336,14 +353,39 @@ param('sovereign','sequenceDeficit1','第1段階の国債給付',0,30,.5,5,'%','
 param('sovereign','sequenceDeficit2','第2段階の国債給付',0,40,.5,15,'%','第2段階に12四半期かけて移行する給付規模。借入と金利負担を接続するストレス仮定。');
 param('sovereign','sequenceMoneyGrant','第2段階の通貨発行給付',0,5,.25,.5,'%','追加の一律給付。発行と物価波及は既存の金融キュー経由。0で無効。');
 
+
+// 利権は受給そのものの違法性ではなく、継続受給を求める政治的組織の代理。
+param('interests','rentFeedback','利権フィードバック',0,1,.05,1,'','0で新経路を完全停止、1で有効。過去版を再現する読込では0に設定。A/Bで0と1を比較できます。');
+param('interests','rentLag','受給から組織化までの遅れ',1,12,1,2,'期','実際の受取・財源負担を記録してから依存と組織へ反映する待ち。金融波及ラグLとは別。既に記録した日程は変更しません。');
+param('interests','rentLearning','受給継続期待の学習率',0,.5,.01,.2,'','反復受給から依存度・便益と提供者の記憶を更新する速度。');
+param('interests','rentMemoryDecay','給付停止後の依存減衰',0,.3,.005,.035,'','当期受給がないとき、給付継続を期待する記憶が薄れる割合。');
+param('interests','rentOrgGain','受益者の組織形成速度',0,.6,.01,.22,'','受給による知覚純便益を時間・働きかけの活動資源へ変換する未較正の係数。');
+param('interests','rentOrgDecay','組織資本の減衰',0,.3,.005,.03,'','事務局・連絡網等の代理ストックが毎期減衰する率。支給停止と同時には消えません。');
+param('interests','rentConcentration','利益集中による組織化優位',0,2,.05,1,'','同じ総便益でも少数へ集中すると共同活動を維持しやすいという仮定。0なら集中による追加優位なし。');
+param('interests','rentLoyalty','給付提供者への政治的帰属',0,2,.05,.55,'','実際に給付を決めたR/Dへの関係記憶。両陣営に同じ式を適用。');
+param('interests','rentContinuation','継続給付を求める強さ',0,2,.05,.9,'','通常移転の受給対象者が両陣営の提示額を比較。対象外の人に追加受給を仮定しません。R/D同額なら継続差は0。');
+param('interests','rentVoteWeight','給付依存の投票効用',0,4,.1,2,'','依存度・組織力・提供者・継続見込みを投票判断へ反映する係数。固定のD加点ではありません。');
+param('interests','rentAdvertising','組織による広告圧力',0,1,.05,.55,'','地区と全国の組織が党派的な情報供給へ働きかける強さ。検証済み情報の内容は改変しません。広告費の金銭会計ではなく露出の代理です。');
+param('interests','rentMobilization','組織による投票動員',0,.6,.02,.3,'','受益組織が自分たちを支持する有権者の参加を高める上限係数。投票先は確率で、受給と引換えに強制しません。');
+param('interests','rentCapture','移転削減への組織抵抗',0,1,.05,.55,'','過去に実施された通常の追加移転を部分的に残す圧力。新しい税財源の移転として既存政策ラグ・会計を通します。');
+param('interests','rentTransparency','負担・利益関係の透明性',0,1,.05,.25,'','実際の財源負担を組織化判断へ織り込み、納税者側の対抗活動を促進。監査カードで一時的に上げられます。');
+param('interests','rentBacklash','財源負担への対抗組織化',0,2,.05,.8,'','便益より負担が大きい人が、その負担をもたらした陣営へ反対する経路。高透明性ほど強い。');
+param('interests','rentSunset','給付の一般ルール・失効条項',0,1,.05,.15,'','提供者個人への依存と削減抵抗を抑える制度係数。給付や所得を直接削除せず、政治経路のみを制約。');
+
 const DEFAULTS=Object.fromEntries(PARAMS.map(p=>[p.key,p.value]));
 const P_BY_KEY=Object.fromEntries(PARAMS.map(p=>[p.key,p]));
 const ownParameter=key=>Object.prototype.hasOwnProperty.call(P_BY_KEY,key)?P_BY_KEY[key]:null;
 // step はUIの操作刻み。旧プリセットに含まれる範囲内の中間値も再現できるように受理する。
 const validNumber=(p,v)=>Number.isFinite(v)&&v>=p.min-1e-8&&v<=p.max+1e-8;
 const JAPAN_STRESS_DEFAULTS={policySequence:'escalate',sovereignDebtMode:'nominal',inheritedDebt:2,initialCoupon:.6,moneyRule:1,growth:1,naturalU:5,stimulus:0,transfer:0,lobby:0,binding:1,ruleReanchor:0,expectationGain:.12,expectationExtrapolation:0,policyUncertaintyAversion:0,supplyVol:0,realVol:0,shockRate:0,idioVol:.1,debtRepay:0,serviceTaxCover:0,initialR:.45,initialKnowledge:.5,initialAccuracy:.6,verified:.75,attribution:.8,electionPeriod:16};
+
+const INTEREST_SCENARIO={initialR:.4,initialPolar:.44,initialKnowledge:.5,initialAccuracy:.7,initialConfidence:.45,partisanship:.35,econWeight:.75,learning:.2,confirmation:.35,ignorance:.35,verified:.55,transfer:9,beneficiaryShare:.28,shortTerm:.65,electionPeriod:8,policyLag:3,rentFeedback:1,rentOrgGain:.32,rentOrgDecay:.02,rentMemoryDecay:.025,rentVoteWeight:2.5,rentAdvertising:.75,rentMobilization:.4,rentCapture:.7,rentTransparency:.12,rentSunset:.05};
 const SCENARIOS=[
  {id:'baseline',name:'均衡の共和国',note:'二つの陣営、まだ開かれた社会。小さな介入が未来を変える。',p:{}},
+ {id:'rent_cycle',name:'給付→組織票：利権の自己増殖',note:'反復受給が依存と組織力を形成。広告・動員・移転削減への抵抗が選挙と次の政策へ戻る。D勝利を固定しない。',p:{...INTEREST_SCENARIO}},
+ {id:'rent_off',name:'比較：同じ社会・利権経路なし',note:'利権の自己増殖と同じ初期条件。新しい組織経路だけを0にし、従来の家計経験・投票は残す。',p:{...INTEREST_SCENARIO,rentFeedback:0}},
+ {id:'rent_rules',name:'比較：公開監査と給付の一般ルール',note:'同じ初期条件で透明性と失効条項を強化。給付は続いても、組織が政治へ及ぼす効果を抑えられるか。',p:{...INTEREST_SCENARIO,rentTransparency:.9,rentSunset:.9}}
+,
  {id:'japan_stress',name:'アベノミクス→サナエノミクス型：追加刺激の罠〈仮想〉',note:'実績再現ではないストレス実験。緩和と国債給付から、加速する刺激・期待・借換金利へ。失業率の永久低下も債務比率の単調増加も保証しない。',p:{...JAPAN_STRESS_DEFAULTS}},
  {id:'japan_exit',name:'比較：同じ出発点から途中で規則へ',note:'同じ第1・第2段階を経て65期目の決定から拡張を停止。到着待ち・債務・既発債の利率は残る。実際の日本の予測ではない。',p:{...JAPAN_STRESS_DEFAULTS,policySequence:'exit'}},
  {id:'rulewins',name:'規則派優勢：長期評価社会',note:'長期効果を重く見て、政策帰属も比較的正確。規則派 R が選挙で優勢になりやすい。',p:{initialR:.68,initialPolar:.55,initialKnowledge:.72,initialAccuracy:.82,initialConfidence:.42,expertShare:.1,learning:.25,confirmation:.18,confidenceBound:1.6,conformity:.46,ignorance:.12,experience:.62,attribution:.92,exposure:.84,trust:.74,verified:.9,mediaTilt:0,homophily:.28,econWeight:.9,partisanship:.2,selfInterest:.3,shortTerm:.12,turnout:.78,votingCost:.08,mobilizeR:.04,mobilizeD:0,charisma:0,electoralSystem:'proportional',reelection:.9,binding:.12,expectationGain:.55,illusion:.08,inflationAversion:1.2,fiscalIllusion:.15}},
@@ -376,6 +418,8 @@ const CARD_DEFS=[
  {id:'recession',name:'景気後退',icon:'↘',cost:20,sub:'一時的な実物損失',help:'次の期の実物循環ショックへ−4。政治的な責任の認識は別に決まります。'},
  {id:'turnout',name:'投票支援',icon:'✓',cost:25,sub:'6期 / 両陣営へ同じ支援',help:'6期の間、全員の投票参加確率を18ポイント加算。'},
  {id:'charter',name:'政策ルール',icon:'≋',cost:40,sub:'8期 / 裁量の制約',help:'8期の間、政策の裁量制約を65ポイント加算します。'},
+ {id:'interest_audit',name:'給付・補助金の公開監査',group:'society',icon:'⊙',cost:35,sub:'12期 / 利益と負担の公開',help:'12期、利権経路の透明性を0.6加算。財源負担が組織形成と投票判断へ入り、広告圧力・削減抵抗を抑えます。給付そのものは止めません。'},
+ {id:'benefit_rules',name:'給付の一般ルール化',group:'society',icon:'≡',cost:40,sub:'12期 / 失効・一般基準',help:'12期、失効条項・一般ルールを0.7加算。政治家への依存と削減抵抗を抑えます。組織を魔法のように消したり、受給資格を陣営で変えたりはしません。'},
  {"id":"taxcut_debt","name":"所得税減税","group":"fiscal","icon":"−%","cost":25,"kind":"taxcut","value":2,"duration":8,"finance":"国債","sub":"2pt減税 / 8期 / 国債","help":"比例所得税を2ポイント下げ、既存の給付を維持。減収は国債で調達し、後の財源税・利払い・償還へ残ります。税率の下限は0。","policy":true},
  {"id":"taxcut_balanced","name":"歳出削減つき減税","group":"fiscal","icon":"⇄","cost":35,"kind":"balanced","value":2,"duration":8,"finance":"歳出削減","sub":"2pt減税 / 8期 / 歳出削減","help":"2ポイントの減税と同額の既存移転削減を実施。納税者の手取りは増えますが、既存給付の受給者は失います。これ単独では借金も通貨発行も増やしません。","policy":true},
  {"id":"taxrise","name":"増税・債務返済","group":"fiscal","icon":"+%","cost":20,"kind":"taxrise","value":2,"duration":8,"finance":"税収","sub":"2pt増税 / 8期 / 債務圧縮","help":"比例所得税を2ポイント追加。税収はまず介入債務の償還へ、残れば政府準備金へ。追加負担で手取りは減ります。","policy":true},
@@ -427,9 +471,9 @@ function makeSites(n){
  siteCache.set(n,a);return a;
 }
 // 同じ計算を本編と統制実験で共有する。描画や政党評価には依存しない。
-const MODEL_VERSION='3.2-sovereign-sequence';
+const MODEL_VERSION='3.3-endogenous-interests';
 // 旧版は条件と操作の移行として読めるが、同一結果の保証は同じモデル版に限る。
-const REPLAY_COMPATIBLE=[MODEL_VERSION,'3.1-policy-transmission'];
+const REPLAY_COMPATIBLE=[MODEL_VERSION,'3.2-sovereign-sequence','3.1-policy-transmission'];
 const MIGRATABLE_VERSIONS=['2.0-phillips','2.1-phillips-geometry','3.0-policy-cards'];
 const OKUN=0.55, SUPPLY_PERSISTENCE=0.58;
 const MACRO_METRICS=['inflationCore','expectedCore','expectedSupply','supplyPriceShock','supplyPriceSurprise','monetarySurprise','totalSurprise','inflationDelta','expectedDelta','monetarySurpriseDelta','unemploymentDelta','naturalUBase','effectiveNaturalU','beta','lrTheta','ruleMoney','potentialGrowth','curveInterceptU','uMonetary','uLongRun','uReal','uSupply','uStructural','uUncertainty','uCredit','uBounds','uMonetaryDelta','uOtherDelta','rawGap','expectationMode'];
@@ -573,6 +617,7 @@ class Republic{
   this.policyCredibility=.78;this.policyUncertainty=0;this.policyDeviation=0;this.prevAppliedMu=this.p.moneyRule;this.discretionDividend=0;this.electionOpportunism=0;
   Object.assign(this,initialMacro(this.p));this.realIndex=100*(1+this.gap/100);
   this.sites=makeSites(this.p.population);this.districts=DISTRICTS.map(d=>({...d,ids:[],r:0,d:0,n:0,winner:0}));
+  this.rentQueue=[];this.rentGroups=DISTRICTS.map(()=>({power:0,direction:0,concentration:0,ad:0,opposition:0}));this.rentFloorMemory=0;this.rentAd=0;this.rentCaptureExtra=0;this.rentFlags=new Set();
   this.agents=[];
   const benefitOrder=Array.from({length:this.p.population},(_,i)=>i);
   for(let i=benefitOrder.length-1;i>0;i--){const j=Math.floor(this.rng.next()*(i+1));[benefitOrder[i],benefitOrder[j]]=[benefitOrder[j],benefitOrder[i]];}
@@ -584,6 +629,7 @@ class Republic{
    const b=side*clamp(.07+.81*this.p.initialPolar+this.rng.normal()*.16,.015,.99);
    const z=clamp(this.p.longReal+(1-this.p.initialAccuracy)*((2*this.rng.next()-1)+this.rng.normal()*.14),-1,1);
    const a={id:i,x:s.x,y:s.y,d:s.d,b,initialB:b,z,priorZ:z,k:clamp(this.p.initialKnowledge+this.rng.normal()*.13),c:clamp(this.p.initialConfidence+this.rng.normal()*.1,.01,.99),party:side*(.6+.4*this.rng.next()),endowment:Math.exp(this.rng.normal()*this.p.initialInequality),errorBias:this.rng.next()<.5?-1:1,benefitRank:benefitRanks[i],idio:0,income:1,previousIncome:1,experience:0,recordR:0,recordD:0,bonds:0,policyCashR:0,policyCashD:0,policyDeltaR:0,policyDeltaD:0,vote:0,links:[],change:0};
+   Object.assign(a,{rentBenefit:0,rentTax:0,rentBenefitSide:0,rentTaxSide:0,rentStake:0,rentSponsor:0,rentBurden:0,rentTaxSponsor:0,rentOrientation:0,rentUtility:0,rentMobilize:0,rentOpposition:0});
    this.agents.push(a);this.districts[a.d].ids.push(i);
   }
   const m=this.agents.reduce((s,a)=>s+a.endowment,0)/this.agents.length;
@@ -711,6 +757,8 @@ class Republic{
    }
    if(id==='dialogue')this.addEffect('openness',.7,6,'市民対話');
   }else if(id==='audit')this.addEffect('attribution',.45,8,'透明な会計');
+  else if(id==='interest_audit')this.addEffect('rentTransparency',.6,12,'給付・補助金の公開監査');
+  else if(id==='benefit_rules')this.addEffect('rentSunset',.7,12,'給付の一般ルール化');
   else if(id==='advert')this.addEffect('advert',side*.9,6,side>0?'R 広告':'D 広告');
   else if(id==='supply')this.pendingSupply+=2.6;
   else if(id==='recession')this.pendingBusiness-=4;
@@ -797,7 +845,7 @@ class Republic{
   const issuer=manual?arrivals[arrivals.length-1].issuer:base.gov;
   const reform=sum(c=>c.kind==='reform',a=>p.reformCapacity*a.strength);
   const capacity=clamp(this.publicCapital+this.skillsCapital+reform,0,Math.max(0,p.naturalU/OKUN-.5));
-  this.policyFrame={active,money,mFraction,moneyRate,capacity,baseFiscal:base.fiscal,cutScale,balancedCut,spendCut,reference,manual,issuedMuExtra,muExtra};
+  this.policyFrame={active,money,mFraction,moneyRate,capacity,baseGov:base.gov,baseFiscal:base.fiscal,cutScale,balancedCut,spendCut,reference,manual,issuedMuExtra,muExtra};
   if(!active.length&&!capacity&&!manual)return base;
   return {...base,baseFiscal:base.fiscal,fiscal:Math.max(0,base.fiscal-balancedCut-spendCut)+firmRate,
    mu:base.mu+muExtra,rule:manual?0:base.rule,gov:issuer,manualIntervention:manual,supplyCapacity:capacity};
@@ -810,6 +858,8 @@ class Republic{
   const taxable=as.map(a=>a.earn/sumEarn),recipients=as.map(a=>sumWeights>0?a.weight/sumWeights:a.earn/sumEarn);
   const ranked=[...as].sort((a,b)=>a.earn-b.earn||a.id-b.id),low=new Set(ranked.slice(0,Math.ceil(n*.3)).map(a=>a.id));
   const high=new Set(ranked.slice(-Math.ceil(n*.2)).map(a=>a.id)),highY=as.reduce((v,a)=>v+(high.has(a.id)?a.earn:0),0);
+  for(const a of as){a.rentBenefit=basePool*recipients[a.id];a.rentTax=basePool*taxable[a.id];a.rentBenefitSide=a.rentBenefit*(f.baseGov??this.appliedPolicy.gov);a.rentTaxSide=a.rentTax*(f.baseGov??this.appliedPolicy.gov);}
+  const rentFlow=(amount,w,side,benefit)=>{for(const a of as){if(benefit){a.rentBenefit+=amount*w[a.id];a.rentBenefitSide+=amount*w[a.id]*side;}else{a.rentTax+=amount*w[a.id];a.rentTaxSide+=amount*w[a.id]*side;}}};
   const debtBefore=this.publicDebt,reserveBefore=this.fiscalReserve;
   let revenue=basePool,transfers=basePool,purchases=0,creation=0,defR=0,defD=0;
   const apply=(amount,weights,side)=>{for(const a of as){const v=amount*weights[a.id];net[a.id]+=v;(side>0?netR:netD)[a.id]+=v;}};
@@ -819,18 +869,18 @@ class Republic{
   for(const a of f.active){
    const c=CARD_DEFS.find(c=>c.id===a.id),amount=a.budget;
    if(c.kind==='taxcut'||c.kind==='balanced'){
-    const cut=Y*c.value*a.strength*f.cutScale/100;revenue-=cut;apply(cut,taxable,a.issuer);
-    if(c.kind==='balanced'){transfers-=cut;apply(-cut,recipients,a.issuer);}else addDef(cut,a.issuer);
+    const cut=Y*c.value*a.strength*f.cutScale/100;revenue-=cut;apply(cut,taxable,a.issuer);rentFlow(-cut,taxable,f.baseGov??this.appliedPolicy.gov,false);
+    if(c.kind==='balanced'){transfers-=cut;apply(-cut,recipients,a.issuer);rentFlow(-cut,recipients,f.baseGov??this.appliedPolicy.gov,true);}else addDef(cut,a.issuer);
    }else if(c.kind==='taxrise'){
-    const extra=Y*c.value*a.strength/100;revenue+=extra;apply(-extra,taxable,a.issuer);addDef(-extra,a.issuer);
+    const extra=Y*c.value*a.strength/100;revenue+=extra;apply(-extra,taxable,a.issuer);rentFlow(extra,taxable,a.issuer,false);addDef(-extra,a.issuer);
    }else if(c.kind==='spendcut'){
     const saved=spendingRequested?Y*f.spendCut/100*c.value*a.strength/spendingRequested:0;
-    transfers-=saved;apply(-saved,recipients,a.issuer);addDef(-saved,a.issuer);
+    transfers-=saved;apply(-saved,recipients,a.issuer);rentFlow(-saved,recipients,f.baseGov??this.appliedPolicy.gov,true);addDef(-saved,a.issuer);
    }else if(c.kind==='grant'){
-    transfers+=amount;apply(amount,weights(c.target),a.issuer);
+    transfers+=amount;apply(amount,weights(c.target),a.issuer);rentFlow(amount,weights(c.target),a.issuer,true);
     if(c.finance==='比例課税'||c.finance==='上位課税'){
      const levy=c.finance==='上位課税'?as.map(x=>high.has(x.id)?x.earn/highY:0):taxable;
-     revenue+=amount;apply(-amount,levy,a.issuer);
+     revenue+=amount;apply(-amount,levy,a.issuer);rentFlow(amount,levy,a.issuer,false);
     }else if(c.finance==='通貨発行'){creation+=amount;}
     else addDef(amount,a.issuer);
    }else if(c.kind==='infrastructure'||c.kind==='training'){
@@ -846,7 +896,7 @@ class Republic{
   const serviceLevy=Math.min(.2*Y,(interest+requestedRepay)*(nominal?p.serviceTaxCover:1)),scheduledRepay=Math.min(requestedRepay,Math.max(0,serviceLevy-interest));
   const originR=debtBefore>0?clamp(this.debtOriginR/debtBefore):0;
   revenue+=serviceLevy;
-  if(serviceLevy){apply(-serviceLevy*originR,taxable,1);apply(-serviceLevy*(1-originR),taxable,-1);}
+  if(serviceLevy){apply(-serviceLevy*originR,taxable,1);apply(-serviceLevy*(1-originR),taxable,-1);rentFlow(serviceLevy*originR,taxable,1,false);rentFlow(serviceLevy*(1-originR),taxable,-1,false);}
   const holders=as.map(a=>debtBefore>0?a.bonds/debtBefore:0);
   if(interest){apply(interest*originR,holders,1);apply(interest*(1-originR),holders,-1);}
   let cashNeed=transfers+purchases+interest+scheduledRepay-revenue-creation;
@@ -887,6 +937,101 @@ class Republic{
    muExtra:f.muExtra||0,refinanced,nominalDebtResidual:this.nominalDebtResidual};
   return net;
  }
+
+ interestInstitutions(){return {transparency:clamp(this.p.rentTransparency+this.effect('rentTransparency')+.5*this.effect('attribution')),sunset:clamp(this.p.rentSunset+this.effect('rentSunset'))};}
+ captureRate(commanded){
+  if(this.p.rentFeedback<=0)return 0;
+  const {transparency,sunset}=this.interestInstitutions();
+  const power=this.rentGroups.reduce((sum,g,i)=>sum+g.power*this.districts[i].ids.length,0)/this.agents.length;
+  const base=2+2*this.p.lobby;
+  // 保護するのは実施済み通常移転の記憶。給付カード全額を恒久移転に変換しない。
+  return Math.max(0,base+this.rentFloorMemory-commanded)*this.p.rentFeedback*this.p.rentCapture*power*(1-transparency)*(1-sunset);
+ }
+ advanceInterests(){
+  const p=this.p,n=this.agents.length,as=this.agents;
+  if(p.rentFeedback<=0){
+   this.rentQueue=[];this.rentAd=0;this.rentCaptureExtra=0;
+   for(const a of as){a.rentUtility=0;a.rentMobilize=0;a.rentOpposition=0;}
+   for(const g of this.rentGroups)g.ad=0;
+   return;
+  }
+  const {transparency,sunset}=this.interestInstitutions();
+  const Y=Math.max(.01,this.fiscalLedger.Y),rows=as.map(a=>{
+   const b=Math.max(0,a.rentBenefit),tax=Math.max(0,a.rentTax),scale=Math.max(Y/n*.1,a.earn*this.potential+b,.01);
+   return {benefit:b,stake:clamp(b/scale),burden:clamp(tax/scale),sponsor:b>1e-10?clamp(a.rentBenefitSide/b,-1,1):0,taxSponsor:tax>1e-10?clamp(a.rentTaxSide/tax,-1,1):0,earned:a.earn*this.potential,incumbent:this.government};
+  });
+  this.rentQueue.push({at:this.t+Math.round(p.rentLag),rows,Y,extra:Math.max(0,(this.appliedPolicy.baseFiscal??this.appliedPolicy.fiscal)-(2+2*p.lobby))});
+  const arrivals=this.rentQueue.filter(x=>x.at<=this.t);this.rentQueue=this.rentQueue.filter(x=>x.at>this.t);
+  const observation=arrivals.length?arrivals[arrivals.length-1]:null;
+  const current=observation?.rows;
+  if(observation){const rate=observation.extra;this.rentFloorMemory+= (rate>this.rentFloorMemory?p.rentLearning:p.rentMemoryDecay)*(rate-this.rentFloorMemory);}
+  for(const a of as){
+   const o=current?.[a.id];
+   if(o){
+    const learn=o.stake>0?p.rentLearning:p.rentMemoryDecay;
+    a.rentStake=lerp(a.rentStake,o.stake,learn);
+    const precision=clamp(p.attribution+this.effect('attribution')+.35*transparency);
+    a.rentSponsor=lerp(a.rentSponsor,o.stake*lerp(o.incumbent,o.sponsor,precision),learn);
+    a.rentBurden=lerp(a.rentBurden,o.burden,p.rentLearning);
+    a.rentTaxSponsor=lerp(a.rentTaxSponsor,o.burden*lerp(o.incumbent,o.taxSponsor,precision),p.rentLearning);
+   }
+  }
+  const base=2+2*p.lobby,extra=p.transfer*(1-clamp(p.binding+this.effect('binding'))),rOffer=base+this.captureRate(base),dOffer=base+extra+this.captureRate(base+extra);
+  const continuity=(rOffer-dOffer)/Math.max(.01,rOffer,dOffer);
+  const costVisibility=1-p.fiscalIllusion*(1-transparency);
+  for(let d=0;d<this.districts.length;d++){
+   const ids=this.districts[d].ids,g=this.rentGroups[d];
+   let benefit=0,squares=0,localY=0,effort=0,stakeSum=0,direction=0,opposition=0;
+   for(const id of ids){const a=as[id],o=current?.[id];
+    if(o){benefit+=o.benefit;squares+=o.benefit**2;localY+=o.earned;effort+=Math.max(0,o.stake-costVisibility*o.burden);}
+    const sponsor=a.rentStake>1e-12?a.rentSponsor/a.rentStake:0;
+    // 給付提供者への帰属は両陣営対称。継続選好の符号は提示移転額の差から決まる。
+    a.rentOrientation=Math.tanh(p.rentLoyalty*(1-sunset)*sponsor+p.rentContinuation*continuity*(a.benefitRank<p.beneficiaryShare?1:0));
+    stakeSum+=a.rentStake;direction+=a.rentStake*a.rentOrientation;
+    opposition+=Math.max(0,costVisibility*a.rentBurden-a.rentStake);
+   }
+   if(current){g.concentration=benefit>1e-10?clamp(1-benefit*benefit/Math.max(1e-12,ids.length*squares)):0;}
+   const incentive=ids.length?effort/ids.length:0;
+   const input=clamp(p.selfInterest*incentive/.08)*(.25+.75*clamp(p.rentConcentration*g.concentration));
+   const old=g.power;
+   g.power=clamp(g.power*(1-p.rentOrgDecay)+p.rentOrgGain*input*(1-g.power));
+   g.direction=stakeSum>1e-12?direction/stakeSum:0;
+   g.opposition=ids.length?opposition/ids.length*transparency*p.rentBacklash:0;
+   g.ad=p.rentFeedback*p.rentAdvertising*g.power*g.direction*(1-.65*transparency);
+   if(old<.5&&g.power>=.5&&!this.rentFlags.has(d)){this.rentFlags.add(d);this.log(DISTRICTS[d].name+'の受益組織が定着。支給停止後も連絡網は減衰するまで残ります。','interest');}
+  }
+  this.rentAd=this.rentGroups.reduce((v,g,i)=>v+g.ad*this.districts[i].ids.length,0)/n;
+  for(const a of as){
+   const g=this.rentGroups[a.d],netStake=Math.max(0,a.rentStake-costVisibility*a.rentBurden);
+   const grossWeight=.35*(1-transparency),politicalStake=grossWeight*a.rentStake+(1-grossWeight)*netStake;
+   const taxSide=a.rentBurden>1e-12?a.rentTaxSponsor/a.rentBurden:0;
+   a.rentOpposition=transparency*p.rentBacklash*Math.max(0,costVisibility*a.rentBurden-a.rentStake);
+   a.rentUtility=p.rentFeedback*p.rentVoteWeight*(p.selfInterest*politicalStake*(.2+.8*g.power)*a.rentOrientation-a.rentOpposition*taxSide);
+   a.rentMobilize=p.rentFeedback*p.rentMobilization*g.power*Math.min(1,4*p.selfInterest*politicalStake)*Math.abs(a.rentOrientation);
+  }
+ }
+ interestVote(a,baseUtility){
+  if(this.p.rentFeedback<=0)return {utility:baseUtility,mobilize:0};
+  const utility=baseUtility+a.rentUtility,direction=utility>=0?1:-1;
+  const mobilize=a.rentMobilize*Math.max(0,direction*a.rentOrientation)+this.p.rentFeedback*this.p.rentMobilization*a.rentOpposition*Math.max(0,-direction*Math.sign(a.rentTaxSponsor));
+  return {utility,mobilize};
+ }
+ interestMetrics(){
+  const n=this.agents.length,enabled=this.p.rentFeedback>0;
+  const avg=key=>this.agents.reduce((sum,a)=>sum+(a[key]||0),0)/n;
+  const weighted=key=>this.rentGroups.reduce((sum,g,i)=>sum+(g[key]||0)*this.districts[i].ids.length,0)/n;
+  const {transparency,sunset}=this.interestInstitutions();
+  return {rentEnabled:enabled,rentDependence:enabled?avg('rentStake'):0,rentOrganization:enabled?weighted('power'):0,
+   rentDependentShare:enabled?this.agents.filter(a=>a.rentStake>=.1).length/n:0,
+   rentConcentrationIndex:enabled?weighted('concentration'):0,rentAdBias:enabled?this.rentAd:0,
+   rentUtilityR:enabled?avg('rentUtility'):0,rentMobilizationMean:enabled?avg('rentMobilize'):0,
+   rentFiscalRate:this.appliedPolicy.captureExtra||0,rentCapturePlanned:enabled?this.rentCaptureExtra:0,
+   rentFloorRemembered:enabled?this.rentFloorMemory:0,rentOppositionMean:enabled?avg('rentOpposition'):0,
+   rentTransparencyEffective:transparency,rentSunsetEffective:sunset,rentQueueCount:this.rentQueue.length,
+   rentExpectedDWith:this.lastElection?.interestDWith??null,rentExpectedDWithout:this.lastElection?.interestDWithout??null,
+   rentDirectVoteDeltaD:this.lastElection?.interestDeltaD??null};
+ }
+
  policyMetrics(){
   const l=this.fiscalLedger||{},Y=l.Y||1;
   return {sequencePhase:this.sequencePhase,sequenceMoneyPlan:this.sequenceMoneyPlan,sequenceGrantPlan:this.sequenceGrantPlan,
@@ -958,7 +1103,8 @@ class Republic{
   const binding=clamp(p.binding+this.effect('binding'));
   const discretion=(this.government<0?1:0)*(1-binding);
   const extra=discretion*(p.stimulus*(.25+.75*p.reelection*phase**3)+.4*Math.max(0,this.unemployment-p.naturalU));
-  this.currentPolicy={mu:clamp(p.moneyRule+extra,-5,32),fiscal:2+2*p.lobby+p.transfer*discretion,rule:1-discretion,gov:this.government,opportunism:discretion*p.reelection*phase**3,t:this.t};
+  const commandedFiscal=2+2*p.lobby+p.transfer*discretion;this.rentCaptureExtra=this.captureRate(commandedFiscal);
+  this.currentPolicy={mu:clamp(p.moneyRule+extra,-5,32),fiscal:commandedFiscal+this.rentCaptureExtra,captureExtra:this.rentCaptureExtra,rule:1-discretion,gov:this.government,opportunism:discretion*p.reelection*phase**3,t:this.t};
   this.policyQueue.push({...this.currentPolicy});if(this.policyQueue.length>40)this.policyQueue.shift();
   const target=this.t-p.policyLag;
   this.appliedPolicy=this.policyQueue.find(q=>q.t===target)||{mu:this.initialParams.moneyRule,fiscal:2+2*this.initialParams.lobby,rule:1,gov:1,opportunism:0,t:0};
@@ -974,6 +1120,7 @@ class Republic{
   this.realIndex=100*this.potential*(1+this.gap/100);
   this.revalueNominalDebt();
   this.updateIncome(true);
+  this.advanceInterests();
   this.checkSequenceEvents();
   this.districts.forEach(d=>{d.mean=d.ids.reduce((s,i)=>s+this.agents[i].b,0)/Math.max(1,d.ids.length);});
   const bound=clamp(p.confidenceBound+this.effect('openness'),.05,2);
@@ -991,7 +1138,8 @@ class Republic{
     contact=1;
     if(r.next()<p.verified){mediaZ=clamp(p.longReal+r.normal()*.12,-1,1);isVerified=true;}
     else{
-     const globalR=clamp(.5+.45*p.mediaTilt+advert*.43,.015,.985);
+     const interestAd=p.rentFeedback>0?.6*this.rentGroups[a.d].ad+.4*this.rentAd:0;
+     const globalR=clamp(.5+.45*p.mediaTilt+advert*.43+.45*interestAd,.015,.985);
      const personal=lerp(globalR,a.b>=0?.92:.08,p.homophily*.45);
      const side=r.next()<personal?1:-1;
      mediaB=side*.95;mediaZ=clamp((side>0?-.82:.82)+r.normal()*.09,-1,1);
@@ -1047,16 +1195,20 @@ class Republic{
   if(this.pending.length>100)this.pending.splice(0,this.pending.length-100);
  }
  elect(){
-  const p=this.p,r=this.rng;let R=0,D=0,participated=0;
+  const p=this.p,r=this.rng;let R=0,D=0,participated=0,interestExpectedD=0,interestExpectedN=0,baseExpectedD=0,baseExpectedN=0;
   this.districts.forEach(d=>{d.r=0;d.d=0;d.n=0;});
   for(const a of this.agents){
    const performance=p.experience*Math.tanh(a.recordR-a.recordD);
    const policyUtility=p.econWeight*(1.25*a.b+.45*performance);
    const nonPolicy=(1-p.econWeight)*(p.charisma+r.normal()*.5);
-   const utility=policyUtility+p.partisanship*a.party+nonPolicy;
+   const baseUtility=policyUtility+p.partisanship*a.party+nonPolicy;
+   const interest=this.interestVote(a,baseUtility),utility=interest.utility;
    const direction=utility>=0?1:-1;
    const incomeVoice=p.turnoutIncomeBias*clamp(Math.log(Math.max(.01,a.income)/Math.max(.01,this.geomIncome))/1.4,-1,1);
-   const probability=clamp(p.turnout-.32*p.votingCost-.14*p.ignorance+.12*Math.min(1,Math.abs(utility))+(direction>0?p.mobilizeR:p.mobilizeD)+incomeVoice+this.effect('turnout'));
+   const turnoutBase=u=>p.turnout-.32*p.votingCost-.14*p.ignorance+.12*Math.min(1,Math.abs(u))+(u>=0?p.mobilizeR:p.mobilizeD)+incomeVoice+this.effect('turnout');
+   const probability=clamp(turnoutBase(utility)+interest.mobilize),baseProbability=clamp(turnoutBase(baseUtility));
+   interestExpectedD+=probability/(1+Math.exp(utility*4.2));interestExpectedN+=probability;
+   baseExpectedD+=baseProbability/(1+Math.exp(baseUtility*4.2));baseExpectedN+=baseProbability;
    const district=this.districts[a.d];
    if(r.next()>=probability){a.vote=0;district.n++;continue;}
    participated++;
@@ -1070,7 +1222,7 @@ class Republic{
   const old=this.government;
   if(seatShare!==null)this.government=seatShare===.5?(r.next()<.5?1:-1):(seatShare>.5?1:-1);
   this.elections++;this.lastElectionAt=this.t;this.nextElection=this.t+p.electionPeriod;
-  this.lastElection={t:this.t,number:this.elections,voteR,seatR:seatShare,turnout:participated/this.agents.length,government:this.government,changed:old!==this.government,R,D,seatsR,seatsD,system:p.electoralSystem};
+  this.lastElection={t:this.t,number:this.elections,voteR,seatR:seatShare,turnout:participated/this.agents.length,government:this.government,changed:old!==this.government,R,D,seatsR,seatsD,system:p.electoralSystem,interestDWith:interestExpectedN>0?interestExpectedD/interestExpectedN:null,interestDWithout:baseExpectedN>0?baseExpectedD/baseExpectedN:null,interestDeltaD:interestExpectedN>0&&baseExpectedN>0?interestExpectedD/interestExpectedN-baseExpectedD/baseExpectedN:null};
   const title=participated===0?'投票ゼロ。現政権を維持。':(this.government>0?'規則派 R':'裁量派 D')+(old!==this.government?' に政権交代。':' が政権を継続。');
   this.log('第'+this.elections+'回選挙。'+title+' 投票率 '+pct(participated/this.agents.length),'election');
   if(old!==this.government)this.unlock('change');
@@ -1103,7 +1255,7 @@ class Republic{
   const e=this.lastElection;
   if(e&&e.t===this.t&&e.voteR!==null&&(Math.abs(e.voteR-s.r)>=.15||(e.voteR>.5&&e.government<0)||(e.voteR<.5&&e.government>0)))this.unlock('twist');
  }
- snapshotMetrics(){return{t:this.t,...this.stats,...macroMetrics(this),...this.policyMetrics(),inflation:this.inflation,expected:this.expected,expectationGap:Math.abs(this.inflation-this.expected),unemployment:this.unemployment,welfare:this.welfare,realIndex:this.realIndex,government:this.government,money:this.currentPolicy.mu,appliedMoney:this.appliedPolicy.mu,rule:this.currentPolicy.rule,policyCredibility:this.policyCredibility,policyUncertainty:this.policyUncertainty,discretionDividend:this.discretionDividend,electionOpportunism:this.electionOpportunism,turnout:this.lastElection?.turnout??null,voteR:this.lastElection?.voteR??null,seatR:this.lastElection?.seatR??null,election:!!this.lastElection&&this.lastElection.t===this.t};}
+ snapshotMetrics(){return{t:this.t,...this.stats,...macroMetrics(this),...this.policyMetrics(),...this.interestMetrics(),inflation:this.inflation,expected:this.expected,expectationGap:Math.abs(this.inflation-this.expected),unemployment:this.unemployment,welfare:this.welfare,realIndex:this.realIndex,government:this.government,money:this.currentPolicy.mu,appliedMoney:this.appliedPolicy.mu,rule:this.currentPolicy.rule,policyCredibility:this.policyCredibility,policyUncertainty:this.policyUncertainty,discretionDividend:this.discretionDividend,electionOpportunism:this.electionOpportunism,turnout:this.lastElection?.turnout??null,voteR:this.lastElection?.voteR??null,seatR:this.lastElection?.seatR??null,election:!!this.lastElection&&this.lastElection.t===this.t};}
  record(){this.history.push(this.snapshotMetrics());if(this.history.length>480)this.history.shift();}
 }
 // 政策だけを変える統制比較。本編と同じRepublic.step / advanceMacroを利用する。
@@ -1166,6 +1318,7 @@ class WorldView{
  colorFor(a,simulation){
   if(this.layer==='knowledge')return blend(RGB.violet,RGB.r,clamp(1-Math.abs(a.z-simulation.p.longReal)/(1+Math.abs(simulation.p.longReal))));
   if(this.layer==='income')return blend([86,151,186],RGB.n,clamp((Math.log2(Math.max(.1,a.income/simulation.potential))+1.6)/3.2));
+  if(this.layer==='interests')return blend(RGB.muted,RGB.n,simulation.p.rentFeedback>0?clamp(a.rentStake*4):0);
   if(this.layer==='vote')return a.vote===1?RGB.r:a.vote===-1?RGB.d:RGB.muted;
   return opinionColor(a.b);
  }
@@ -1173,7 +1326,7 @@ class WorldView{
   const c=this.cx;c.setTransform(1.5,0,0,1.5,0,0);c.clearRect(0,0,1000,600);
   for(const a of simulation.agents){
    const s=simulation.sites[a.id],r=s.r*.95,col=this.colorFor(a,simulation);
-   let strength=this.layer==='knowledge'?.15+.85*a.k:this.layer==='vote'?(a.vote===0?.18:.85):.35+.65*Math.abs(a.b);
+   let strength=this.layer==='interests'?.15+.85*(simulation.p.rentFeedback>0?clamp(a.rentStake*4):0):this.layer==='knowledge'?.15+.85*a.k:this.layer==='vote'?(a.vote===0?.18:.85):.35+.65*Math.abs(a.b);
    c.beginPath();for(let k=0;k<6;k++){const ang=Math.PI/3*k+Math.PI/6,x=a.x+r*Math.cos(ang),y=a.y+r*Math.sin(ang);if(k)c.lineTo(x,y);else c.moveTo(x,y);}c.closePath();
    c.fillStyle=rgb(col,.03+.105*strength);c.fill();c.strokeStyle=rgb(col,.065+.105*strength);c.lineWidth=.65;c.stroke();
    const rad=Math.max(1.3,s.r*.16)+strength*.9;
@@ -1222,6 +1375,17 @@ class WorldView{
   c.setLineDash([2,8]);c.strokeStyle='#80b5af16';c.lineWidth=.8;
   for(let i=0;i<DISTRICTS.length-1;i++){const a=DISTRICTS[i],b=DISTRICTS[i+1];c.beginPath();c.moveTo(a.x,a.y);c.quadraticCurveTo((a.x+b.x)/2,(a.y+b.y)/2-24,b.x,b.y);c.stroke();}c.setLineDash([]);
   if(this.dirty)this.paint(simulation);c.drawImage(this.cache,0,0,1000,600);
+  if(this.layer==='interests'&&simulation.p.rentFeedback>0){
+   for(let d=0;d<simulation.rentGroups.length;d++){
+    const g=simulation.rentGroups[d],pos=DISTRICTS[d];if(g.power<.01)continue;
+    const color=g.direction>.05?RGB.r:g.direction<-.05?RGB.d:RGB.n;
+    c.strokeStyle=rgb(color,.15+.55*g.power);c.lineWidth=1+g.power*2;c.beginPath();c.arc(pos.x,pos.y,15+28*g.power,0,2*Math.PI);c.stroke();
+    c.setLineDash([3,6]);c.lineDashOffset=reduced?0:-time*.012;
+    for(const id of simulation.districts[d].ids.filter(id=>simulation.agents[id].rentStake>.04).slice(0,12)){
+     const a=simulation.agents[id];c.beginPath();c.moveTo(pos.x,pos.y);c.lineTo(a.x,a.y);c.strokeStyle=rgb(color,.12+.25*g.power);c.lineWidth=.8;c.stroke();
+    }c.setLineDash([]);c.lineDashOffset=0;
+   }
+  }
   const focus=this.selected>=0?this.selected:this.hover;
   if(focus>=0&&simulation.agents[focus]){
    const a=simulation.agents[focus];c.strokeStyle='#ebf9e880';c.lineWidth=1.25;
@@ -1246,6 +1410,7 @@ class WorldView{
    let rr=0,dd=0;for(const id of district.ids){const b=simulation.agents[id].b;if(b>.2)rr++;else if(b<-.2)dd++;}
    const main=this.layer==='vote'?district.winner:rr>=dd?1:-1,col=main>0?RGB.r:main<0?RGB.d:RGB.muted;
    let label=this.layer==='vote'?(simulation.lastElection?(district.winner===0?'空席':district.winner>0?'R':'D'):'未投票'):((main>0?'R ':'D ')+Math.round(100*Math.max(rr,dd)/Math.max(1,district.ids.length))+'%');
+   if(this.layer==='interests')label=simulation.p.rentFeedback>0?'組 '+Math.round(100*simulation.rentGroups[i].power)+'%':'組織経路停止';
    if(this.layer==='knowledge')label='知 '+Math.round(100*district.ids.reduce((sum,id)=>sum+simulation.agents[id].k,0)/Math.max(1,district.ids.length))+'%';
    if(this.layer==='income')label=fmt(100*district.ids.reduce((sum,id)=>sum+simulation.agents[id].income/simulation.potential,0)/Math.max(1,district.ids.length),0);
    const text=pos.name+'  '+label,unit=1/tr.scale;
@@ -1603,6 +1768,18 @@ function renderSequence(){
  $('sequenceStop').disabled=sim.sovereignTerminal||p.policySequence==='off';$('sequenceContinue').disabled=sim.sovereignTerminal||p.policySequence==='escalate';
 }
 
+
+function renderInterests(){
+ const m=sim.interestMetrics(),p=sim.p;
+ $('interestDependence').textContent=pct(m.rentDependence);$('interestPower').textContent=pct(m.rentOrganization);
+ $('interestVote').textContent=m.rentDirectVoteDeltaD===null?'未選挙':signed(100*m.rentDirectVoteDeltaD,2)+'pt';
+ $('interestCapture').textContent=fmt(m.rentFiscalRate,3)+'pt';$('interestLagLabel').textContent=p.rentLag+'期待ち（金融ラグとは別）';
+ $('interestAudit').disabled=!$('unlimited').checked&&sim.budget<35;
+ $('interestDistricts').innerHTML=sim.rentGroups.map((g,i)=>`<div class="interest-cell">${DISTRICTS[i].name} <b>${m.rentEnabled?pct(g.power):'停止'}</b><i style="width:${m.rentEnabled?g.power*100:0}%"></i><small>${g.direction>.05?'R寄り':g.direction<-.05?'D寄り':'中立'} / 集中 ${pct(g.concentration)}</small></div>`).join('');
+ $('interestExplanation').textContent=m.rentEnabled?`依存10%以上の人口 ${pct(m.rentDependentShare)}。組織化待ち ${m.rentQueueCount} 期分。透明性 ${pct(m.rentTransparencyEffective)}、一般ルール ${pct(m.rentSunsetEffective)}。追加移転を提示する陣営と過去の提供者に支持が向かい、財源負担は納税者の反発につながります。通常の移転に差がないと、継続給付によるR/Dの差は0です。`:'新しい利権経路は停止中です。従来の家計経験・自己利益・党派性は残っています。旧保存記録はこの状態で再現します。';
+ drawChart($('interestChart'),sim.history,[{key:'rentOrganization',color:'#ebca82'},{key:'rentDependence',color:'#58e2c4',dash:true}],true);
+}
+
 function renderUI(){
  if(!sim)return;const s=sim.stats,p=sim.p,e=sim.lastElection;
  $('accuracyValue').textContent=fmt(100*s.accuracy,1);$('inflationValue').textContent=fmt(sim.inflation);$('unemploymentValue').textContent=fmt(sim.unemployment);$('welfareValue').textContent=fmt(sim.welfare,1);$('naturalLabel').textContent='構造調整後の自然率 '+fmt(sim.effectiveNaturalU,2)+'%';
@@ -1629,7 +1806,7 @@ function renderUI(){
  drawChart($('beliefChart'),sim.history,[{key:'r',color:'#58e2c4'},{key:'d',color:'#ff897e'},{key:'accuracy',color:'#ebca82',dash:true}],true);
  drawChart($('econChart'),sim.history,[{key:'inflation',color:'#ff897e'},{key:'expected',color:'#b2a1f2',dash:true},{key:'unemployment',color:'#ebca82'}]);
  if(view?.selected>=0)showAgent(view.selected,null,true);
- renderPolicyDesk();renderTransmission();renderPhillips();renderSequence();updatePlay();
+ renderPolicyDesk();renderTransmission();renderPhillips();renderSequence();renderInterests();updatePlay();
  $('treasuryDebtLabel').textContent=p.sovereignDebtMode==='nominal'?'初期＋追加債務 / 年間所得':'追加債務 / 年間所得';
  $('treasuryAccountingNote').textContent=p.sovereignDebtMode==='nominal'?'名目固定利付債を当期物価で実質換算。初期債務を含む。市場利率は新発・借換分だけへ反映。国債購入は所得ではなく金融取引。':'表は当期総稼得所得比。債務は実質・物価連動で簡略化。国債購入は所得から控除せず、金融取引として別記録。';
 }
@@ -1637,6 +1814,7 @@ function processEvents(){
  const events=sim.pending.splice(0);
  for(const e of events){
   if(e.type==='sequence'||e.type==='sequenceAlert'){view.pulse(500,300,e.type==='sequenceAlert'?RGB.d:RGB.n,420);toast(e.text);}
+  if(e.type==='interest'){view.pulse(500,300,RGB.n,230);}
   if(e.type==='policyTransmission'){view.pulse(500,300,RGB.violet,330);}
   if(e.type==='policyStart'){view.policyBurst(CARD_DEFS.find(c=>c.id===e.policyId));beep('click');}
   if(e.type==='election'){showElection(sim.lastElection);beep('election');}
@@ -1762,7 +1940,7 @@ function renderPolicyDesk(){
  }
  if(c){
   const status=sim.policyStatus(c.id),cost=Math.ceil(c.cost*strength);
-  $('policyName').textContent=c.name;$('policyHelp').textContent=c.help;
+  $('policyName').textContent=c.name;$('policyHelp').textContent=c.help+(c.kind==='grant'&&sim.p.rentFeedback>0?' 受給の情報は各実施の'+Math.round(sim.p.rentLag)+'期後に利権経路へ届きます。組織化・広告・動員は物価とは別の時間差で動きます。':'');
   const magnitude=c.value*strength;
   $('policyAmount').textContent=c.kind==='money'?'今回：μ '+(magnitude>=0?'+':'')+fmt(magnitude,1)+'pt（年率） × '+c.duration+'期':c.kind==='reform'?'今回：供給改善 '+fmt(sim.p.reformCapacity*strength,2)+'pt × '+c.duration+'期（構造寄与・上限あり）':['taxcut','balanced','taxrise','spendcut'].includes(c.kind)?'今回：税率・移転率の変更幅 '+fmt(magnitude,1)+'pt × '+c.duration+'期（減税・削減には残額上限）':'今回：決定時総所得の '+fmt(magnitude,1)+'% / 期 × '+c.duration+'期。総枠 '+fmt(magnitude*c.duration,1)+'%';
   $('policyCost').textContent=cost+' pt / 財源：'+c.finance;
@@ -1809,12 +1987,12 @@ function showAgent(id,event,pinned=false){
  const point=event?{x:event.clientX,y:event.clientY}:view.toScreen(a.x,a.y);
  const side=a.b>.2?'規則派 R':a.b<-.2?'裁量派 D':'政策を留保';
  const factualError=Math.abs(a.z-p.longReal)/(1+Math.abs(p.longReal));
- tip.innerHTML=`<h3>市民 #${String(a.id+1).padStart(4,'0')} <small>${sim.districts[a.d].name}${pinned?' / 固定':''}</small></h3><div class="row"><span>政策選好</span><b>${a.b>=0?'+':''}${fmt(a.b,2)} · ${side}</b></div><div class="row"><span>事実認識の正確度</span><b>${pct(1-factualError)}</b></div><div class="row"><span>長期効果の推定 z</span><b>${fmt(a.z,2)} / 真値 ${fmt(p.longReal,2)}</b></div><div class="row"><span>知識量 / 確信度</span><b>${Math.round(a.k*100)} / ${Math.round(a.c*100)}%</b></div><div class="row"><span>実質所得</span><b>${fmt(a.income*100,1)}</b></div><div class="row"><span>介入の当期純受取</span><b>${a.policyNet>=0?'+':''}${fmt((a.policyNet||0)*100,2)}</b></div><div class="row"><span>保有する国債（実質評価）</span><b>${fmt((a.bonds||0)*100,2)}</b></div><div class="row"><span>国債取引後の資金</span><b>${fmt((a.afterBondCash||0)*100,2)}</b></div><div class="row"><span>移転の受益者</span><b>${a.benefitRank<p.beneficiaryShare?'対象':'対象外'}</b></div><div class="row"><span>直近の投票</span><b>${sim.lastElection?(a.vote===0?'棄権':a.vote>0?'規則派 R':'裁量派 D'):'未実施'}</b></div><p>${a.k>.7&&factualError>.3?'知識は多いが、事実認識には誤りがある。':factualError<.15&&a.b<-.2?'設定した真値に近い理解。それでも、利害や好みは別。':a.c>.8?'強い確信は、新しい情報を通りにくくする。':a.vote===0&&sim.lastElection?'支持の有無と、投票したかどうかは別問題。':'線はこの人の情報ネットワーク。更新は周囲へ伝わる。'}</p>`;
+ tip.innerHTML=`<h3>市民 #${String(a.id+1).padStart(4,'0')} <small>${sim.districts[a.d].name}${pinned?' / 固定':''}</small></h3><div class="row"><span>政策選好</span><b>${a.b>=0?'+':''}${fmt(a.b,2)} · ${side}</b></div><div class="row"><span>事実認識の正確度</span><b>${pct(1-factualError)}</b></div><div class="row"><span>長期効果の推定 z</span><b>${fmt(a.z,2)} / 真値 ${fmt(p.longReal,2)}</b></div><div class="row"><span>知識量 / 確信度</span><b>${Math.round(a.k*100)} / ${Math.round(a.c*100)}%</b></div><div class="row"><span>実質所得</span><b>${fmt(a.income*100,1)}</b></div><div class="row"><span>介入の当期純受取</span><b>${a.policyNet>=0?'+':''}${fmt((a.policyNet||0)*100,2)}</b></div><div class="row"><span>保有する国債（実質評価）</span><b>${fmt((a.bonds||0)*100,2)}</b></div><div class="row"><span>国債取引後の資金</span><b>${fmt((a.afterBondCash||0)*100,2)}</b></div><div class="row"><span>移転の受益者</span><b>${a.benefitRank<p.beneficiaryShare?'対象':'対象外'}</b></div><div class="row"><span>給付依存の記憶 / 地区組織力</span><b>${pct(a.rentStake||0)} / ${pct(sim.rentGroups[a.d].power)}</b></div><div class="row"><span>利権経路の投票効用（＋R）</span><b>${signed(a.rentUtility||0,3)}</b></div><div class="row"><span>直近の投票</span><b>${sim.lastElection?(a.vote===0?'棄権':a.vote>0?'規則派 R':'裁量派 D'):'未実施'}</b></div><p>${a.k>.7&&factualError>.3?'知識は多いが、事実認識には誤りがある。':factualError<.15&&a.b<-.2?'設定した真値に近い理解。それでも、利害や好みは別。':a.c>.8?'強い確信は、新しい情報を通りにくくする。':a.vote===0&&sim.lastElection?'支持の有無と、投票したかどうかは別問題。':'線はこの人の情報ネットワーク。更新は周囲へ伝わる。'}</p>`;
  tip.hidden=false;const r=tip.getBoundingClientRect();let x=point.x+15,y=point.y+15;if(x+r.width>innerWidth-12)x=point.x-r.width-15;if(y+r.height>innerHeight-12)y=point.y-r.height-15;tip.style.left=clamp(x,10,Math.max(10,innerWidth-r.width-10))+'px';tip.style.top=clamp(y,10,Math.max(10,innerHeight-r.height-10))+'px';
 }
 function setLayer(layer){
  view.layer=layer;view.dirty=true;document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===layer));
- const labels={belief:['社会の信念マップ','ONE LIGHT = ONE PERSON',`<span><i class="dot r"></i>規則派 R</span><span><i class="dot n"></i>留保</span><span><i class="dot d"></i>裁量派 D</span><span class="legend-help">人を選択すると内面を観察</span>`],knowledge:['知識と理解のマップ','BRIGHTNESS = KNOWLEDGE',`<span><i class="dot r"></i>正確な理解</span><span><i class="dot" style="background:var(--violet)"></i>大きな誤認</span><span class="legend-help">明るさ＝知識量 / 好みは別</span>`],income:['家計のマップ','REAL DISPOSABLE INCOME',`<span><i class="dot" style="background:#5697ba"></i>低所得</span><span><i class="dot n"></i>高所得</span><span class="legend-help">実質可処分所得 / 成長トレンド調整</span>`],vote:['投票のマップ','LAST ELECTION / ACTUAL VOTES',`<span><i class="dot r"></i>R に投票</span><span><i class="dot d"></i>D に投票</span><span><i class="dot"></i>棄権・未投票</span><span class="legend-help">直近の選挙結果</span>`]};
+ const labels={interests:['給付依存と組織のマップ','BENEFITS → ORGANIZATION → VOTES',`<span><i class="dot n"></i>明るさ＝受給依存</span><span><i class="dot r"></i>輪・線：R寄り組織</span><span><i class="dot d"></i>D寄り組織</span><span class="legend-help">輪＝組織力 / 線は代表的な受益者</span>`],belief:['社会の信念マップ','ONE LIGHT = ONE PERSON',`<span><i class="dot r"></i>規則派 R</span><span><i class="dot n"></i>留保</span><span><i class="dot d"></i>裁量派 D</span><span class="legend-help">人を選択すると内面を観察</span>`],knowledge:['知識と理解のマップ','BRIGHTNESS = KNOWLEDGE',`<span><i class="dot r"></i>正確な理解</span><span><i class="dot" style="background:var(--violet)"></i>大きな誤認</span><span class="legend-help">明るさ＝知識量 / 好みは別</span>`],income:['家計のマップ','REAL DISPOSABLE INCOME',`<span><i class="dot" style="background:#5697ba"></i>低所得</span><span><i class="dot n"></i>高所得</span><span class="legend-help">実質可処分所得 / 成長トレンド調整</span>`],vote:['投票のマップ','LAST ELECTION / ACTUAL VOTES',`<span><i class="dot r"></i>R に投票</span><span><i class="dot d"></i>D に投票</span><span><i class="dot"></i>棄権・未投票</span><span class="legend-help">直近の選挙結果</span>`]};
  const l=labels[layer];$('mapTitle').textContent=l[0];$('mapSubtitle').textContent=l[1];$('mapLegend').innerHTML=l[2];
 }
 function setupMap(){
@@ -1852,7 +2030,7 @@ function exportCSV(){
  const cols=['t','r','d','neutral','accuracy','knowledge','polar','bridge','gini','inflation','expected','expectationGap','unemployment','welfare','realIndex','government','money','appliedMoney','rule','policyCredibility','policyUncertainty','discretionDividend','electionOpportunism','turnout','voteR','seatR','election'];
  const header=['quarter','support_R_0to1','support_D_0to1','neutral_0to1','factual_accuracy_0to1','knowledge_0to1','polarization_0to1','cross_links_0to1','income_gini_0to1','inflation_pct_annual','expected_inflation_pct_annual','expectation_gap_abs_pctpt','unemployment_pct','living_index_base100','real_output_index_base100','government_R1_Dminus1','money_growth_pct_annual','applied_money_growth_pct_annual','rule_degree_0to1','rule_credibility_0to1','policy_uncertainty_index','discretion_short_run_dividend_output_gap_pt','election_opportunism_0to1','last_turnout_0to1','last_vote_R_0to1','last_seat_R_0to1','election_this_quarter'];
  cols.push(...MACRO_METRICS);header.push(...MACRO_METRICS);
- const policyCols=Object.keys(sim.policyMetrics());cols.push(...policyCols);header.push(...policyCols);
+ const policyCols=[...Object.keys(sim.policyMetrics()),...Object.keys(sim.interestMetrics())];cols.push(...policyCols);header.push(...policyCols);
  const rows=sim.history.map(s=>cols.map(c=>s[c]===null?'':typeof s[c]==='boolean'?Number(s[c]):s[c]).join(','));
  download('\ufeff'+header.join(',')+'\n'+rows.join('\n')+'\n','belief-republic-history.csv','text/csv;charset=utf-8');toast('直近 '+sim.history.length+' 期の履歴を CSV に書き出しました。');
 }
@@ -1865,6 +2043,7 @@ function validateRun(data){
  if(data.schema==='belief-republic/2'&&!REPLAY_COMPATIBLE.includes(data.modelVersion)&&!MIGRATABLE_VERSIONS.includes(data.modelVersion))throw new Error('モデル版が一致しません。同じ版のHTMLで再現してください。');
  if(!data.initialParams||typeof data.initialParams!=='object')throw new Error('初期条件がありません。');
  const clean={...DEFAULTS};for(const p of PARAMS){const v=data.initialParams[p.key];if(v===undefined)continue;if(p.options){if(!p.options.some(x=>x[0]===v))throw new Error('選択条件が不正です。');}else if(!validNumber(p,v))throw new Error('数値条件が範囲外です：'+p.label);clean[p.key]=v;}
+ if(data.modelVersion!==MODEL_VERSION&&data.initialParams.rentFeedback===undefined)clean.rentFeedback=0; // 過去の再現に新経路を勝手に追加しない。
  if(!Array.isArray(data.actions)||data.actions.length>50000)throw new Error('操作履歴が不正、または大きすぎます。');
  let lastT=-1;
  for(const a of data.actions){if(!a||!Number.isInteger(a.t)||a.t<lastT||a.t>data.ticks||a.t<0)throw new Error('操作時点の順序が不正です。');lastT=a.t;
@@ -1925,7 +2104,7 @@ async function runLab(){
     outputs[condition].push({...model.snapshotMetrics(),governsR:model.government>0?1:0});
    }
   }
-  const metrics=[['t','実際の観測期数',1,'期'],['sovereignTerminal','適用上限へ到達した実行比率',100,'%'],['accuracy','事実認識の正確度',100,'%'],['knowledge','平均知識量',100,'%'],['r','規則派の人口支持',100,'%'],['d','裁量派の人口支持',100,'%'],['polar','二極化度',100,'%'],['gini','所得 Gini',1,''],['expectationGap','期待ギャップ',1,'pt'],['policyCredibility','規則への信頼',100,'%'],['policyUncertainty','政策不確実性',1,''],['discretionDividend','裁量の短期利得',1,'pt'],['inflation','インフレ率',1,'%'],['unemployment','失業率',1,'%'],['welfare','生活指数',1,''],['interventionDebtGDP','追加債務 / 年間所得',100,'%'],['bondMarketYield','新発国債の市場利率',1,'%'],['bondAverageCoupon','国債平均表面利率',1,'%'],['interestIncomeShare','利払い / 当期所得',100,'%'],['policyCapacity','介入の供給改善',1,'pt'],['turnout','直近の投票率',100,'%'],['governsR','R 政権の実行比率',100,'%']];
+  const metrics=[['t','実際の観測期数',1,'期'],['sovereignTerminal','適用上限へ到達した実行比率',100,'%'],['accuracy','事実認識の正確度',100,'%'],['knowledge','平均知識量',100,'%'],['r','規則派の人口支持',100,'%'],['d','裁量派の人口支持',100,'%'],['polar','二極化度',100,'%'],['gini','所得 Gini',1,''],['expectationGap','期待ギャップ',1,'pt'],['policyCredibility','規則への信頼',100,'%'],['policyUncertainty','政策不確実性',1,''],['discretionDividend','裁量の短期利得',1,'pt'],['inflation','インフレ率',1,'%'],['unemployment','失業率',1,'%'],['welfare','生活指数',1,''],['interventionDebtGDP','追加債務 / 年間所得',100,'%'],['bondMarketYield','新発国債の市場利率',1,'%'],['bondAverageCoupon','国債平均表面利率',1,'%'],['interestIncomeShare','利払い / 当期所得',100,'%'],['policyCapacity','介入の供給改善',1,'pt'],['rentOrganization','受益組織の強さ',100,'%'],['rentDependence','給付依存の記憶',100,'%'],['rentDirectVoteDeltaD','当期直接経路のD得票期待差',100,'pt'],['rentFiscalRate','削減抵抗で残った移転',1,'pt'],['turnout','直近の投票率',100,'%'],['governsR','R 政権の実行比率',100,'%']];
   const results=metrics.map(([key,label,multiple,unit])=>{
    const av=outputs[0].map(s=>(s[key]??0)*multiple),bv=outputs[1].map(s=>(s[key]??0)*multiple),diff=bv.map((v,i)=>v-av[i]);
    return{key,label,unit,a:mean(av),aSD:sd(av),b:mean(bv),bSD:sd(bv),diff:mean(diff),diffSD:sd(diff)};
@@ -1976,6 +2155,9 @@ function init(){
  $('motionBtn').addEventListener('click',()=>{reducedMotion=!reducedMotion;motionUI();});motionUI();
  $('settingsToggle').addEventListener('click',()=>$('settingsPanel').classList.toggle('open'));$('closeSettings').addEventListener('click',()=>$('settingsPanel').classList.remove('open'));
  document.addEventListener('pointerdown',e=>{if($('settingsPanel').classList.contains('open')&&!e.target.closest('#settingsPanel')&&!e.target.closest('#settingsToggle'))$('settingsPanel').classList.remove('open');});
+ $('interestMap').addEventListener('click',()=>{setLayer('interests');$('worldPanel').scrollIntoView({behavior:reducedMotion?'auto':'smooth'});});
+ $('interestAudit').addEventListener('click',()=>playCard('interest_audit'));
+ $('interestAB').addEventListener('click',()=>{openModal('labModal');initLabFields();$('labParam').value='rentFeedback';initLabFields();$('labA').value=0;$('labB').value=1;});
  $('csvBtn').addEventListener('click',exportCSV);$('saveBtn').addEventListener('click',saveRun);$('loadBtn').addEventListener('click',()=>{if(!loadingReplay)$('loadFile').click();});$('loadFile').addEventListener('change',e=>loadRun(e.target.files[0]));
  $('labParam').addEventListener('change',initLabFields);$('labRun').addEventListener('click',runLab);$('labCancel').addEventListener('click',()=>labAbort=true);
  $('economicEquations').textContent="d = 1{裁量派政権} × (1 − 実効裁量制約)\nμ = μ₀ + d × [s(0.25 + 0.75 r ϕ³) + 0.4 max(u前期 − u*, 0)]\nπᴹ[t] = πᴹ[t−1] + κ(μ[t−L] − g − πᴹ[t−1])\nπ[t] = πᴹ[t] + S[t] ／ S[t] = 0.58 S[t−1] + 攪乱\nπᵉᴹ[t] = 前期までの情報による適応更新・外挿・再アンカー\nπᵉ[t] = πᵉᴹ[t] + 0.58 S[t−1]（固定期待以外）\nν[t] = S[t] − 0.58 S[t−1]（安全上限前）\nεᴹ[t] = πᴹ[t] − πᵉᴹ[t] = π[t] − πᵉ[t] − ν[t]\n裁量の短期利得 = 裁量強度 × a εᴹ[t]\n産出ギャップ = 0.8 θ(μ[t−L] − μ₀) + a εᴹ[t]\n                  + 実物攪乱 − 供給実物損失 − レント損失 − 不確実性コスト − 実質借入負担\nu = u* − 0.55 × 産出ギャップ\nuⁿ = u* + 0.55 × レント損失\n短期：u = uⁿ − 0.55a(π − πᵉ − ν) + その他の寄与\n長期：θ=0、期待一致、一時的攪乱消失なら u = uⁿ\n期待再アンカーは、適応更新後の値と基準値の凸結合。\n上下限が作用した差は診断表の「上下限補正」で表示。";
